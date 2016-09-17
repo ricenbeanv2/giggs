@@ -15,5 +15,15 @@
   "bugs": {
     "url": "https://github.com/ricenbeanv2/giggs/issues"
   },
-  "homepage": "https://github.com/ricenbeanv2/giggs#readme"
+  "homepage": "https://github.com/ricenbeanv2/giggs#readme",
+  "dependencies": {
+    "bcrypt": "^0.8.7",
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "path": "^0.12.7",
+    "request": "^2.74.0",
+    "sequelize": "^3.24.3"
+  }
 }
