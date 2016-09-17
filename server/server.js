@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('./client'));
 app.use('/lib', express.static('./node_modules'));
-app.use('/', router);
+// app.use('/', router);
 
 app.listen(app.get('PORT'), function() {
 	console.log('Express server listening on port ', app.get('PORT'));
