@@ -1,0 +1,19 @@
+{
+  "name": "giggs",
+  "version": "1.0.0",
+  "description": "job creation bidding app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricenbeanv2/giggs.git"
+  },
+  "author": "Tiffany Ip, Sandy Tran, Calvin Lee, Alberto Esquivias",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ricenbeanv2/giggs/issues"
+  },
+  "homepage": "https://github.com/ricenbeanv2/giggs#readme"
+}
