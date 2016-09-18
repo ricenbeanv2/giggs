@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import {render} from 'react-dom';
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -13,5 +13,3 @@ class App extends Component {
     );
   }
 }
-
-render(<App />, document.getElementById('app'));
