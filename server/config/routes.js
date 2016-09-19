@@ -11,6 +11,7 @@ router.get('/category', categoryController.helloWorld);
 router.get('/db/jobs/create', jobController.helloWorld);
 router.get('/db/jobs/getAll', jobController.helloWorld);
 
-router.get('/user', userController.helloWorld);
+router.get('/auth/signup', userController.createUser);
+// router.get('/auth/signin', userController.authenticate)
 
 module.exports = router;
