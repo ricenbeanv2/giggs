@@ -3,7 +3,12 @@ var request = require('request');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var moment = require('moment');
+<<<<<<< HEAD
 // var router = require('./config/routes.js');
+=======
+var router = require('./config/routes.js');
+var connection = require('./db/connection.js');
+>>>>>>> f-db
 
 var app = express();
 
@@ -12,7 +17,11 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('./client'));
 app.use('/client', express.static('./node_modules'));
+<<<<<<< HEAD
 // app.use('/', router);
+=======
+app.use('/', router);
+>>>>>>> f-db
 
 // handle every other route with index.html, which will contain
 // a script tag to your application's JavaScript file(s).
@@ -20,6 +29,14 @@ app.get('*', function (request, response){
 	response.sendFile(path.resolve('./', 'client', 'index.html'))
 })
 
+<<<<<<< HEAD
+=======
+//
+connection.sync({force:true, logging: console.log}).then(function() {
+	console.log('tables synced');
+});
+
+>>>>>>> f-db
 app.listen(app.get('PORT'), function() {
 	console.log('[' + moment().format('hh:mm:ss') + ']' + ' Express Server listening on port', app.get('PORT'));
 });
