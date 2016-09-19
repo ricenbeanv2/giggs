@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
-import inputField from './inputField';
+import InputBox from './inputBox';
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -24,7 +24,8 @@ export default class SignUp extends Component {
   render() {
     return(
       <form>
-        <inputField value={this.state.name} place="Full name" />
+        <InputBox value={this.state.name}
+                  place="Full Name" />
         <input
           value = { this.state.fb_id }
           placeholder = 'Facebook id'
