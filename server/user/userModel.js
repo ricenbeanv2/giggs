@@ -18,6 +18,21 @@ var Users = connection.define('Users', {
 		allowNull: false,
 		notEmpty: true
 	},
+
+console.log('defining users');
+var Users = connection.define('Users', {
+	name: {
+		type: Sequelize.STRING,
+		notNull: true,
+		notEmpty: true,
+	},
+
+	password: {
+		type: Sequelize.STRING,
+		notNull: true,
+		notEmpty: true,
+	},
+	
 	fb_id: {
 		type: Sequelize.STRING,
 		notNull: false,
@@ -28,6 +43,11 @@ var Users = connection.define('Users', {
 		type: Sequelize.STRING,
 		isEmail: true,
 		allowNull: false,
+	
+	email: {
+		type: Sequelize.STRING,
+		isEmail: true,
+		notNull: true,
 		notEmpty: true,
 	},
 }, {
@@ -35,5 +55,9 @@ var Users = connection.define('Users', {
 });
 
 // .create
+/*console.log('syncing users');
+Users.sync({ force: true }).then(function() {
+	console.log('User table created');
+});*/
 
 module.exports = Users;

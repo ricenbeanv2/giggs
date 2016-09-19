@@ -14,4 +14,6 @@ router.get('/db/jobs/getAll', jobController.helloWorld);
 router.get('/auth/signup', userController.createUser);
 // router.get('/auth/signin', userController.authenticate)
 
+router.get('/user', userController.helloWorld);
+
 module.exports = router;

@@ -5,8 +5,10 @@ var cors = require('cors');
 var moment = require('moment');
 var router = require('./config/routes.js');
 var connection = require('./db/connection.js');
+
 var app = express();
 var path = require('path');
+
 app.set('PORT', process.env.PORT || 3000);
 app.use(bodyParser.json());
 app.use(cors());
@@ -22,7 +24,7 @@ app.get('*', function (request, response){
 
 connection.sync({force:true, logging: console.log}).then(function() {
 	console.log('tables synced');
-});
+}
 
 app.listen(app.get('PORT'), function() {
 	console.log('[' + moment().format('hh:mm:ss') + ']' + ' Express Server listening on port', app.get('PORT'));
