@@ -32,10 +32,10 @@ class SignUp extends Component {
   renderForm() {
     return(
       <form onSubmit={this.userSubmit}>
-        <InputBox input="name" value={this.state.name} place="Full Name" func={this.handleChange}/>
-        <InputBox input="email" value={this.state.email} place="E-mail" func={this.handleChange}/>
-        <InputBox input="password" value={this.state.password} place="Password" func={this.handleChange}/>
-        <InputBox input="passConfirm" value={this.state.passConfirm} place="Confirm Password" func={this.handleChange}/>
+        <InputBox type="text" input="name" value={this.state.name} place="Full Name" func={this.handleChange}/>
+        <InputBox type="email" input="email" value={this.state.email} place="E-mail" func={this.handleChange}/>
+        <InputBox type="password" input="password" value={this.state.password} place="Password" func={this.handleChange}/>
+        <InputBox type="password" input="passConfirm" value={this.state.passConfirm} place="Confirm Password" func={this.handleChange}/>
         <button type="submit">Sign Up</button>
       </form>
     );
