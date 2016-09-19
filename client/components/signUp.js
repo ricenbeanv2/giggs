@@ -19,9 +19,7 @@ class SignUp extends Component {
   }
 
   handleChange(input, event) {
-    let change = {};
-    change[input] = event.target.value;
-    this.setState(change);
+    this.setState({[input]: event.target.value});
   }
 
   userSubmit(event) {
