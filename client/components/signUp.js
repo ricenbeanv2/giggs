@@ -21,11 +21,14 @@ export default class SignUp extends Component {
     this.setState(change);
   }
 
+  renderInputs() {
+    console.log('state inside signUp', this.state)
+  }
   render() {
+    renderInputs
     return(
       <form>
-        <InputBox value={this.state.name}
-                  place="Full Name" />
+        <InputBox value={this.state.name} place="Full Name" />
         <input
           value = { this.state.fb_id }
           placeholder = 'Facebook id'
