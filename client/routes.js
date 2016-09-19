@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 
 import App from './app.js'
 import SignUp from './components/signUp'
+import store from './reducers/mainReducer'
 
 //Basic routing, to add another route just do:
 //<Route path='/insertUrl' component={insertComponentName} />
