@@ -24,7 +24,7 @@ app.get('*', function (request, response){
 
 connection.sync({force:true, logging: console.log}).then(function() {
 	console.log('tables synced');
-}
+});
 
 app.listen(app.get('PORT'), function() {
 	console.log('[' + moment().format('hh:mm:ss') + ']' + ' Express Server listening on port', app.get('PORT'));
