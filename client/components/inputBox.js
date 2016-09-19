@@ -2,9 +2,12 @@ import React from 'react';
 
 const InputBox = (props) => {
   return (
-    <input
-      value = {props.value}
-      placeholder = {props.place} />
+    <div>
+      <input
+        value = {props.value}
+        placeholder = {props.place}
+        onChange = {props.func.bind(this, props.input)}/>
+    </div>
   );
 }
 

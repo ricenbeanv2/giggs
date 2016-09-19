@@ -10,9 +10,10 @@ export default class SignUp extends Component {
     this.state = {  name: '',
                     password: '',
                     passConfirm: '',
-                    fb_id: '',
-                    email: '',
+                    email: ''
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.userSubmit = this.userSubmit.bind(this);
   }
 
   handleChange(input, event) {
@@ -21,31 +22,24 @@ export default class SignUp extends Component {
     this.setState(change);
   }
 
-  renderInputs() {
-    console.log('state inside signUp', this.state)
+  userSubmit(event) {
+    event.preventDefault();
   }
-  render() {
-    renderInputs
+  renderForm() {
     return(
-      <form>
-        <InputBox value={this.state.name} place="Full Name" />
-        <input
-          value = { this.state.fb_id }
-          placeholder = 'Facebook id'
-          onChange = {this.handleChange.bind(this, 'fb_id')}/>
-        <input
-          value = { this.state.email }
-          placeholder = 'E-mail'
-          onChange = {this.handleChange.bind(this, 'email')}/>
-        <input
-          value = { this.state.password }
-          placeholder = 'Password'
-          onChange = {this.handleChange.bind(this, 'password')}/>
-        <input
-          value = { this.state.password }
-          placeholder = 'Confirm password'
-          onChange = {this.handleChange.bind(this, 'passConfirm')}/>
+      <form onSubmit={this.userSubmit}>
+        <InputBox input="name" value={this.state.name} place="Full Name" func={this.handleChange}/>
+        <InputBox input="email" value={this.state.email} place="E-mail" func={this.handleChange}/>
+        <InputBox input="password" value={this.state.password} place="Password" func={this.handleChange}/>
+        <InputBox input="passConfirm" value={this.state.passConfirm} place="Confirm Password" func={this.handleChange}/>
+        <button type="submit">Sign Up</button>
       </form>
+    );
+  }
+
+  render() {
+    return(
+      this.renderForm()
     );
   }
 }
