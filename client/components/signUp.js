@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { userSignUp } from '../actions/auth'
 
 import InputBox from './inputBox';
 
-export default class SignUp extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
 
@@ -24,7 +26,9 @@ export default class SignUp extends Component {
 
   userSubmit(event) {
     event.preventDefault();
+    this.props.userSignUp(this.state);
   }
+
   renderForm() {
     return(
       <form onSubmit={this.userSubmit}>
@@ -43,3 +47,9 @@ export default class SignUp extends Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ userSignUp }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(SignUp);
