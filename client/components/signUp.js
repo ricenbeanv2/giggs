@@ -9,10 +9,11 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {  name: '',
-                    password: '',
-                    passConfirm: '',
-                    email: ''
+    this.state = {
+      name: '',
+      password: '',
+      passConfirm: '',
+      email: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.userSubmit = this.userSubmit.bind(this);
@@ -40,7 +41,7 @@ class SignUp extends Component {
   }
 
   render() {
-    return(
+    return (
       this.renderForm()
     );
   }
