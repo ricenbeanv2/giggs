@@ -7,34 +7,27 @@ module.exports = {
 	},
 
 	createUser: function(req, res){
-		const newUser = {
-			username: req.body.name,
+		var newUser = {
+			username: req.body.username,
 			password: req.body.password,
-			email: req.body.email
-		}
-
-		User.create(newUser)
-		//check if user exist
-		//hash password
-	},
-
-	checkUser: function(req, res){
-		const userInput = {
 			name: req.body.name,
-			password: req.body.password,
 			email: req.body.email
 		}
-		//if username exsit
-		//compare bcrypt password
+		//check if user exists
+		User.build(newUser).save()
+		.then(function(result){
+			return res.status(200).send(newUser);
+		}).catch(function(err){
+			throw err;
+		});
 
-
+	},
+	authUser: function(req,res){
+		res.status(200).send('hi');
 	},
 
 	updateUser: function(req, res){
 
 	}
 
-};
-module.exports.helloWorld = function(req, res) {
-	res.send('hello users');
 };
