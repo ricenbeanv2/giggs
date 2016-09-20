@@ -50,7 +50,7 @@ class SignUp extends Component {
 }
 
 function mapStateToProps({ auth }) {
-  return { auth }; // { weather } === { weather: weather }
+  return { auth }; 
 }
 
 function mapDispatchToProps(dispatch) {
