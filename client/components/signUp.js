@@ -10,6 +10,7 @@ class SignUp extends Component {
     super(props);
 
     this.state = {
+      username: '',
       name: '',
       password: '',
       passConfirm: '',
@@ -31,6 +32,7 @@ class SignUp extends Component {
   renderForm() {
     return(
       <form onSubmit={this.userSubmit}>
+        <InputBox type="text" input="username" value={this.state.username} place="Username" func={this.handleChange}/>
         <InputBox type="text" input="name" value={this.state.name} place="Full Name" func={this.handleChange}/>
         <InputBox type="email" input="email" value={this.state.email} place="E-mail" func={this.handleChange}/>
         <InputBox type="password" input="password" value={this.state.password} place="Password" func={this.handleChange}/>
@@ -47,8 +49,12 @@ class SignUp extends Component {
   }
 }
 
+function mapStateToProps({ auth }) {
+  return { auth }; // { weather } === { weather: weather }
+}
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ userSignUp }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
