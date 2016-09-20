@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { userSignIn } from '../actions/signinAuth'
+import { userSignIn } from '../actions/auth';
 
 import InputBox from './inputBox';
 
@@ -14,11 +14,10 @@ class SignIn extends Component {
     };
     this.loginHandler = this.loginHandler.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
   }
 
   handleChange(input, event) {
-    this.setState({[input]: event.target.value});
+    this.setState({ [input]: event.target.value });
   }
 
   loginHandler(event) {
