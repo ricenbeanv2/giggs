@@ -9,4 +9,10 @@ export default class UserProfile extends Component {
 
     };
   }
+
+  render() {
+    return (
+      <div>Placeholder for user profile</div>
+    );
+  }
 }
