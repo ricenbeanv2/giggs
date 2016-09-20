@@ -15,7 +15,7 @@ export function userSignUp(info) {
 
 export function userSignIn(info) {
   console.log('inside actions folder!!!', info);
-  const request = axios.get('/auth/signin', info);
+  const request = axios.get('/auth/signin', { params: info });
   return (dispatch) => {
     console.log('dispatch inside auth.js', dispatch);
     return request
