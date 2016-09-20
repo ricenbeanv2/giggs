@@ -6,7 +6,7 @@ const userController = require('../user/userCtrl');
 
 router.get('/applicant', applicantController.helloWorld);
 
-router.get('/category', categoryController.helloWorld);
+router.get('/category', categoryController.createDummyCategories);
 
 router.post('/db/jobs/create', jobController.createJob);
 router.get('/db/jobs/getAll', jobController.getAllJobs);

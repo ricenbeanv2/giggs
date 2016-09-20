@@ -1,10 +1,10 @@
-var Sequelize = require('sequelize');
-var connection = require('../db/connection.js');
+const Sequelize = require('sequelize');
+const connection = require('../db/connection');
 
-var Categories = connection.define('Categories', {
+const Categories = connection.define('Categories', {
 	name: {
 		type: Sequelize.STRING,
-		notNull: true,
+		allowNull: false,
 		notEmpty: true,
 	},
 }, {
