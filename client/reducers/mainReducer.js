@@ -1,5 +1,4 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux';
-import ReduxPromise from 'redux-promise';
+import { combineReducers } from 'redux';
 import AuthReducer from './authReducer';
 import JobReducer from './jobReducer';
 
@@ -8,5 +7,4 @@ const rootReducer = combineReducers({
   job: JobReducer
 });
 
-const store = applyMiddleware(ReduxPromise)(createStore)(rootReducer);
-export default store;
+export default rootReducer;

@@ -8,7 +8,7 @@ import InputBox from './inputBox';
 class SignUp extends Component {
   constructor(props) {
     super(props);
-
+    console.log('props inside signup', props)
     this.state = {
       username: '',
       name: '',
