@@ -16,7 +16,11 @@ class CreateJob extends Component {
       deadlineDate: '',
       deadlineTime: '',
       category: '',
-      categories: [{ yard: 'yard', tutor: 'tutor', tech: 'tech', auto: 'auto', cook: 'cook' }]
+      categories: [{ value: 'plumbing', label: 'Plumbing' },
+                   { value: 'tutor', label: 'Tutor' },
+                   { value: 'tech', label: 'Tech' },
+                   { value: 'auto', label: 'Auto' },
+                   { value: 'cook', label: 'Cook' }]
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,10 +40,6 @@ class CreateJob extends Component {
     this.props.createJob(this.state);
   }
   renderForm() {
-    var options = [
-      { value: 'one', label: 'One' },
-      { value: 'two', label: 'Two' }
-    ];
     return (
       <form onSubmit={this.jobSubmit}>
         <InputBox
@@ -81,7 +81,7 @@ class CreateJob extends Component {
         <Select
           name="test"
           value={this.state.category}
-          options={options}
+          options={this.state.categories}
           onChange={this.handleSelect}
         />
         <button type="submit">Create Job</button>
