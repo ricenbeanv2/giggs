@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 
 import App from './app.js'
 import SignUp from './components/signUp'
+import SignIn from './components/signIn.js'
 import CreateJob from './components/createJob'
 import store from './reducers/mainReducer'
 
@@ -16,6 +17,7 @@ render((
     <Router history={browserHistory}>
       <Route path='/' component={App} />
       <Route path='signup' component={SignUp} />
+      <Route path='signin' components={SignIn} />
       <Route path='createjob' component={CreateJob} />
     </Router>
   </Provider>
