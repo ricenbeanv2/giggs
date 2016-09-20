@@ -1,8 +1,8 @@
 module.exports = {
-  entry: "./client/routes.js",
+  entry: './client/routes.js',
   output: {
-      path: __dirname + "/client",
-      filename: "bundle.js"
+      path: __dirname + '/client',
+      filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -14,4 +14,4 @@ module.exports = {
       }
     ]
   }
-}
+};
