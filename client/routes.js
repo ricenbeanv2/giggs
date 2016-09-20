@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 
 import App from './app.js'
 import SignUp from './components/signUp'
+import CreateJob from './components/createJob'
 import store from './reducers/mainReducer'
 
 //Basic routing, to add another route just do:
@@ -15,6 +16,7 @@ render((
     <Router history={browserHistory}>
       <Route path='/' component={App} />
       <Route path='signup' component={SignUp} />
+      <Route path='createjob' component={CreateJob} />
     </Router>
   </Provider>
 ), document.getElementById('app'));

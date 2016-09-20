@@ -9,10 +9,12 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {  name: '',
-                    password: '',
-                    passConfirm: '',
-                    email: ''
+    this.state = {
+      username: '',
+      name: '',
+      password: '',
+      passConfirm: '',
+      email: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.userSubmit = this.userSubmit.bind(this);
@@ -30,6 +32,7 @@ class SignUp extends Component {
   renderForm() {
     return(
       <form onSubmit={this.userSubmit}>
+        <InputBox type="text" input="username" value={this.state.username} place="Username" func={this.handleChange}/>
         <InputBox type="text" input="name" value={this.state.name} place="Full Name" func={this.handleChange}/>
         <InputBox type="email" input="email" value={this.state.email} place="E-mail" func={this.handleChange}/>
         <InputBox type="password" input="password" value={this.state.password} place="Password" func={this.handleChange}/>
@@ -40,14 +43,18 @@ class SignUp extends Component {
   }
 
   render() {
-    return(
+    return (
       this.renderForm()
     );
   }
+}
+
+function mapStateToProps({ auth }) {
+  return { auth };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ userSignUp }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

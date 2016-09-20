@@ -5,10 +5,8 @@ var cors = require('cors');
 var moment = require('moment');
 var router = require('./config/routes.js');
 var connection = require('./db/connection.js');
-
 var app = express();
 var path = require('path');
-
 app.set('PORT', process.env.PORT || 3000);
 app.use(bodyParser.json());
 app.use(cors());
@@ -22,7 +20,7 @@ app.get('*', function (request, response){
 	response.sendFile(path.resolve('./', 'client', 'index.html'))
 })
 
-connection.sync({force:true, logging: console.log}).then(function() {
+connection.sync().then(function() {
 	console.log('tables synced');
 });
 

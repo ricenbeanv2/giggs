@@ -2,40 +2,41 @@ var Sequelize = require('sequelize');
 var connection = require('../db/connection.js');
 var bcrypt = require('bcrypt');
 
-console.log('defining users');
-var Users = connection.define('Users', {
-	name: {
+var User = connection.define('Users', {
+	username: {
 		type: Sequelize.STRING,
-		notNull: true,
-		notEmpty: true,
+		allowNull: false,
 	},
-
 	password: {
 		type: Sequelize.STRING,
-		notNull: true,
-		notEmpty: true,
+		allowNull: false,
 	},
-
-	fb_id: {
+	name: {
 		type: Sequelize.STRING,
-		notNull: false,
-		notEmpty: true,
+		allowNull: false,
 	},
-
 	email: {
 		type: Sequelize.STRING,
 		isEmail: true,
-		notNull: true,
-		notEmpty: true,
+		allowNull: false,
 	},
 }, {
 	freezeTableName: true,
 });
 
-// .create
-/*console.log('syncing users');
-Users.sync({ force: true }).then(function() {
-	console.log('User table created');
-});*/
+User.findUser = function(newUser){
+	// connection.findAll({
+	// 	where:{
+	// 		username: newUser.username
+	// 	}
+	// }).then(function(result){
+	// 	return result;
+	// })
+}
 
-module.exports = Users;
+User.addUser = function(newUser){
+
+}
+
+
+module.exports = User;
