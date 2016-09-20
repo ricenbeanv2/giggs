@@ -20,10 +20,11 @@ export const store = createStoreWithMiddleWare(rootReducer, window.devToolsExten
 render((
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path='/' component={App} />
-      <Route path='signup' component={SignUp} />
-      <Route path='signin' components={SignIn} />
-      <Route path='createjob' component={CreateJob} />
+      <Route path='/' component={App}>
+        <Route path='signup' component={SignUp} />
+        <Route path='signin' components={SignIn} />
+        <Route path='createjob' component={CreateJob} />
+      </Route>
     </Router>
   </Provider>
 ), document.getElementById('app'));

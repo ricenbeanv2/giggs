@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 
 export default class App extends Component {
   constructor(props) {
@@ -11,6 +10,7 @@ export default class App extends Component {
     return (
       <div>
         <p>Hello World</p>
+        {this.props.children}
       </div>
     );
   }
