@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { userSignUp } from '../actions/auth'
+import { userSignUp } from '../actions/auth';
 
 import InputBox from './inputBox';
 
 class SignUp extends Component {
   constructor(props) {
     super(props);
-
+    console.log('props inside signup', props);
     this.state = {
       username: '',
       name: '',
@@ -21,7 +21,7 @@ class SignUp extends Component {
   }
 
   handleChange(input, event) {
-    this.setState({[input]: event.target.value});
+    this.setState({ [input]: event.target.value });
   }
 
   userSubmit(event) {
@@ -30,19 +30,50 @@ class SignUp extends Component {
   }
 
   renderForm() {
-    return(
+    return (
       <form onSubmit={this.userSubmit}>
-        <InputBox type="text" input="username" value={this.state.username} place="Username" func={this.handleChange}/>
-        <InputBox type="text" input="name" value={this.state.name} place="Full Name" func={this.handleChange}/>
-        <InputBox type="email" input="email" value={this.state.email} place="E-mail" func={this.handleChange}/>
-        <InputBox type="password" input="password" value={this.state.password} place="Password" func={this.handleChange}/>
-        <InputBox type="password" input="passConfirm" value={this.state.passConfirm} place="Confirm Password" func={this.handleChange}/>
+        <InputBox
+          type="text"
+          input="username"
+          value={this.state.username}
+          place="Username"
+          func={this.handleChange}
+        />
+        <InputBox
+          type="text"
+          input="name"
+          value={this.state.name}
+          place="Full Name"
+          func={this.handleChange}
+        />
+        <InputBox
+          type="email"
+          input="email"
+          value={this.state.email}
+          place="E-mail"
+          func={this.handleChange}
+        />
+        <InputBox
+          type="password"
+          input="password"
+          value={this.state.password}
+          place="Password"
+          func={this.handleChange}
+        />
+        <InputBox
+          type="password"
+          input="passConfirm"
+          value={this.state.passConfirm}
+          place="Confirm Password"
+          func={this.handleChange}
+        />
         <button type="submit">Sign Up</button>
       </form>
     );
   }
 
   render() {
+    console.log('auth inside signUp', this.props.auth);
     return (
       this.renderForm()
     );
