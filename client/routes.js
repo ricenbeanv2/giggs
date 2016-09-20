@@ -5,11 +5,12 @@ import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-import SignIn from './components/signIn.js'
+import SignIn from './components/signIn.js';
 import rootReducer from './reducers/mainReducer';
 import App from './app.js';
 import SignUp from './components/signUp';
 import CreateJob from './components/createJob';
+import UserProfile from './components/userProfile';
 
 //Basic routing, to add another route just do:
 //<Route path='/insertUrl' component={insertComponentName} />
@@ -24,6 +25,7 @@ render((
         <Route path='signup' component={SignUp} />
         <Route path='signin' components={SignIn} />
         <Route path='createjob' component={CreateJob} />
+        <Route path='userprofile' component={UserProfile} />
       </Route>
     </Router>
   </Provider>
