@@ -16,14 +16,14 @@ export function userSignUp(info) {
 }
 
 export function userSignIn(info) {
-  const request = axios.get('/auth/signin', { params: info });
+  console.log('inside actions folder!!!', info);
+  const request = axios.post('/auth/signup', info);
   return (dispatch) => {
+    console.log('dispatch inside auth.js', dispatch);
     return request
       .then((response) => {
-        dispatch({ type: 'SIGN_IN', payload: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
+        console.log('inside dispatch', response.data);
+        dispatch({ type: 'SIGN_UP', payload: response.data });
       });
   };
 }
