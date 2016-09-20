@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
+import NavBar from './components/NavBar';
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   render() {
     return (
       <div>
-        <p>Hello World</p>
+        <NavBar />
+        <p>Giggs</p>
+        {this.props.children}
       </div>
     );
   }
