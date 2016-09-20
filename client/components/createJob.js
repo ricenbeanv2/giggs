@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Select from 'react-select';
 
 import InputBox from './inputBox';
 import { createJob } from '../actions/jobs';
@@ -13,21 +14,32 @@ class CreateJob extends Component {
       openings: '',
       maxPrice: '',
       deadlineDate: '',
-      deadlineTime: ''
+      deadlineTime: '',
+      category: '',
+      categories: [{ yard: 'yard', tutor: 'tutor', tech: 'tech', auto: 'auto', cook: 'cook' }]
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.jobSubmit = this.jobSubmit.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   handleChange(input, event) {
     this.setState({ [input]: event.target.value });
   }
 
+  handleSelect(val) {
+    this.setState({ category: val });
+  }
   jobSubmit(event) {
     event.preventDefault();
     this.props.createJob(this.state);
   }
   renderForm() {
+    var options = [
+      { value: 'one', label: 'One' },
+      { value: 'two', label: 'Two' }
+    ];
     return (
       <form onSubmit={this.jobSubmit}>
         <InputBox
@@ -64,6 +76,13 @@ class CreateJob extends Component {
           value={this.state.deadlineTime}
           place="Deadline Time"
           func={this.handleChange}
+        />
+
+        <Select
+          name="test"
+          value={this.state.category}
+          options={options}
+          onChange={this.handleSelect}
         />
         <button type="submit">Create Job</button>
       </form>
