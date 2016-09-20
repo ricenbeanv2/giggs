@@ -1,8 +1,7 @@
-var Sequelize = require('sequelize');
-var connection = require('../db/connection.js');
-var bcrypt = require('bcrypt');
+const Sequelize = require('sequelize');
+const connection = require('../db/connection');
 
-var User = connection.define('Users', {
+const User = connection.define('Users', {
 	username: {
 		type: Sequelize.STRING,
 		allowNull: false,
@@ -23,20 +22,5 @@ var User = connection.define('Users', {
 }, {
 	freezeTableName: true,
 });
-
-User.findUser = function(newUser){
-	// connection.findAll({
-	// 	where:{
-	// 		username: newUser.username
-	// 	}
-	// }).then(function(result){
-	// 	return result;
-	// })
-}
-
-User.addUser = function(newUser){
-
-}
-
 
 module.exports = User;

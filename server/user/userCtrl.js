@@ -1,5 +1,7 @@
-var User = require('./userModel.js');
-var bcrypt = require('bcrypt');
+const User = require('./userModel');
+const bcrypt = require('bcrypt');
+const jwt = require('jwt-simple');
+const moment = require('moment');
 
 module.exports = {
 
@@ -13,9 +15,19 @@ module.exports = {
 		//check if user exists
 		User.build(newUser).save()
 		.then(user => {
+			console.log('user_id', user.id);
+			const token = jwt.encode({
+				iss: user.id,
+				exp: moment().add('days', 7).valueOf()
+			}, 'appsecrethere');
+
 			bcrypt.hash(newUser.password, 10, (err, hash) => {
 				user.update({ password: hash });
-				res.status(200).send('user added!');
+				res.json({
+					token: token,
+					expires: moment().add('days', 7).valueOf(),
+					user: user.toJSON()
+				});
 			});
 		})
 		.catch(err => {
