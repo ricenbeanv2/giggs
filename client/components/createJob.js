@@ -10,13 +10,18 @@ class CreateJob extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      jobName: '',
       openings: '',
-      maxPrice: '',
-      deadlineDate: '',
+      description: '',
+      max_price: '',
+      deadline: '',
       deadlineTime: '',
       category: '',
-      categories: [{ yard: 'yard', tutor: 'tutor', tech: 'tech', auto: 'auto', cook: 'cook' }]
+      categories: [{ value: 'plumbing', label: 'Plumbing' },
+                   { value: 'tutor', label: 'Tutor' },
+                   { value: 'tech', label: 'Tech' },
+                   { value: 'auto', label: 'Auto' },
+                   { value: 'cook', label: 'Cook' }]
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -31,15 +36,12 @@ class CreateJob extends Component {
   handleSelect(val) {
     this.setState({ category: val });
   }
+
   jobSubmit(event) {
     event.preventDefault();
     this.props.createJob(this.state);
   }
   renderForm() {
-    var options = [
-      { value: 'one', label: 'One' },
-      { value: 'two', label: 'Two' }
-    ];
     return (
       <form onSubmit={this.jobSubmit}>
         <InputBox
@@ -57,16 +59,23 @@ class CreateJob extends Component {
           func={this.handleChange}
         />
         <InputBox
+          type="text"
+          input="description"
+          value={this.state.description}
+          place="Description"
+          func={this.handleChange}
+        />
+        <InputBox
           type="number"
-          input="maxPrice"
-          value={this.state.maxPrice}
+          input="max_price"
+          value={this.state.max_price}
           place="Price"
           func={this.handleChange}
         />
         <InputBox
           type="date"
-          input="deadlineDate"
-          value={this.state.deadlineDate}
+          input="deadline"
+          value={this.state.deadline}
           place="Deadline Date"
           func={this.handleChange}
         />
@@ -81,7 +90,7 @@ class CreateJob extends Component {
         <Select
           name="test"
           value={this.state.category}
-          options={options}
+          options={this.state.categories}
           onChange={this.handleSelect}
         />
         <button type="submit">Create Job</button>
