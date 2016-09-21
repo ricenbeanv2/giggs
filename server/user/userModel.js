@@ -22,6 +22,10 @@ const User = connection.define('Users', {
 		isEmail: true,
 		allowNull: false,
 	},
+	phone: {
+		type: Sequelize.INTEGER,
+		allowNull: true
+	},
 	fb_id: {
 		type: Sequelize.STRING,
 		allownull: true
