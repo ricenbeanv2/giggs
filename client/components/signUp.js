@@ -1,92 +1,48 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Field, reduxForm } from 'redux-form';
 import { userSignUp } from '../actions/auth';
-import { reduxForm } from 'redux-form';
 
-import InputBox from './inputBox';
-
-class SignUp extends Component {
-  constructor(props) {
-    super(props);
-    console.log('props inside signup', props);
-    this.state = {
-      username: '',
-      name: '',
-      password: '',
-      passConfirm: '',
-      email: ''
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.userSubmit = this.userSubmit.bind(this);
-  }
-
-  handleChange(input, event) {
-    this.setState({ [input]: event.target.value });
-  }
-
-  userSubmit(event) {
-    event.preventDefault();
-    this.props.userSignUp(this.state);
-  }
-
-  renderForm() {
+class SignUpForm extends Component {
+  render() {
+    const { handleSubmit } = this.props;
+    console.log('props', this.props);
     return (
-      <form onSubmit={this.userSubmit}>
-        <InputBox
-          type="text"
-          input="username"
-          value={this.state.username}
-          place="Username"
-          func={this.handleChange}
-        />
-        <InputBox
-          type="text"
-          input="name"
-          value={this.state.name}
-          place="Full Name"
-          func={this.handleChange}
-        />
-        <InputBox
-          type="email"
-          input="email"
-          value={this.state.email}
-          place="E-mail"
-          func={this.handleChange}
-        />
-        <InputBox
-          type="password"
-          input="password"
-          value={this.state.password}
-          place="Password"
-          func={this.handleChange}
-        />
-        <InputBox
-          type="password"
-          input="passConfirm"
-          value={this.state.passConfirm}
-          place="Confirm Password"
-          func={this.handleChange}
-        />
-        <button type="submit">Sign Up</button>
+      <form onSubmit={handleSubmit(this.props.userSignUp)}>
+        <h3>Sign Up</h3>
+        <div className="form-group">
+          <label>Username</label>
+          <Field name="username" component="input" type="text" className="form-control" />
+        </div>
+
+        <div className="form-group">
+          <label>Name</label>
+          <Field name="name" component="input" type="text" className="form-control" />
+        </div>
+
+        <div className="form-group">
+          <label>E-mail</label>
+          <Field name="email" component="input" type="text" className="form-control" />
+        </div>
+
+        <div className="form-group">
+          <label>Password</label>
+          <Field name="password" component="input" type="password" className="form-control" />
+        </div>
+
+        <div className="form-group">
+          <label>Confirm Password</label>
+          <Field name="passconfirm" component="input" type="password" className="form-control" />
+        </div>
+
+        <button type="submit" className="btn btn-primary"> Submit </button>
       </form>
     );
   }
-
-  render() {
-    console.log('auth inside signUp', this.props.auth);
-    return (
-      this.renderForm()
-    );
-  }
 }
 
-function mapStateToProps({ auth }) {
-  return { auth };
-}
+SignUpForm = reduxForm({
+  form: 'SignUpForm'
+})(SignUpForm);
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ userSignUp }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(null, { userSignUp })(SignUpForm);

@@ -26,6 +26,7 @@ class SignIn extends Component {
     this.props.userSignIn(this.state);
   }
   render() {
+    console.log('inside signin.js', this.props.auth);
     return (
       <div>
         <form onSubmit={this.loginHandler}>
