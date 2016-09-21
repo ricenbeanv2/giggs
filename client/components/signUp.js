@@ -6,7 +6,6 @@ import { userSignUp } from '../actions/auth';
 class SignUpForm extends Component {
   render() {
     const { handleSubmit } = this.props;
-    console.log('props', this.props);
     return (
       <form onSubmit={handleSubmit(this.props.userSignUp)}>
         <h3>Sign Up</h3>

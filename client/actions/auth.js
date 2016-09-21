@@ -7,6 +7,8 @@ export function userSignUp(info) {
     return request
       .then((response) => {
         console.log('signup payload:', response.data);
+        localStorage.setItem('id', response.data.user.userid);
+        localStorage.setItem('username', response.data.user.username);
         dispatch({ type: 'SIGN_UP', payload: response.data });
       });
   };
