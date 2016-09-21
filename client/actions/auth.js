@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+import {render} from 'react-dom';
 
 export function userSignUp(info) {
   console.log('info inside auth.js', info);
@@ -7,12 +8,14 @@ export function userSignUp(info) {
   return (dispatch) => {
     return request
       .then((response) => {
-        console.log('signup payload:', response.data);
-        localStorage.setItem('id', response.data.user.userid);
-        localStorage.setItem('username', response.data.user.username);
-        localStorage.setItem('token', response.data.token);
         dispatch({ type: 'SIGN_UP', payload: response.data });
-        browserHistory.push('/userprofile');
+        console.log('signup payload:', response.data);
+        if(typeof response.data !== 'string') {
+          localStorage.setItem('id', response.data.user.userid);
+          localStorage.setItem('username', response.data.user.username);
+          localStorage.setItem('token', response.data.token);
+          browserHistory.push('/userprofile');
+        }
       });
   };
 }
