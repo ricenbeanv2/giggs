@@ -13,6 +13,7 @@ router.get('/category', categoryController.createDummyCategories);
 
 router.post('/db/jobs/create', jobController.createJob);
 router.get('/db/jobs/getAll', jobController.getAllJobs);
+router.get('/db/jobs/query', jobController.queryJobs);
 
 router.post('/auth/signup', checkUsername, checkEmail, userController.signup);
 router.get('/auth/signin', userController.signin);

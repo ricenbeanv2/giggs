@@ -14,44 +14,39 @@ module.exports = {
 			openings: req.body.openings,
 			description: req.body.description,
 			max_price: req.body.max_price,
+			user_id: req.body.user_id,
 			location_lat: req.body.location_lat,
 			location_lng: req.body.location_lng,
 			deadline: req.body.deadline,
 		};
 
-		function jobQuery() {
-			if (!newJob.user_id || !newJob.category_id) {
-				return;
-			}
+		function jobCreation() {
 			Job.create(newJob).then((jobs) => {
-				res.send(jobs);
+				res.status(201).send(jobs);
 			})
 			.catch((error) => {
-				console.log(error);
-				res.send(error);
+				res.status(400).send("Server Error Job Not Created");
 			});
 		}
 
 		Category.findOne({ where: { name: req.body.category_id }
 		}).then((cat) => {
 			newJob.category_id = cat.dataValues.id;
-			jobQuery();
-		}).catch(error => res.send(error));
+			jobCreation();
+		}).catch(error => res.status(400).send("Category does not Exist"));
+	},	
 
-		Users.findOne({ where: { username: req.body.user_id }
-		}).then((user) => {
-			newJob.user_id = user.dataValues.id;
-			jobQuery();
-		}).catch(error => res.send(error));
+	queryJobs: (req, res) => {
+		Job.findAll({ where : {[req.query.field]:req.query.key} })
+		.then((data) => {
+			res.status(200).send(data);
+		}).catch(error => res.status(400).send("Job Not Found"));
 	},
 
 	getAllJobs: (req, res) => {
-		Job.findAll().then((data) => {
-			res.send(data);
-		})
-		.catch((error) => {
-			res.send(error);
-		});
+		Job.findAll().then((jobs) => {
+			res.status(200).send(jobs);
+		}).catch(error => res.status(400).send("Sever Error"));
 	},
 
 };
