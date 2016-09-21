@@ -3,6 +3,9 @@ const applicantController = require('../applicant/applicantCtrl');
 const categoryController = require('../category/categoryCtrl');
 const jobController = require('../job/jobCtrl');
 const userController = require('../user/userCtrl');
+const checkUsername = require('./middleware').checkUsername;
+const checkEmail = require('./middleware').checkEmail;
+
 
 router.get('/applicant', applicantController.helloWorld);
 
@@ -11,7 +14,7 @@ router.get('/category', categoryController.createDummyCategories);
 router.post('/db/jobs/create', jobController.createJob);
 router.get('/db/jobs/getAll', jobController.getAllJobs);
 
-router.post('/auth/signup', userController.createUser);
-router.get('/auth/signin', userController.authUser);
+router.post('/auth/signup', checkUsername, checkEmail, userController.signup);
+router.get('/auth/signin', userController.signin);
 
 module.exports = router;
