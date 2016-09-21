@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { browserHistory } from 'react-router';
 import { userSignUp } from '../actions/auth';
 
 class SignUpForm extends Component {
