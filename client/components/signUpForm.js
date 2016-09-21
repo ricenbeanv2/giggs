@@ -3,7 +3,6 @@ import { Field, reduxForm } from 'redux-form';
 import { userSignUp } from '../actions/auth';
 
 class SignUpForm extends Component {
-
   render() {
     const { handleSubmit } = this.props;
     return (
