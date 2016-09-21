@@ -2,12 +2,12 @@ import axios from 'axios';
 
 export function createJob(jobDetails) {
   console.log('inside job.js', jobDetails);
-  
+
   const request = axios.post('/db/jobs/create', jobDetails);
   return (dispatch) => {
     return request
       .then((response) => {
-        console.log('createJob payload:', response.data);
+        console.log('createJob payload:', response);
         dispatch({ type: 'SIGN_UP', payload: response.data });
       })
       .catch((error) => {
