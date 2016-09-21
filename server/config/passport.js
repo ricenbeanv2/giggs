@@ -17,22 +17,34 @@ module.exports = passport => {
     clientID: configAuth.facebookAuth.clientID,
     clientSecret: configAuth.facebookAuth.clientSecret,
     callbackURL: configAuth.facebookAuth.callbackURL,
-    profileFields: ["emails", "displayName"]
+    profileFields: ['emails', 'displayName']
   },
   (token, refreshToken, profile, done) => {
     process.nextTick(() => {
-      User.findOne({ 'facebook.id': profile.id }, (err, user) => {
-        if (err) {
-          return done(err);
+      User.findOne({
+        where: {
+          fb_id: profile.id
         }
+      })
+      .then(user => {
         if (user) {
+          //found user, return that user
           return done(null, user);
-        } else {
-          //create new User in database
         }
+          //user does not exists, create new user
+          const newUser = {
+            fb_id: profile.id,
+            fb_token: token,
+            name: profile.displayName,
+            email: profile.emails[0].value
+          };
+          User.build(newUser).save()
+          .then(result => {
+            return done(null, result);
+          });
       });
     });
   }
-));
-
-}
+)
+);
+};

@@ -6,7 +6,6 @@ const userController = require('../user/userCtrl');
 const checkUsername = require('./middleware').checkUsername;
 const checkEmail = require('./middleware').checkEmail;
 
-
 router.get('/applicant', applicantController.helloWorld);
 
 router.get('/category', categoryController.createDummyCategories);
@@ -18,3 +17,11 @@ router.post('/auth/signup', checkUsername, checkEmail, userController.signup);
 router.get('/auth/signin', userController.signin);
 
 module.exports = router;
+
+// module.exports = (passport) => {
+//   router.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
+//   router.get('/auth/facebook/callback', passport.authenticate('facebook', {
+//     successRedirect: '/',
+//     failureRedirect: '/'
+//   }));
+// };
