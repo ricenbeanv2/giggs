@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { userSignUp } from '../actions/auth';
+// import * as actions from '../actions/auth';
 
 class SignUpForm extends Component {
   render() {
     const { handleSubmit } = this.props;
+    console.log('props', this.props);
     return (
-      <form onSubmit={handleSubmit(userSignUp)}>
+      <form onSubmit={handleSubmit(this.props.userSignUp)}>
         <h3>Sign Up</h3>
         <div className="form-group">
           <label>Username</label>
@@ -39,6 +42,8 @@ class SignUpForm extends Component {
   }
 }
 
-export default reduxForm({
-  form: 'MakeSignUpForm'
+SignUpForm = reduxForm({
+  form: 'SignUpForm'
 })(SignUpForm);
+
+export default connect(null, { userSignUp })(SignUpForm);

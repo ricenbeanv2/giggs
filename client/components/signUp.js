@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userSignUp } from '../actions/auth';
 import { reduxForm } from 'redux-form';
+
 import InputBox from './inputBox';
 
 class SignUp extends Component {
