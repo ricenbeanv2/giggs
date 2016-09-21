@@ -10,10 +10,11 @@ class CreateJob extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      jobName: '',
       openings: '',
-      maxPrice: '',
-      deadlineDate: '',
+      description: '',
+      max_price: '',
+      deadline: '',
       deadlineTime: '',
       category: '',
       categories: [{ value: 'plumbing', label: 'Plumbing' },
@@ -35,6 +36,7 @@ class CreateJob extends Component {
   handleSelect(val) {
     this.setState({ category: val });
   }
+
   jobSubmit(event) {
     event.preventDefault();
     this.props.createJob(this.state);
@@ -57,16 +59,23 @@ class CreateJob extends Component {
           func={this.handleChange}
         />
         <InputBox
+          type="text"
+          input="description"
+          value={this.state.description}
+          place="Description"
+          func={this.handleChange}
+        />
+        <InputBox
           type="number"
-          input="maxPrice"
-          value={this.state.maxPrice}
+          input="max_price"
+          value={this.state.max_price}
           place="Price"
           func={this.handleChange}
         />
         <InputBox
           type="date"
-          input="deadlineDate"
-          value={this.state.deadlineDate}
+          input="deadline"
+          value={this.state.deadline}
           place="Deadline Date"
           func={this.handleChange}
         />
