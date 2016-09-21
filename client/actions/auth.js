@@ -9,6 +9,7 @@ export function userSignUp(info) {
         console.log('signup payload:', response.data);
         localStorage.setItem('id', response.data.user.userid);
         localStorage.setItem('username', response.data.user.username);
+        localStorage.setItem('token', response.data.token);
         dispatch({ type: 'SIGN_UP', payload: response.data });
       });
   };
