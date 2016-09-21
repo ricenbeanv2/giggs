@@ -16,7 +16,6 @@ import JobListings from './components/jobListings';
 //Basic routing, to add another route just do:
 //<Route path='/insertUrl' component={insertComponentName} />
 const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
-console.log('rootReducer', rootReducer);
 export const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f);
 
 render((
