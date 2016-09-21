@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { userSignIn } from '../actions/auth';
 
 import InputBox from './inputBox';
+import EachJob from './eachJob'
 
 class SignIn extends Component {
   constructor(props) {
@@ -39,8 +40,8 @@ class SignIn extends Component {
 }
 
 
-function mapStateToProps({ signinAuth }) {
-  return { signinAuth };
+function mapStateToProps({ auth }) {
+  return { auth };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -15,3 +15,13 @@ export function createJob(jobDetails) {
       });
   };
 }
+
+export function getJobList() {
+  console.log('inside job.js');
+  // const request = axios.get('/db/jobs/getAll');
+  return {
+    type: 'GET_JOBS',
+    // payload: request
+    payload: 'test'
+  };
+}

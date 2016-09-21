@@ -11,6 +11,7 @@ import App from './app.js';
 import CreateJob from './components/createJob';
 import UserProfile from './components/userProfile';
 import SignUpForm from './components/signUpForm';
+import JobListings from './components/jobListings'
 
 //Basic routing, to add another route just do:
 //<Route path='/insertUrl' component={insertComponentName} />
@@ -26,6 +27,7 @@ render((
         <Route path='signin' components={SignIn} />
         <Route path='createjob' component={CreateJob} />
         <Route path='userprofile' component={UserProfile} />
+        <Route path='joblistings' component={JobListings} />
       </Route>
     </Router>
   </Provider>
