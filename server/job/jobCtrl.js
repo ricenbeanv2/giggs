@@ -1,4 +1,6 @@
 const Job = require('./jobModel');
+const Category = require('../category/categoryModel');
+const Users = require('../user/userModel');
 
 module.exports = {
 
@@ -7,30 +9,47 @@ module.exports = {
 	},
 
 	createJob: (req, res) => {
-		/*var newJob = {
-			jobName: req.body.username,
+		const newJob = {
+			jobName: req.body.jobName,
 			openings: req.body.openings,
 			description: req.body.description,
 			max_price: req.body.max_price,
 			location_lat: req.body.location_lat,
 			location_lng: req.body.location_lng,
 			deadline: req.body.deadline,
-		}*/
-		Job.create(req.body).then(function(jobs) { // Notice: There are no arguments here, as of right now you'll have to...
-				console.log('check database for new job');
+		};
+
+		function jobQuery() {
+			if (!newJob.user_id || !newJob.category_id) {
+				return;
+			}
+			Job.create(newJob).then((jobs) => {
 				res.send(jobs);
 			})
-			.catch(function(error) {
-				console.log(error); // ... in order to get the array of user objects
+			.catch((error) => {
+				console.log(error);
 				res.send(error);
 			});
+		}
+
+		Category.findOne({ where: { name: req.body.category_id }
+		}).then((cat) => {
+			newJob.category_id = cat.dataValues.id;
+			jobQuery();
+		}).catch(error => res.send(error));
+
+		Users.findOne({ where: { username: req.body.user_id }
+		}).then((user) => {
+			newJob.user_id = user.dataValues.id;
+			jobQuery();
+		}).catch(error => res.send(error));
 	},
 
 	getAllJobs: (req, res) => {
-		Job.findAll().then(function(data) {
+		Job.findAll().then((data) => {
 			res.send(data);
 		})
-		.catch(function(error) {
+		.catch((error) => {
 			res.send(error);
 		});
 	},
