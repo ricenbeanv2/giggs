@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export function userSignUp(info) {
+  console.log('info inside auth.js', info);
   const request = axios.post('/auth/signup', info);
   return (dispatch) => {
     return request

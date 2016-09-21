@@ -8,9 +8,9 @@ import thunk from 'redux-thunk';
 import SignIn from './components/signIn.js';
 import rootReducer from './reducers/mainReducer';
 import App from './app.js';
-import SignUp from './components/signUp';
 import CreateJob from './components/createJob';
 import UserProfile from './components/userProfile';
+import SignUpForm from './components/signUpForm';
 
 //Basic routing, to add another route just do:
 //<Route path='/insertUrl' component={insertComponentName} />
@@ -22,7 +22,7 @@ render((
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path='/' component={App}>
-        <Route path='signup' component={SignUp} />
+        <Route path='signup' component={SignUpForm} />
         <Route path='signin' components={SignIn} />
         <Route path='createjob' component={CreateJob} />
         <Route path='userprofile' component={UserProfile} />

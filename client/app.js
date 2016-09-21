@@ -6,7 +6,6 @@ export default class App extends Component {
     return (
       <div>
         <NavBar />
-        <p>Giggs</p>
         {this.props.children}
       </div>
     );

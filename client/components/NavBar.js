@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 const NavBar = () => {
   return (
     <nav>
-      <Link to="/">Home </Link>
+      <Link to="/">Giggs </Link>
       <Link to="/signin">Sign in </Link>
       <Link to="/signup">Sign up </Link>
       <Link to="/userprofile">User Profile </Link>
