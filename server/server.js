@@ -4,6 +4,7 @@ const cors = require('cors');
 const moment = require('moment');
 const router = require('./config/routes');
 const connection = require('./db/connection');
+const passport = require('passport');
 
 const app = express();
 const path = require('path');
