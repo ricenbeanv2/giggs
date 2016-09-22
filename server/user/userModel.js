@@ -96,19 +96,35 @@ User.getProfile = userID => {
 		});
 	});
 };
-User.updateInfo = userObj => {
-	return new Promise((resolve, reject) => {
-		User.build(userObj).save()
+User.updateInfo = (userID, fields) => {
+	if (fields.password) {
+		console.log("if fields.password");
+		User.findById(userID)
 		.then(user => {
-			const token = jwt.encode({
-				iss: user.id,
-				exp: moment().add('days', 7).valueOf()
-			}, 'appsecrethere');
-			bcrypt.hash(userObj.password, 10, (err, hash) => {
+			bcrypt.hash(fields.password, 10, (err, hash) => {
 				user.update({ password: hash })
 				.then(() => {
-					resolve('sucess');
+					delete fields.password;
 				});
+			});
+		});
+	}
+	return new Promise((resolve, reject) => {
+		User.findById(userID)
+		.then(user => {
+			user.update(fields)
+			.then(result => {
+				const newUserInfo = {
+					id: result.id,
+					username: result.username,
+					name: result.name,
+					email: result.email,
+					phone: result.phone
+				};
+				resolve(newUserInfo);
+			})
+			.catch(err => {
+				reject(err);
 			});
 		})
 		.catch(err => {

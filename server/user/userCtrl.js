@@ -54,15 +54,12 @@ module.exports = {
 		//return job history
 		//retun apply history
 	},
-
 	updateUser: (req, res) => {
-		const updateUser = {
-			name: req.body.name,
-			password: req.body.password,
-			email: req.body.email,
-			phone: req.body.phone
-		};
-		res.status(200).send('user info updated')
+		User.updateInfo(req.body.id, req.body.fields)
+		.then(result => {
+			res.status(200).send(result);
+		});
 	}
+
 
 };
