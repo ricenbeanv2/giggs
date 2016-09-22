@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 import {render} from 'react-dom';
+import { SubmissionError } from 'redux-form';
 
 export function userSignUp(info) {
   console.log('info inside auth.js', info);
@@ -15,6 +16,9 @@ export function userSignUp(info) {
           localStorage.setItem('username', response.data.user.username);
           localStorage.setItem('token', response.data.token);
           browserHistory.push('/userprofile');
+        } else {
+          console.log('piece of shit');
+          throw new SubmissionError({ username: 'User already exists', _error: 'Login failed!' })
         }
       });
   };

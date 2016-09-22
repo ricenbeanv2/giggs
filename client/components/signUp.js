@@ -1,45 +1,55 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm} from 'redux-form';
 import { browserHistory } from 'react-router';
 import { userSignUp } from '../actions/auth';
 
 class SignUpForm extends Component {
   render() {
+    const renderField = ({ input, label, type, meta: { touched, error } }) => (
+      <div>
+        <label>{label}</label>
+        <div>
+          <input {...input} placeholder={label} type={type}/>
+          {touched && error && <span>{error}</span>}
+        </div>
+      </div>
+    )
     const responseMsg = this.props.auth;
-    const { handleSubmit } = this.props;
+    const { error, handleSubmit, pristine, reset, submitting } = this.props;
     return (
       <div>
         <form onSubmit={handleSubmit(this.props.userSignUp)}>
           <h3>Sign Up</h3>
           <div className="form-group">
             <label>Username</label>
-            <Field name="username" component="input" type="text" className="form-control" />
-            <div>{responseMsg}</div>
+            <Field name="username" component={renderField} type="text" className="form-control" />
           </div>
 
           <div className="form-group">
             <label>Name</label>
-            <Field name="name" component="input" type="text" className="form-control" />
+            <Field name="name" component={renderField} type="text" className="form-control" />
           </div>
 
           <div className="form-group">
             <label>E-mail</label>
-            <Field name="email" component="input" type="text" className="form-control" />
+            <Field name="email" component={renderField} type="text" className="form-control" />
           </div>
 
           <div className="form-group">
             <label>Password</label>
-            <Field name="password" component="input" type="password" className="form-control" />
+            <Field name="password" component={renderField} type="password" className="form-control" />
           </div>
 
           <div className="form-group">
             <label>Confirm Password</label>
-            <Field name="passconfirm" component="input" type="password" className="form-control" />
+            <Field name="passconfirm" component={renderField} type="password" className="form-control" />
           </div>
-
-          <button type="submit" className="btn btn-primary"> Submit </button>
-          <div id="error"></div>
+          {error && <strong>{error}</strong>}
+          <div>
+            <button type="submit" disabled={submitting}>Sign Up</button>
+            <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
+          </div>
         </form>
       </div>
     );
