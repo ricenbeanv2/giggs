@@ -44,14 +44,14 @@ User.create = userObj => {
 		.then(user => {
 			const token = jwt.encode({
 				iss: user.id,
-				exp: moment().add('days', 7).valueOf()
+				exp: moment().add(7, 'd').valueOf()
 			}, 'appsecrethere');
 			bcrypt.hash(userObj.password, 10, (err, hash) => {
 				user.update({ password: hash })
 				.then(() => {
 					resolve({
 						token,
-						expires: moment().add('days', 7).valueOf(),
+						expires: moment().add(7, 'd').valueOf(),
 						user: {
 							username: user.username,
 							userid: user.id
@@ -77,7 +77,23 @@ User.auth = userInput => {
 				if (err) {
 					throw err;
 				}
-				resolve(valid);
+				if (valid) {
+					const token = jwt.encode({
+						iss: user.id,
+						exp: moment().add(7, 'd').valueOf()
+					}, 'appsecrethere');
+					resolve({
+						token,
+						expires: moment().add(7, 'd').valueOf(),
+						user: {
+							username: user.username,
+							userid: user.id
+						}
+					});
+				}
+				if (!valid) {
+					reject(valid);
+				}
 			});
 		})
 		.catch(err => {
