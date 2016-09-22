@@ -6,10 +6,8 @@ import renderField from './renderField';
 
 class SignUpForm extends Component {
   render() {
-    const responseMsg = this.props.auth;
     const { error, handleSubmit, submitting } = this.props;
     return (
-      <div>
         <form onSubmit={handleSubmit(this.props.userSignUp)}>
           <h3>Sign Up</h3>
           <div className="form-group">
@@ -41,7 +39,6 @@ class SignUpForm extends Component {
             <button type="submit" disabled={submitting}>Sign Up</button>
           </div>
         </form>
-      </div>
     );
   }
 }
