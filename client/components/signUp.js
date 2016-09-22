@@ -6,10 +6,19 @@ import renderField from './renderField';
 
 class SignUpForm extends Component {
   render() {
+    let passCheck = <div />;
     let loading = '';
     const { error, handleSubmit, submitting } = this.props;
-    if(submitting)
+    if (submitting) {
       loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
+      passCheck = <div />;
+    }
+    if (typeof this.props.auth === 'string' && this.props.auth.includes('Passwords')) {
+      passCheck = <div>{this.props.auth}</div>;
+    } else {
+      console.log('inside else in signupform');
+      passCheck = <div />;
+    }
     return (
         <form onSubmit={handleSubmit(this.props.userSignUp)}>
           <h3>Sign Up</h3>
@@ -42,6 +51,7 @@ class SignUpForm extends Component {
             <button type="submit" disabled={submitting}>Sign Up</button>
           </div>
           <img src={loading} />
+          {passCheck}
         </form>
     );
   }
