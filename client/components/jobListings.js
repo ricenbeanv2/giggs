@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Select from 'react-select';
+import SimpleMap from './googleMaps'
+import dummyData from './dummyData'
+
 
 import { getJobList } from '../actions/jobs';
 import EachJob from './eachJob'
@@ -11,27 +14,31 @@ class JobListings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobName:'testing',
-      openings: 'testing',
-      max_price: 'testing',
-      location: 'testing',
-      deadline: 'testing',
-      description: 'testing'
+      data: dummyData
     };
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(props) {
-    console.log("This is working inside of JobListings Components");
+    console.log('Checking if the dummy data is working', this.state.data)
   }
+
 
   render() {
     return (
       <div>
-        <button onClick={this.handleChange}>Testing</button>
-        <EachJob job={this.state}/>
+        <SimpleMap />
+        <EachJob data={this.state.data}/>
       </div>
     )
   }
 }
 
-export default JobListings;
+function mapStateToProps({ job }) {
+  return { job };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getJobList }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobListings);
