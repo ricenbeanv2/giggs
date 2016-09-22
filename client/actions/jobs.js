@@ -1,17 +1,27 @@
 import axios from 'axios';
+import { SubmissionError } from 'redux-form';
 
-export function createJob(jobDetails) {
-  console.log('inside job.js', jobDetails);
+import { createJob, notFilled } from './actionTypes';
 
-  const request = axios.post('/db/jobs/create', jobDetails);
+export function sendJob(jobDetails) {
+  const jobDet = jobDetails;
+  jobDet.category_id = jobDetails.category_id.value;
+  jobDet.location_lat = 1.0;
+  jobDet.location_lng = 2.0;
+  jobDet.user_id = localStorage.getItem('id');
+  console.log('jobDetails', jobDet);
   return (dispatch) => {
-    return request
+    return axios.post('/db/jobs/create', jobDetails)
       .then((response) => {
         console.log('createJob payload:', response);
-        dispatch({ type: 'SIGN_UP', payload: response.data });
+        dispatch({ type: createJob, payload: response.data });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        console.log('value:', Object.keys(jobDet).length);
+        if (Object.keys(jobDet).length < 9) {
+          throw new SubmissionError({ _error: 'Please fill out missing fields.' });
+        }
+        throw new SubmissionError({ _error: 'Please log in.' });
       });
   };
 }
@@ -20,8 +30,7 @@ export function getJobList() {
   console.log('inside job.js');
   // const request = axios.get('/db/jobs/getAll');
   return {
-    type: 'GET_JOBS',
-    // payload: request
+    type: createJob,
     payload: 'test'
   };
 }

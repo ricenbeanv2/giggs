@@ -1,12 +1,10 @@
 import React from 'react';
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
+const renderField = ({ input, label, type, className, meta: { touched, error } }, value) => (
   <div>
     <label>{label}</label>
-    <div>
-      <input {...input} placeholder={label} type={type} pattern=".{6,15}" required title="Must be between 6 - 15 characters" />
-      {touched && error && <span>{error}</span>}
-    </div>
+    <input {...input} placeholder={label} type={type} className={className} />
+    {touched && error && <span>{error}</span>}
   </div>
 );
 

@@ -1,21 +1,17 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { render } from 'react-dom';
 import { SubmissionError } from 'redux-form';
+import { signUp, signIn, pwNotSame } from './actionTypes';
 
 export function userSignUp(info) {
-  console.log('info', info);
-  if (info.password !== info.passconfirm) {
-    return (dispatch) => {
-      dispatch({ type: 'PW_NOT_SAME', payload: 'Passwords not same' });
-    };
-  } else {
-  const request = axios.post('/auth/signup', info);
-    return (dispatch) => {
-      return request
+  return (dispatch) => {
+    if (info.password !== info.passconfirm) {
+      dispatch({ type: pwNotSame, payload: 'Passwords not same' });
+    } else {
+      axios.post('/auth/signup', info)
         .then((response) => {
-          dispatch({ type: 'SIGN_UP', payload: response.data });
-          if(typeof response.data !== 'string') {
+          dispatch({ type: signUp, payload: response.data });
+          if (typeof response.data !== 'string') {
             localStorage.setItem('id', response.data.user.userid);
             localStorage.setItem('username', response.data.user.username);
             localStorage.setItem('token', response.data.token);
@@ -29,8 +25,8 @@ export function userSignUp(info) {
             }
           }
         });
-    };
-  }
+      }
+  };
 }
 
 export function userSignIn(info) {
@@ -41,7 +37,7 @@ export function userSignIn(info) {
     return request
       .then((response) => {
         console.log('inside dispatch', response);
-        dispatch({ type: 'SIGN_IN', payload: response.data });
+        dispatch({ type: signIn , payload: response.data });
       });
   };
 }
