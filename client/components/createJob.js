@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import Select from 'react-select';
 
 import SelectionComponent from './selectionComponent';
-import { createJob } from '../actions/jobs';
+import { sendJob } from '../actions/jobs';
 
 class CreateJobForm extends Component {
   render() {
@@ -17,7 +16,7 @@ class CreateJobForm extends Component {
     ];
     const { handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.props.createJob)}>
+      <form onSubmit={handleSubmit(this.props.sendJob)}>
         <h3>Create Job</h3>
         <div className="form-group">
           <label>Job Name</label>
@@ -31,17 +30,12 @@ class CreateJobForm extends Component {
 
         <div className="form-group">
           <label>Category</label>
-          <Field name="category" component={SelectionComponent} options={categories} className="form-control" />
-        </div>
-
-        <div className="form-group">
-          <label>Job Category</label>
-          <Field name="category_id" component="input" type="text" className="form-control" />
+          <Field name="category_id" component={SelectionComponent} options={categories} className="form-control" />
         </div>
 
         <div className="form-group">
           <label>Description</label>
-          <Field name="description" component="input" type="textarea" className="form-control" />
+          <Field name="description" component="textarea" type="textarea" className="form-control" />
         </div>
 
         <div className="form-group">
@@ -64,4 +58,4 @@ CreateJobForm = reduxForm({
   form: 'CreateJobForm'
 })(CreateJobForm);
 
-export default connect(null, { createJob })(CreateJobForm);
+export default connect(null, { sendJob })(CreateJobForm);
