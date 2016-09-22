@@ -7,11 +7,11 @@ const bcrypt = require('bcrypt');
 const User = connection.define('Users', {
 	username: {
 		type: Sequelize.STRING,
-		allowNull: false,
+		allowNull: true,
 	},
 	password: {
 		type: Sequelize.STRING,
-		allowNull: false,
+		allowNull: true,
 	},
 	name: {
 		type: Sequelize.STRING,
@@ -20,8 +20,20 @@ const User = connection.define('Users', {
 	email: {
 		type: Sequelize.STRING,
 		isEmail: true,
-		allowNull: false,
+		allowNull: true
 	},
+	phone: {
+		type: Sequelize.INTEGER,
+		allowNull: true
+	},
+	fb_id: {
+		type: Sequelize.STRING,
+		allownull: true
+	},
+	fb_token: {
+		type: Sequelize.STRING,
+		allownull: true
+	}
 }, {
 	freezeTableName: true,
 });
