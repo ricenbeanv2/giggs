@@ -6,7 +6,10 @@ import renderField from './renderField';
 
 class SignUpForm extends Component {
   render() {
+    let loading = '';
     const { error, handleSubmit, submitting } = this.props;
+    if(submitting)
+      loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
     return (
         <form onSubmit={handleSubmit(this.props.userSignUp)}>
           <h3>Sign Up</h3>
@@ -38,6 +41,7 @@ class SignUpForm extends Component {
           <div>
             <button type="submit" disabled={submitting}>Sign Up</button>
           </div>
+          <img src={loading} />
         </form>
     );
   }

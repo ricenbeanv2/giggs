@@ -3,12 +3,10 @@ import { browserHistory } from 'react-router';
 import { SubmissionError } from 'redux-form';
 
 export function userSignUp(info) {
-  console.log('info inside auth.js', info);
   const request = axios.post('/auth/signup', info);
   return (dispatch) => {
     return request
       .then((response) => {
-        console.log('response inside userSignup', response);
         dispatch({ type: 'SIGN_UP', payload: response.data });
         if(typeof response.data !== 'string') {
           localStorage.setItem('id', response.data.user.userid);
@@ -17,16 +15,13 @@ export function userSignUp(info) {
           browserHistory.push('/userprofile');
         } else {
           if (response.data.includes('username')) {
-            throw new SubmissionError({ username: 'User already exists', _error: 'Please try again' });
+            throw new SubmissionError({ username: 'username already exists', _error: 'Please try again' });
           }
           if (response.data.includes('email')) {
             throw new SubmissionError({ email: 'E-mail already exists', _error: 'Please try again' });
           }
         }
       })
-      .catch(() => {
-        // throw new SubmissionError({ _error: 'Please fill out all required fields' });
-      });
   };
 }
 
