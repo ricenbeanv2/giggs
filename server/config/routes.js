@@ -17,4 +17,7 @@ router.get('/db/jobs/query', jobController.queryJobs);
 router.post('/auth/signup', checkUsername, checkEmail, userController.signup);
 router.get('/auth/signin', userController.signin);
 
+router.get('/db/users/:id', userController.getUserInfo);
+router.post('/db/users/update', userController.updateUser);
+
 module.exports = router;

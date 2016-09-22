@@ -85,4 +85,36 @@ User.auth = userInput => {
 		});
 	});
 };
+User.getProfile = userID => {
+	return new Promise((resolve, reject) => {
+		User.findById(userID)
+		.then(user => {
+				resolve(user);
+		})
+		.catch(err => {
+			reject(err);
+		});
+	});
+};
+User.updateInfo = userObj => {
+	return new Promise((resolve, reject) => {
+		User.build(userObj).save()
+		.then(user => {
+			const token = jwt.encode({
+				iss: user.id,
+				exp: moment().add('days', 7).valueOf()
+			}, 'appsecrethere');
+			bcrypt.hash(userObj.password, 10, (err, hash) => {
+				user.update({ password: hash })
+				.then(() => {
+					resolve('sucess');
+				});
+			});
+		})
+		.catch(err => {
+			reject(err);
+		});
+	});
+};
+
 module.exports = User;
