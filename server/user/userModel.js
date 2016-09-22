@@ -77,7 +77,23 @@ User.auth = userInput => {
 				if (err) {
 					throw err;
 				}
-				resolve(valid);
+				if (valid) {
+					const token = jwt.encode({
+						iss: user.id,
+						exp: moment().add('days', 7).valueOf()
+					}, 'appsecrethere');
+					resolve({
+						token,
+						expires: moment().add('days', 7).valueOf(),
+						user: {
+							username: user.username,
+							userid: user.id
+						}
+					});
+				}
+				if (!valid) {
+					reject(valid);
+				}
 			});
 		})
 		.catch(err => {
