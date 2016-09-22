@@ -3,10 +3,18 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import Select from 'react-select';
 
+import SelectionComponent from './selectionComponent';
 import { createJob } from '../actions/jobs';
 
 class CreateJobForm extends Component {
   render() {
+    const categories = [
+      { value: 'plumbing', label: 'Plumbing' },
+      { value: 'tutor', label: 'Tutor' },
+      { value: 'tech', label: 'Tech' },
+      { value: 'auto', label: 'Auto' },
+      { value: 'cook', label: 'Cook' }
+    ];
     const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit(this.props.createJob)}>
@@ -19,6 +27,11 @@ class CreateJobForm extends Component {
         <div className="form-group">
           <label>Openings</label>
           <Field name="openings" component="input" type="number" className="form-control" />
+        </div>
+
+        <div className="form-group">
+          <label>Category</label>
+          <Field name="category" component={SelectionComponent} options={categories} className="form-control" />
         </div>
 
         <div className="form-group">

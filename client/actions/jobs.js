@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 export function createJob(jobDetails) {
-  console.log('inside job.js', jobDetails);
-
+  jobDetails.category = jobDetails.category.value;
   const request = axios.post('/db/jobs/create', jobDetails);
   return (dispatch) => {
     return request

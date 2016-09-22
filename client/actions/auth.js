@@ -1,21 +1,16 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { render } from 'react-dom';
 import { SubmissionError } from 'redux-form';
 
 export function userSignUp(info) {
-  console.log('info', info);
-  if (info.password !== info.passconfirm) {
-    return (dispatch) => {
+  return (dispatch) => {
+    if (info.password !== info.passconfirm) {
       dispatch({ type: 'PW_NOT_SAME', payload: 'Passwords not same' });
-    };
-  } else {
-  const request = axios.post('/auth/signup', info);
-    return (dispatch) => {
-      return request
+    } else {
+      axios.post('/auth/signup', info)
         .then((response) => {
           dispatch({ type: 'SIGN_UP', payload: response.data });
-          if(typeof response.data !== 'string') {
+          if (typeof response.data !== 'string') {
             localStorage.setItem('id', response.data.user.userid);
             localStorage.setItem('username', response.data.user.username);
             localStorage.setItem('token', response.data.token);
@@ -29,8 +24,8 @@ export function userSignUp(info) {
             }
           }
         });
-    };
-  }
+      }
+  };
 }
 
 export function userSignIn(info) {
