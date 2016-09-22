@@ -14,7 +14,7 @@ app.set('PORT', process.env.PORT || 3000);
 app.use(cors());
 
 app.use(bodyParser.json());
-app.use(require('cookie-parser'));
+// app.use(require('cookie-parser'));
 app.use(require('express-session')({
 	secret: 'giggsthebest',
 	resave: true,
