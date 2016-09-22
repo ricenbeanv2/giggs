@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { SubmissionError } from 'redux-form';
-import { signUp, signIn } from './actionTypes';
+import { signUp, signIn, pwNotSame } from './actionTypes';
 
 export function userSignUp(info) {
   return (dispatch) => {
     if (info.password !== info.passconfirm) {
-      dispatch({ type: 'PW_NOT_SAME', payload: 'Passwords not same' });
+      dispatch({ type: pwNotSame, payload: 'Passwords not same' });
     } else {
       axios.post('/auth/signup', info)
         .then((response) => {

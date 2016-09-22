@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { createJob } from './actionTypes';
+import { SubmissionError } from 'redux-form';
+
+import { createJob, notFilled } from './actionTypes';
 
 export function sendJob(jobDetails) {
   const jobDet = jobDetails;
@@ -8,15 +10,18 @@ export function sendJob(jobDetails) {
   jobDet.location_lng = 2.0;
   jobDet.user_id = localStorage.getItem('id');
   console.log('jobDetails', jobDet);
-  const request = axios.post('/db/jobs/create', jobDetails);
   return (dispatch) => {
-    return request
+    return axios.post('/db/jobs/create', jobDetails)
       .then((response) => {
         console.log('createJob payload:', response);
-        dispatch({ type: 'CREATE_JOB', payload: response.data });
+        dispatch({ type: createJob, payload: response.data });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        console.log('value:', Object.keys(jobDet).length);
+        if (Object.keys(jobDet).length < 9) {
+          throw new SubmissionError({ _error: 'Please fill out missing fields.' });
+        }
+        throw new SubmissionError({ _error: 'Please log in.' });
       });
   };
 }
