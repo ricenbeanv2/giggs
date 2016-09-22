@@ -85,4 +85,52 @@ User.auth = userInput => {
 		});
 	});
 };
+User.getProfile = userID => {
+	return new Promise((resolve, reject) => {
+		User.findById(userID)
+		.then(user => {
+				resolve(user);
+		})
+		.catch(err => {
+			reject(err);
+		});
+	});
+};
+User.updateInfo = (userID, fields) => {
+	if (fields.password) {
+		console.log("if fields.password");
+		User.findById(userID)
+		.then(user => {
+			bcrypt.hash(fields.password, 10, (err, hash) => {
+				user.update({ password: hash })
+				.then(() => {
+					delete fields.password;
+				});
+			});
+		});
+	}
+	return new Promise((resolve, reject) => {
+		User.findById(userID)
+		.then(user => {
+			user.update(fields)
+			.then(result => {
+				const newUserInfo = {
+					id: result.id,
+					username: result.username,
+					name: result.name,
+					email: result.email,
+					phone: result.phone
+				};
+				resolve(newUserInfo);
+			})
+			.catch(err => {
+				reject(err);
+			});
+		})
+		.catch(err => {
+			reject(err);
+		});
+	});
+};
+
 module.exports = User;
