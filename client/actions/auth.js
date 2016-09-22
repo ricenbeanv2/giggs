@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { SubmissionError } from 'redux-form';
+import { signUp, signIn } from './actionTypes';
 
 export function userSignUp(info) {
   return (dispatch) => {
@@ -9,7 +10,7 @@ export function userSignUp(info) {
     } else {
       axios.post('/auth/signup', info)
         .then((response) => {
-          dispatch({ type: 'SIGN_UP', payload: response.data });
+          dispatch({ type: signUp, payload: response.data });
           if (typeof response.data !== 'string') {
             localStorage.setItem('id', response.data.user.userid);
             localStorage.setItem('username', response.data.user.username);
@@ -36,7 +37,7 @@ export function userSignIn(info) {
     return request
       .then((response) => {
         console.log('inside dispatch', response);
-        dispatch({ type: 'SIGN_IN', payload: response.data });
+        dispatch({ type: signIn , payload: response.data });
       });
   };
 }

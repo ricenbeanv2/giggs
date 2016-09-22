@@ -38,6 +38,11 @@ class SignUpForm extends Component {
           </div>
 
           <div className="form-group">
+            <label>Phone Number</label>
+            <Field name="phone" component={renderField} type="number" className="form-control" />
+          </div>
+
+          <div className="form-group">
             <label>Password</label>
             <Field name="password" component={renderField} type="password" className="form-control" />
           </div>

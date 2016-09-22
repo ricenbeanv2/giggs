@@ -7,7 +7,7 @@ export function createJob(jobDetails) {
     return request
       .then((response) => {
         console.log('createJob payload:', response);
-        dispatch({ type: 'SIGN_UP', payload: response.data });
+        dispatch({ type: 'CREATE_JOB', payload: response.data });
       })
       .catch((error) => {
         console.log(error);
