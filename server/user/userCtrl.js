@@ -26,9 +26,9 @@ module.exports = {
 		};
 
 		User.auth(userInput)
-		.then((valid) => {
-			if (valid) {
-				res.status(200).send('login sucess');
+		.then((data) => {
+			if (data) {
+				res.status(200).json(data);
 			} else {
 				res.status(200).send('invalid password');
 			}
