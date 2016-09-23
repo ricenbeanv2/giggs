@@ -5,6 +5,9 @@ const LogOut = () => {
   const unAuth = () => {
     localStorage.removeItem('id');
     localStorage.removeItem('username');
+    localStorage.removeItem('email');
+    localStorage.removeItem('phone');
+    localStorage.removeItem('name');
     localStorage.removeItem('token');
   };
 
