@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { SubmissionError } from 'redux-form';
+import { browserHistory } from 'react-router';
 
 import { createJob, notFilled } from './actionTypes';
 
@@ -15,6 +16,7 @@ export function sendJob(jobDetails) {
       .then((response) => {
         console.log('createJob payload:', response);
         dispatch({ type: createJob, payload: response.data });
+        browserHistory.push('/joblistings')
       })
       .catch(() => {
         console.log('value:', Object.keys(jobDet).length);

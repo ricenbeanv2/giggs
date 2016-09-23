@@ -7,14 +7,18 @@ import { sendJob } from '../../actions/jobs';
 import renderField from '../renderField';
 
 let CreateJobForm = props => {
-  const { error, handleSubmit, submitting } = props;
+  let loading = '';
   const categories = [
     { value: 'plumbing', label: 'Plumbing' },
     { value: 'tutor', label: 'Tutor' },
     { value: 'tech', label: 'Tech' },
     { value: 'auto', label: 'Auto' },
     { value: 'cook', label: 'Cook' }
-];
+  ];
+  const { error, handleSubmit, submitting } = props;
+  if (submitting) {
+    loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
+  }
   return (
     <form onSubmit={handleSubmit(props.sendJob)}>
       <h3>Create Job</h3>
@@ -51,6 +55,7 @@ let CreateJobForm = props => {
       <div>
         {error && <strong>{error}</strong>}
       </div>
+      <img src={loading} />
     </form>
   );
 };
