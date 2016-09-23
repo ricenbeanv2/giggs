@@ -11,7 +11,7 @@ router.post('/db/applicant/cancel', applicantController.cancelApplied);
 router.post('/db/applicant/updateBid', applicantController.updateBid);
 router.get('/db/applicant/', applicantController.getApplicants);
 
-router.post('/db/category/create', categoryController.propagateCategories);
+//router.post('/db/category/create', categoryController.propagateCategories);
 router.get('/db/category/getAll', categoryController.getAllCategories);
 router.get('/db/category/query', categoryController.queryCategory);
 
