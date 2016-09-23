@@ -10,11 +10,14 @@ export function userSignUp(info) {
     } else {
       axios.post('/auth/signup', info)
         .then((response) => {
+          console.log('response');
           dispatch({ type: SIGN_UP, payload: response.data });
           if (typeof response.data !== 'string') {
+            console.log('response data after signup', response.data);
             localStorage.setItem('id', response.data.user.userid);
-            localStorage.setItem('username', response.data.user.username);
             localStorage.setItem('token', response.data.token);
+            console.log('inside signup', getUserInfo);
+            getUserInfo(response.data.user.userid);
             browserHistory.push('/userprofile');
           } else {
             if (response.data.includes('username')) {
@@ -50,14 +53,27 @@ export function facebookSignUp() {
 }
 
 export function getUserInfo(id) {
-  return (dispatch) => {
-    axios.get('/db/users/' + id)
-      .then((response) => {
-        console.log('response', response);
-        dispatch({ type: GET_USER, payload: response.data });
-      });
-  };
+  axios.get('/db/users/' + id)
+    .then((response) => {
+      setLocal(response.data);
+    });
+
 }
 export function updateUserInfo(info) {
+  return (dispatch) => {
+    return axios.post('/db/users/update', { id: localStorage.getItem('id'), fields: info })
+      .then((response) => {
+        console.log('response inside updateUserInfo', response);
+        dispatch({ type: UPDATE_USER, payload: response.data });
+        setLocal(response.data);
+        throw new SubmissionError({ _error: 'User Profile Updated!' });
+      });
+  }
+}
 
+function setLocal(info) {
+  localStorage.setItem('email', info.email);
+  localStorage.setItem('name', info.name);
+  localStorage.setItem('phone', info.phone);
+  localStorage.setItem('username', info.username);
 }
