@@ -7,6 +7,15 @@ const Categories = connection.define('Categories', {
 		allowNull: false,
 		notEmpty: true,
 	},
+
+	parent_id: {
+		type: Sequelize.INTEGER,
+		references: {
+			model: 'Categories',
+			key: 'id',
+		},
+	},
+
 }, {
 	freezeTableName: true,
 });
