@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import LogOut from './logout';
+import LogOut from './account/logout';
 
 const NavBar = () => {
   return (

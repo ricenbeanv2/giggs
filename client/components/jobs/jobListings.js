@@ -6,15 +6,20 @@ import SimpleMap from './googleMaps'
 import dummyData from './dummyData'
 
 
-import { getJobList } from '../actions/jobs';
-import EachJob from './eachJob'
-import InputBox from './inputBox'
+import { getJobList } from '../../actions/jobs';
+import EachJob from './eachJob';
+import InputBox from '../inputBox';
 
 class JobListings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: dummyData
+      jobName: 'testing',
+      openings: 'testing',
+      max_price: 'testing',
+      location: 'testing',
+      deadline: 'testing',
+      description: 'testing'
     };
     this.handleChange = this.handleChange.bind(this);
   }

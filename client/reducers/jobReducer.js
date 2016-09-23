@@ -1,9 +1,9 @@
 export default function (state = [], action) {
   switch (action.type) {
   case 'CREATE_JOB':
-    return action
+    return action;
   case 'GET_JOBS':
-    return action
+    return action;
   }
   return state;
 }
