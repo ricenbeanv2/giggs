@@ -1,6 +1,8 @@
-export const signUp = 'SIGN_UP';
-export const signIn = 'SIGN_IN';
-export const createJob = 'CREATE_JOB';
-export const pwNotSame = 'PW_NOT_SAME';
-export const notFilled = 'NOT_FILLED';
-export const fbSignUp = 'FB_SIGNUP';
+export const SIGN_UP = 'sign_up';
+export const SIGN_IN = 'sign_in';
+export const CREATE_JOB = 'create_job';
+export const PW_NOT_SAME = 'pw_not_same';
+export const NOT_FILLED = 'not_filled';
+export const FB_SIGNUP = 'fb_signup';
+export const UPDATE_USER = 'update_user';
+export const GET_USER = 'get_user';

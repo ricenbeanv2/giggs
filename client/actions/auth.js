@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { SubmissionError } from 'redux-form';
-import { signUp, signIn, pwNotSame } from './actionTypes';
+import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER } from './actionTypes';
 
 export function userSignUp(info) {
   return (dispatch) => {
     if (info.password !== info.passconfirm) {
-      dispatch({ type: pwNotSame, payload: 'Passwords not same' });
+      dispatch({ type: PW_NOT_SAME, payload: 'Passwords not same' });
     } else {
       axios.post('/auth/signup', info)
         .then((response) => {
-          dispatch({ type: signUp, payload: response.data });
+          dispatch({ type: SIGN_UP, payload: response.data });
           if (typeof response.data !== 'string') {
             localStorage.setItem('id', response.data.user.userid);
             localStorage.setItem('username', response.data.user.username);
@@ -37,7 +37,7 @@ export function userSignIn(info) {
     return request
       .then((response) => {
         console.log('inside dispatch', response);
-        dispatch({ type: signIn, payload: response.data });
+        dispatch({ type: SIGN_IN, payload: response.data });
       });
   };
 }
@@ -49,6 +49,15 @@ export function facebookSignUp() {
     });
 }
 
+export function getUserInfo(id) {
+  return (dispatch) => {
+    axios.get('/db/users/' + id)
+      .then((response) => {
+        console.log('response', response);
+        dispatch({ type: GET_USER, payload: response.data });
+      });
+  };
+}
 export function updateUserInfo(info) {
 
 }
