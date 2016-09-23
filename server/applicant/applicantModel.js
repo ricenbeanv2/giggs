@@ -116,4 +116,24 @@ Applicant.updateBid = params => {
 	});
 };
 
+Applicant.getApplicants = jobID => {
+	return new Promise((resolve, reject) => {
+		Applicant.findAll({
+			where: {
+				job_id: jobID
+			}
+		})
+		.then(result => {
+			if (!result) {
+				reject('no one applied for the job');
+			} else {
+				resolve(result);
+			}
+		})
+		.catch(err => {
+			reject(err);
+		});
+	});
+};
+
 module.exports = Applicant;

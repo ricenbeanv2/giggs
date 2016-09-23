@@ -55,27 +55,15 @@ module.exports = {
 		});
 	},
 
-	getApplied: (req, res) => {
-		res.status(200).send('applicant ctrl');
-	},
-
-	getAllApplicants: (req, res) => {
-		res.status(200).send('applicant ctrl');
-	},
-
-
-	getPendings: (req, res) => {
-		res.status(200).send('applicant ctrl');
-	},
-
-	getRejected: (req, res) => {
-		res.status(200).send('applicant ctrl');
-	},
-
-	getAccepted: (req, res) => {
-		res.status(200).send('applicant ctrl');
-	},
-
+	getApplicants: (req, res) => {
+		Applicant.getApplicants(req.query.job_id)
+		.then(data => {
+			res.status(200).json(data);
+		})
+		.catch(err => {
+			res.status(200).send(err);
+		});
+	}
 
 
 };
