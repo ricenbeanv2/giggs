@@ -37,7 +37,18 @@ export function userSignIn(info) {
     return request
       .then((response) => {
         console.log('inside dispatch', response);
-        dispatch({ type: signIn , payload: response.data });
+        dispatch({ type: signIn, payload: response.data });
       });
   };
+}
+
+export function facebookSignUp() {
+  axios.get('/auth/facebook')
+    .then((response) => {
+      console.log('response', response);
+    });
+}
+
+export function updateUserInfo(info) {
+
 }

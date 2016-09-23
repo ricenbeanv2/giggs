@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Select from 'react-select';
 
-import { getJobList } from '../actions/jobs';
-import EachJob from './eachJob'
-import InputBox from './inputBox'
+import { getJobList } from '../../actions/jobs';
+import EachJob from './eachJob';
+import InputBox from '../inputBox';
 
 class JobListings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      jobName:'testing',
+      jobName: 'testing',
       openings: 'testing',
       max_price: 'testing',
       location: 'testing',

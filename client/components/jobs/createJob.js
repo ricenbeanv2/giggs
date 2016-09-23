@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import SelectionComponent from './selectionComponent';
-import { sendJob } from '../actions/jobs';
-import renderField from './renderField';
+import SelectionComponent from '../selectionComponent';
+import { sendJob } from '../../actions/jobs';
+import renderField from '../renderField';
 
 let CreateJobForm = props => {
   const { error, handleSubmit, submitting } = props;
