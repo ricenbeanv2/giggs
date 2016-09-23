@@ -1,9 +1,10 @@
 export default function (state = [], action) {
   switch (action.type) {
-  case 'CREATE_JOB':
-    return action;
-  case 'GET_JOBS':
-    return action;
+    case 'CREATE_JOB':
+      return action;
+    case 'GET_JOBS':
+      return action;
+    default:
+      return state;
   }
-  return state;
 }
