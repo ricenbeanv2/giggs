@@ -12,6 +12,9 @@
     "type": "git",
     "url": "git+https://github.com/ricenbeanv2/giggs.git"
   },
+  "engines": {
+    "node": "6.3.1"
+  },
   "author": "Tiffany Ip, Sandy Tran, Calvin Lee, Alberto Esquivias",
   "license": "ISC",
   "bugs": {
