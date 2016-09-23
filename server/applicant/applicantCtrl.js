@@ -14,8 +14,7 @@ module.exports = {
 		.then(data => {
 			if (data) {
 				res.status(200).json(data);
-			}
-			if (!data) {
+			} else {
 				res.status(200).send('failed to add applicant entry');
 			}
 		})
@@ -41,8 +40,22 @@ module.exports = {
 		});
 	},
 
-	getApplied: (req, res) => {
+	updateBid: (req, res) => {
+		const entry = {
+			user_id: req.body.user_id,
+			job_id: req.body.job_id,
+			bid_price: req.body.bid_price
+		};
+		Applicant.updateBid(entry)
+		.then(data => {
+			res.status(200).json(data);
+		})
+		.catch(err => {
+			res.status(200).send(err);
+		});
+	},
 
+	getApplied: (req, res) => {
 		res.status(200).send('applicant ctrl');
 	},
 
@@ -63,9 +76,6 @@ module.exports = {
 		res.status(200).send('applicant ctrl');
 	},
 
-	changeBid: (req, res) => {
-		res.status(200).send('applicant ctrl');
-	},
 
 
 };

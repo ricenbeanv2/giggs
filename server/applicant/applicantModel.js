@@ -93,4 +93,27 @@ Applicant.cancel = params => {
 	});
 };
 
+Applicant.updateBid = params => {
+	return new Promise((resolve, reject) => {
+		Applicant.findOne({
+			where: {
+				job_id: params.job_id,
+				user_id: params.user_id
+			}
+		})
+		.then(entry => {
+			entry.update({ bid_price: params.bid_price })
+			.then(result => {
+				resolve(result);
+			})
+			.catch(err => {
+				reject(err);
+			});
+		})
+		.catch(err => {
+			reject(err);
+		});
+	});
+};
+
 module.exports = Applicant;
