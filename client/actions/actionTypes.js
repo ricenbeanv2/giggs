@@ -3,3 +3,4 @@ export const signIn = 'SIGN_IN';
 export const createJob = 'CREATE_JOB';
 export const pwNotSame = 'PW_NOT_SAME';
 export const notFilled = 'NOT_FILLED';
+export const fbSignUp = 'FB_SIGNUP';

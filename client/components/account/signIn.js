@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { userSignIn } from '../actions/auth';
+import { userSignIn } from '../../actions/auth';
 
-import InputBox from './inputBox';
-import EachJob from './eachJob'
+import InputBox from '../inputBox';
 
 class SignIn extends Component {
   constructor(props) {
