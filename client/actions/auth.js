@@ -1,20 +1,23 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { SubmissionError } from 'redux-form';
-import { signUp, signIn, pwNotSame } from './actionTypes';
+import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER } from './actionTypes';
 
 export function userSignUp(info) {
   return (dispatch) => {
     if (info.password !== info.passconfirm) {
-      dispatch({ type: pwNotSame, payload: 'Passwords not same' });
+      dispatch({ type: PW_NOT_SAME, payload: 'Passwords not same' });
     } else {
       axios.post('/auth/signup', info)
         .then((response) => {
-          dispatch({ type: signUp, payload: response.data });
+          console.log('response');
+          dispatch({ type: SIGN_UP, payload: response.data });
           if (typeof response.data !== 'string') {
+            console.log('response data after signup', response.data);
             localStorage.setItem('id', response.data.user.userid);
-            localStorage.setItem('username', response.data.user.username);
             localStorage.setItem('token', response.data.token);
+            console.log('inside signup', getUserInfo);
+            getUserInfo(response.data.user.userid);
             browserHistory.push('/userprofile');
           } else {
             if (response.data.includes('username')) {
@@ -37,7 +40,7 @@ export function userSignIn(info) {
     return request
       .then((response) => {
         console.log('inside dispatch', response);
-        dispatch({ type: signIn, payload: response.data });
+        dispatch({ type: SIGN_IN, payload: response.data });
       });
   };
 }
@@ -49,6 +52,28 @@ export function facebookSignUp() {
     });
 }
 
-export function updateUserInfo(info) {
+export function getUserInfo(id) {
+  axios.get('/db/users/' + id)
+    .then((response) => {
+      setLocal(response.data);
+    });
 
+}
+export function updateUserInfo(info) {
+  return (dispatch) => {
+    return axios.post('/db/users/update', { id: localStorage.getItem('id'), fields: info })
+      .then((response) => {
+        console.log('response inside updateUserInfo', response);
+        dispatch({ type: UPDATE_USER, payload: response.data });
+        setLocal(response.data);
+        throw new SubmissionError({ _error: 'User Profile Updated!' });
+      });
+  }
+}
+
+function setLocal(info) {
+  localStorage.setItem('email', info.email);
+  localStorage.setItem('name', info.name);
+  localStorage.setItem('phone', info.phone);
+  localStorage.setItem('username', info.username);
 }
