@@ -6,7 +6,10 @@ const userController = require('../user/userCtrl');
 const checkUsername = require('./middleware').checkUsername;
 const checkEmail = require('./middleware').checkEmail;
 
-router.get('/applicant', applicantController.helloWorld);
+router.post('/db/applicant/apply', applicantController.applyJob);
+router.post('/db/applicant/cancel', applicantController.cancelApplied);
+router.post('/db/applicant/updateBid', applicantController.updateBid);
+router.get('/db/applicant/', applicantController.getApplicants);
 
 router.post('/db/category/create', categoryController.propagateCategories);
 router.get('/db/category/getAll', categoryController.getAllCategories);
