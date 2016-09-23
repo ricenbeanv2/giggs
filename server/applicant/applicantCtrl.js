@@ -1,5 +1,6 @@
 const Applicant = require('./applicantModel');
-const JOB_STATUS = ['pending', 'accepted', 'rejected'];
+
+const JOB_STATUS = ['pending', 'accepted', 'rejected', 'completed'];
 
 module.exports = {
 	applyJob: (req, res) => {
@@ -17,6 +18,9 @@ module.exports = {
 			if (!data) {
 				res.status(200).send('failed to add applicant entry');
 			}
+		})
+		.catch(err => {
+			res.status(200).send(err);
 		});
 	},
 
@@ -32,10 +36,13 @@ module.exports = {
 			} else {
 				res.status(200).send('failed to cancel application');
 			}
+		}).catch(err => {
+			res.status(200).send(err);
 		});
 	},
 
 	getApplied: (req, res) => {
+
 		res.status(200).send('applicant ctrl');
 	},
 

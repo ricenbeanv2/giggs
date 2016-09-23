@@ -47,7 +47,7 @@ Applicant.create = params => {
 		.then(entry => {
 			if (entry) {
 				//check if user already applied
-				reject(entry);
+				reject('user already applied for job');
 			}
 			if (!entry) {
 				//create a new entry in applicants if not applied
@@ -78,8 +78,13 @@ Applicant.cancel = params => {
 			if (entry) {
 				entry.destroy()
 				.then(() => {
-					resolve();
+					resolve('Application canceled');
+				})
+				.catch(err => {
+					reject(err);
 				});
+			} else {
+				reject('application does not exists');
 			}
 		})
 		.catch(err => {

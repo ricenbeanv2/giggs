@@ -7,6 +7,7 @@ const checkUsername = require('./middleware').checkUsername;
 const checkEmail = require('./middleware').checkEmail;
 
 router.post('/db/applicant/apply', applicantController.applyJob);
+router.post('/db/applicant/cancel', applicantController.cancelApplied);
 
 router.post('/db/category/create', categoryController.propagateCategories);
 router.get('/db/category/getAll', categoryController.getAllCategories);
