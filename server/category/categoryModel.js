@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const connection = require('../db/connection');
+const data = require('./categoryData');
 
 const Categories = connection.define('Categories', {
 	name: {
@@ -17,8 +18,31 @@ const Categories = connection.define('Categories', {
 	},
 
 }, {
+	hooks: {
+		afterSync: () => propagateCategories(data),
+	},
 	freezeTableName: true,
 });
+
+function propagateCategories(data) {
+
+	function insertCategories(data, parentID = null) {
+		for (const category of Object.keys(data)) {
+			Categories.create({ name: category, parent_id: parentID })
+				.then(cat => {
+					if (data[category] != null) {
+						insertCategories(data[category], cat.dataValues.id);
+					}
+					return category;
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+	}
+
+	insertCategories(data);
+}
 
 /*Categories.sync({ force: true }).then(function() {
 	console.log('Categories table created');

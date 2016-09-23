@@ -8,7 +8,7 @@ const checkEmail = require('./middleware').checkEmail;
 
 router.get('/applicant', applicantController.helloWorld);
 
-router.post('/db/category/create', categoryController.propagateCategories);
+//router.post('/db/category/create', categoryController.propagateCategories);
 router.get('/db/category/getAll', categoryController.getAllCategories);
 router.get('/db/category/query', categoryController.queryCategory);
 
