@@ -3,7 +3,7 @@ const request = require('request');
 const configAuth = require('./auth');
 const User = require('../user/userModel');
 
-let fb = {};
+var fb = {};
 
 module.exports = (app, passport) => {
   passport.serializeUser((user, cb) => {
