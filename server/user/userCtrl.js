@@ -24,7 +24,6 @@ module.exports = {
 			username: req.query.username,
 			password: req.query.password
 		};
-
 		User.auth(userInput)
 		.then((data) => {
 			if (data) {
@@ -32,6 +31,9 @@ module.exports = {
 			} else {
 				res.status(200).send('invalid password');
 			}
+		})
+		.catch(err => {
+			res.status(400).send(err);
 		});
 	},
 
@@ -50,14 +52,23 @@ module.exports = {
 			} else {
 				res.status(200).send('unable to fetch user information');
 			}
+		})
+		.catch(err => {
+			res.status(400).send(err);
 		});
 		//return job history
 		//retun apply history
 	},
 	updateUser: (req, res) => {
-		User.updateInfo(req.body.id, req.body.fields)
+		const fields = req.body;
+		const userID = fields.id;
+		delete fields.id;
+		User.updateInfo(userID, fields)
 		.then(result => {
 			res.status(200).send(result);
+		})
+		.catch(err => {
+			res.status(400).send(err);
 		});
 	}
 

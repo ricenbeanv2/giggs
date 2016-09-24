@@ -90,9 +90,8 @@ User.auth = userInput => {
 							userid: user.id
 						}
 					});
-				}
-				if (!valid) {
-					reject(valid);
+				} else {
+					reject('invalid token');
 				}
 			});
 		})
@@ -114,7 +113,6 @@ User.getProfile = userID => {
 };
 User.updateInfo = (userID, fields) => {
 	if (fields.password) {
-		console.log("if fields.password");
 		User.findById(userID)
 		.then(user => {
 			bcrypt.hash(fields.password, 10, (err, hash) => {
