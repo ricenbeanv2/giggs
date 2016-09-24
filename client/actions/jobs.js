@@ -15,8 +15,8 @@ export function sendJob(jobDetails) {
     return axios.post('/db/jobs/create', jobDetails)
       .then((response) => {
         console.log('createJob payload:', response);
+        browserHistory.push('/joblistings');
         dispatch({ type: createJob, payload: response.data });
-        browserHistory.push('/joblistings')
       })
       .catch(() => {
         console.log('value:', Object.keys(jobDet).length);
