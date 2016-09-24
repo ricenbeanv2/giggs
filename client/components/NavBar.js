@@ -4,14 +4,16 @@ import LogOut from './account/logout';
 
 const NavBar = () => {
   return (
-    <nav>
-      <Link to="/">Giggs </Link>
-      <Link to="/signin">Sign in </Link>
-      <Link to="/signup">Sign up </Link>
-      <Link to="/userprofile">User Profile </Link>
-      <Link to="/createjob">Create Job </Link>
-      <Link to="/joblistings">Job Listings </Link>
-      <LogOut />
+    <nav className="navbar navbar-default">
+      <ul className="nav navbar-nav">
+        <li><Link to="/">Giggs </Link></li>
+        <li><Link to="/signin">Sign in </Link></li>
+        <li><Link to="/signup">Sign up </Link></li>
+        <li><Link to="/userprofile">User Profile </Link></li>
+        <li><Link to="/createjob">Create Job </Link></li>
+        <li><Link to="/joblistings">Job Listings </Link></li>
+        <li><LogOut /></li>
+      </ul>
     </nav>
   );
 };

@@ -9,11 +9,11 @@ import renderField from '../renderField';
 let CreateJobForm = props => {
   let loading = '';
   const categories = [
-    { value: 'plumbing', label: 'Plumbing' },
-    { value: 'tutor', label: 'Tutor' },
-    { value: 'tech', label: 'Tech' },
-    { value: 'auto', label: 'Auto' },
-    { value: 'cook', label: 'Cook' }
+    { value: 'technology', label: 'Technology' },
+    { value: 'automotive', label: 'Automotive' },
+    { value: 'spa/salon', label: 'Spa/Salon' },
+    { value: 'home/office', label: 'Home/Office' },
+    { value: 'other', label: 'Other' }
   ];
   const { error, handleSubmit, submitting } = props;
   if (submitting) {

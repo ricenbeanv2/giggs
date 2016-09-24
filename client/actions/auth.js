@@ -10,15 +10,11 @@ export function userSignUp(info) {
     } else {
       axios.post('/auth/signup', info)
         .then((response) => {
-          console.log('response');
           dispatch({ type: SIGN_UP, payload: response.data });
           if (typeof response.data !== 'string') {
-            console.log('response data after signup', response.data);
             localStorage.setItem('id', response.data.user.userid);
             localStorage.setItem('token', response.data.token);
-            console.log('inside signup', getUserInfo);
             getUserInfo(response.data.user.userid);
-            browserHistory.push('/userprofile');
           } else {
             if (response.data.includes('username')) {
               throw new SubmissionError({ username: 'username already exists', _error: 'Please try again' });
@@ -56,6 +52,7 @@ export function getUserInfo(id) {
   axios.get('/db/users/' + id)
     .then((response) => {
       setLocal(response.data);
+      browserHistory.push('/userprofile');
     });
 
 }
