@@ -90,9 +90,8 @@ User.auth = userInput => {
 							userid: user.id
 						}
 					});
-				}
-				if (!valid) {
-					reject(valid);
+				} else {
+					reject('invalid password');
 				}
 			});
 		})

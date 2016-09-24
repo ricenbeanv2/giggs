@@ -35,7 +35,8 @@ app.use(passport.session());
 app.post('/auth/signup', middleware.checkUsername, middleware.checkEmail, userController.signup);
 app.get('/auth/signin', userController.signin);
 require('./config/fbRoutes')(app, passport);
-app.use('/', helper, router);
+// app.use('/', helper, router);
+app.use('/', router);
 
 app.get('*', (request, response) => {
 	response.sendFile(path.resolve('./', 'client', 'index.html'));
