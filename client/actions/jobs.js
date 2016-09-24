@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
 
@@ -10,9 +11,10 @@ export function sendJob(jobDetails) {
   jobDet.location_lat = 1.0;
   jobDet.location_lng = 2.0;
   jobDet.user_id = localStorage.getItem('id');
+  console.log('cookies user', Cookies.getJSON('token'));
   console.log('jobDetails', jobDet);
   return (dispatch) => {
-    return axios.post('/db/jobs/create', jobDetails)
+    return axios.post('/db/jobs/create', jobDet, { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then((response) => {
         console.log('createJob payload:', response);
         browserHistory.push('/joblistings');

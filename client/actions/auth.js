@@ -14,7 +14,9 @@ export function userSignUp(info) {
           dispatch({ type: SIGN_UP, payload: response.data });
           if (typeof response.data !== 'string') {
             Cookies.set('user', response.data.user);
+            Cookies.set('token', response.data.token);
             getUserInfo(response.data.user.userid);
+            browserHistory.push('/userprofile')
           } else {
             console.log('inside else statement', response.data);
             if (response.data.includes('username')) {
@@ -38,15 +40,14 @@ export function userLogOut() {
 }
 
 export function userSignIn(info) {
-  console.log('inside actions folder!!!', info);
   const request = axios.get('/auth/signin', { params: info });
   return (dispatch) => {
     console.log('dispatch inside auth.js', dispatch);
     return request
       .then((response) => {
-        console.log('inside dispatch', response);
         dispatch({ type: SIGN_IN, payload: response.data });
         Cookies.set('user', response.data.user);
+        Cookies.set('token', response.data.token);
         browserHistory.push('/userprofile');
       });
   };
@@ -62,7 +63,7 @@ export function facebookSignUp() {
 export function getUserInfo(id) {
   console.log('id inside getuserinfo', id);
   return (dispatch) => {
-  return axios.get('/db/users/' + id)
+  return axios.get('/db/users/' + id, { headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then((response) => {
       dispatch({ type: GET_USER, payload: response.data });
       console.log('response.data inside getuserinfo', response.data);
