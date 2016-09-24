@@ -23,6 +23,10 @@ export function userSignUp(info) {
               throw new SubmissionError({ email: 'E-mail already exists', _error: 'Please try again' });
             }
           }
+        })
+        .catch((error) => {
+          console.log('inside catch', error);
+          throw new SubmissionError({ _error: error });
         });
       }
   };
