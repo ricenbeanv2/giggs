@@ -16,17 +16,15 @@ export function userSignUp(info) {
             localStorage.setItem('token', response.data.token);
             getUserInfo(response.data.user.userid);
           } else {
+            console.log('inside else statement', response.data);
             if (response.data.includes('username')) {
+              console.log('inside here');
               throw new SubmissionError({ username: 'username already exists', _error: 'Please try again' });
             }
             if (response.data.includes('email')) {
               throw new SubmissionError({ email: 'E-mail already exists', _error: 'Please try again' });
             }
           }
-        })
-        .catch((error) => {
-          console.log('inside catch', error);
-          throw new SubmissionError({ _error: error });
         });
       }
   };
@@ -41,6 +39,7 @@ export function userSignIn(info) {
       .then((response) => {
         console.log('inside dispatch', response);
         dispatch({ type: SIGN_IN, payload: response.data });
+        browserHistory.push('/userprofile');
       });
   };
 }

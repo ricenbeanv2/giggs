@@ -28,9 +28,13 @@ class SignIn extends Component {
     return (
       <div>
         <form onSubmit={this.loginHandler}>
-          <InputBox type="text" input="username" value={this.state.username} place="Username" func={this.handleChange}/>
-          <InputBox type="password" input="password" value={this.state.password} place="Password" func={this.handleChange}/>
-          <button type="submit">Login</button>
+          <div className="form-group">
+            <InputBox type="text" input="username" value={this.state.username} place="Username" func={this.handleChange} />
+          </div>
+          <div className="form-group">
+            <InputBox type="password" input="password" value={this.state.password} place="Password" func={this.handleChange} />
+          </div>
+          <button type="submit" className="btn btn-primary">Login</button>
         </form>
       </div>
 

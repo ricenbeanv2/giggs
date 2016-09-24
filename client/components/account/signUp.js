@@ -22,33 +22,27 @@ let SignUpForm = props => {
     <form onSubmit={handleSubmit(props.userSignUp)}>
       <h3>Sign Up</h3>
       <div className="form-group">
-        <label>Username</label>
-        <Field name="username" component={renderField} type="text" className="form-control" />
+        <Field name="username" component={renderField} type="text" className="form-control" placeholder="Username" />
       </div>
 
       <div className="form-group">
-        <label>Name</label>
-        <Field name="name" component={renderField} type="text" className="form-control" />
+        <Field name="name" component={renderField} type="text" className="form-control" placeholder="Name" />
       </div>
 
       <div className="form-group">
-        <label>E-mail</label>
-        <Field name="email" component={renderField} type="text" className="form-control" />
+        <Field name="email" component={renderField} type="text" className="form-control" placeholder="E-mail" />
       </div>
 
       <div className="form-group">
-        <label>Phone Number</label>
-        <Field name="phone" component={renderField} type="number" className="form-control" />
+        <Field name="phone" component={renderField} type="number" className="form-control" placeholder="Phone Number" />
       </div>
 
       <div className="form-group">
-        <label>Password</label>
-        <Field name="password" component={renderField} type="password" className="form-control" />
+        <Field name="password" component={renderField} type="password" className="form-control" placeholder="Password" />
       </div>
 
       <div className="form-group">
-        <label>Confirm Password</label>
-        <Field name="passconfirm" component={renderField} type="password" className="form-control" />
+        <Field name="passconfirm" component={renderField} type="password" className="form-control" placeholder="Confirm Password" />
       </div>
       {error && <strong>{error}</strong>}
       <div>
