@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { SubmissionError } from 'redux-form';
-import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER } from './actionTypes';
+import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT } from './actionTypes';
 
 export function userSignUp(info) {
   return (dispatch) => {
@@ -30,6 +30,13 @@ export function userSignUp(info) {
   };
 }
 
+export function userLogOut() {
+  return (dispatch) => {
+    dispatch({ type: LOGGED_OUT });
+    unAuth();
+  };
+}
+
 export function userSignIn(info) {
   console.log('inside actions folder!!!', info);
   const request = axios.get('/auth/signin', { params: info });
@@ -40,6 +47,7 @@ export function userSignIn(info) {
         console.log('inside dispatch', response);
         dispatch({ type: SIGN_IN, payload: response.data });
         browserHistory.push('/userprofile');
+        setLocal(response.data.user);
       });
   };
 }
@@ -68,12 +76,24 @@ export function updateUserInfo(info) {
         setLocal(response.data);
         throw new SubmissionError({ _error: 'User Profile Updated!' });
       });
-  }
+  };
 }
 
+function unAuth() {
+  localStorage.removeItem('id');
+  localStorage.removeItem('username');
+  localStorage.removeItem('email');
+  localStorage.removeItem('phone');
+  localStorage.removeItem('name');
+  localStorage.removeItem('token');
+};
+
 function setLocal(info) {
+  console.log('info', info)
   localStorage.setItem('email', info.email);
   localStorage.setItem('name', info.name);
   localStorage.setItem('phone', info.phone);
   localStorage.setItem('username', info.username);
+  localStorage.setItem('id', info.userid);
+  localStorage.setItem('token', info.token);
 }

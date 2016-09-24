@@ -1,17 +1,19 @@
-import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER } from '../actions/actionTypes';
+import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT } from '../actions/actionTypes';
 
-export default function (state = '', action) {
-  switch (action.type) {
+export default function (state = {}, { type, payload }) {
+  switch (type) {
     case PW_NOT_SAME:
-      return action.payload;
+      return payload;
+    case LOGGED_OUT:
+      return {};
     case SIGN_UP:
-      return action.payload;
+      return payload;
     case SIGN_IN:
-      return action.payload;
+      return payload;
     case GET_USER:
-      return action.payload;
+      return payload;
     case UPDATE_USER:
-      return action.payload;
+      return payload;
     default:
       return state;
   }
