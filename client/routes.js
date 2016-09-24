@@ -1,10 +1,11 @@
 import React from 'react';
+import Cookies from 'js-cookie';
 import { render } from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { syncHistoryWithStore, routerActions, routerMiddleware } from 'react-router-redux'
-import { UserAuthWrapper } from 'redux-auth-wrapper'
+import { syncHistoryWithStore, routerActions, routerMiddleware } from 'react-router-redux';
+import { UserAuthWrapper } from 'redux-auth-wrapper';
 import thunk from 'redux-thunk';
 
 import SignIn from './components/account/signIn.js';
@@ -22,7 +23,7 @@ const createStoreWithMiddleWare = applyMiddleware(thunk, routingMiddleware)(crea
 const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f);
 const history = syncHistoryWithStore(browserHistory, store);
 const UserIsAuthenticated = UserAuthWrapper({
-  authSelector: state => state.auth, // how to get the user state
+  authSelector: () => Cookies.getJSON('user'), // how to get the user state
   redirectAction: routerActions.replace, // the redux action to dispatch for redirect
   wrapperDisplayName: 'UserIsAuthenticated' // a nice name for this auth check
 });
