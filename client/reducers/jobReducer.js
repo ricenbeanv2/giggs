@@ -1,9 +1,9 @@
-export default function (state = [], action) {
-  switch (action.type) {
+export default function (state = [], { type, payload }) {
+  switch (type) {
     case 'CREATE_JOB':
-      return action;
+      return payload;
     case 'GET_JOBS':
-      return action;
+      return payload;
     default:
       return state;
   }

@@ -1,7 +1,8 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { browserHistory } from 'react-router';
 import { SubmissionError } from 'redux-form';
-import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER } from './actionTypes';
+import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT } from './actionTypes';
 
 export function userSignUp(info) {
   return (dispatch) => {
@@ -12,11 +13,12 @@ export function userSignUp(info) {
         .then((response) => {
           dispatch({ type: SIGN_UP, payload: response.data });
           if (typeof response.data !== 'string') {
-            localStorage.setItem('id', response.data.user.userid);
-            localStorage.setItem('token', response.data.token);
+            Cookies.set('user', response.data.user);
             getUserInfo(response.data.user.userid);
           } else {
+            console.log('inside else statement', response.data);
             if (response.data.includes('username')) {
+              console.log('inside here');
               throw new SubmissionError({ username: 'username already exists', _error: 'Please try again' });
             }
             if (response.data.includes('email')) {
@@ -25,6 +27,13 @@ export function userSignUp(info) {
           }
         });
       }
+  };
+}
+
+export function userLogOut() {
+  return (dispatch) => {
+    dispatch({ type: LOGGED_OUT });
+    Cookies.remove('user');
   };
 }
 
@@ -37,6 +46,8 @@ export function userSignIn(info) {
       .then((response) => {
         console.log('inside dispatch', response);
         dispatch({ type: SIGN_IN, payload: response.data });
+        Cookies.set('user', response.data.user);
+        browserHistory.push('/userprofile');
       });
   };
 }
@@ -49,13 +60,16 @@ export function facebookSignUp() {
 }
 
 export function getUserInfo(id) {
-  axios.get('/db/users/' + id)
+  console.log('id inside getuserinfo', id);
+  return (dispatch) => {
+  return axios.get('/db/users/' + id)
     .then((response) => {
-      setLocal(response.data);
-      browserHistory.push('/userprofile');
+      dispatch({ type: GET_USER, payload: response.data });
+      console.log('response.data inside getuserinfo', response.data);
     });
-
+  }
 }
+
 export function updateUserInfo(info) {
   return (dispatch) => {
     return axios.post('/db/users/update', { id: localStorage.getItem('id'), fields: info })
@@ -65,12 +79,5 @@ export function updateUserInfo(info) {
         setLocal(response.data);
         throw new SubmissionError({ _error: 'User Profile Updated!' });
       });
-  }
-}
-
-function setLocal(info) {
-  localStorage.setItem('email', info.email);
-  localStorage.setItem('name', info.name);
-  localStorage.setItem('phone', info.phone);
-  localStorage.setItem('username', info.username);
+  };
 }

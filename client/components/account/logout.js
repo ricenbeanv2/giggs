@@ -1,19 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { userLogOut } from '../../actions/auth';
 
-const LogOut = () => {
-  const unAuth = () => {
-    localStorage.removeItem('id');
-    localStorage.removeItem('username');
-    localStorage.removeItem('email');
-    localStorage.removeItem('phone');
-    localStorage.removeItem('name');
-    localStorage.removeItem('token');
-  };
-
+const LogOut = (props) => {
   return (
-    <Link onClick={unAuth} to="/">Log Out</Link>
+    <Link onClick={props.userLogOut} to="/">Log Out</Link>
   );
 };
 
-export default LogOut;
+export default connect(null, { userLogOut })(LogOut);

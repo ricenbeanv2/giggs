@@ -8,6 +8,7 @@ const InputBox = (props) => {
         value={props.value}
         placeholder={props.place}
         onChange={props.func.bind(this, props.input)}
+        className="form-control"
       />
     </div>
   );

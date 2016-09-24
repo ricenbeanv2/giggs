@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import renderField from '../renderField';
+import Cookies from 'js-cookie';
 
-import { updateUserInfo } from '../../actions/auth';
+import renderField from '../renderField';
+import { updateUserInfo, getUserInfo } from '../../actions/auth';
 
 class UserProfile extends Component {
+  componentWillMount() {
+    console.log('component will mount', Cookies.getJSON('user'));
+    this.props.getUserInfo(Cookies.getJSON('user').userid);
+  }
   render() {
     const { error, handleSubmit, submitting } = this.props;
     return (
@@ -55,9 +60,6 @@ UserProfile = reduxForm({
   form: 'userProfileForm'
 })(UserProfile);
 
-export default UserProfile = connect(() => ({
-    initialValues: { username: localStorage.getItem('username'),
-                     email: localStorage.getItem('email'),
-                     name: localStorage.getItem('name'),
-                     phone: localStorage.getItem('phone') }
-  }), { updateUserInfo })(UserProfile);
+export default UserProfile = connect((state) => ({
+    initialValues: state.auth
+  }), { updateUserInfo, getUserInfo })(UserProfile);

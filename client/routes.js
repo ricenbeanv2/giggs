@@ -1,8 +1,11 @@
 import React from 'react';
+import Cookies from 'js-cookie';
 import { render } from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { syncHistoryWithStore, routerActions, routerMiddleware } from 'react-router-redux';
+import { UserAuthWrapper } from 'redux-auth-wrapper';
 import thunk from 'redux-thunk';
 
 import SignIn from './components/account/signIn.js';
@@ -15,17 +18,24 @@ import JobListings from './components/jobs/jobListings';
 
 //Basic routing, to add another route just do:
 //<Route path='/insertUrl' component={insertComponentName} />
-const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
-export const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f);
+const routingMiddleware = routerMiddleware(browserHistory);
+const createStoreWithMiddleWare = applyMiddleware(thunk, routingMiddleware)(createStore);
+const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f);
+const history = syncHistoryWithStore(browserHistory, store);
+const UserIsAuthenticated = UserAuthWrapper({
+  authSelector: () => Cookies.getJSON('user'), // how to get the user state
+  redirectAction: routerActions.replace, // the redux action to dispatch for redirect
+  wrapperDisplayName: 'UserIsAuthenticated' // a nice name for this auth check
+});
 
 render((
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={history}>
       <Route path='/' component={App}>
         <Route path='signup' component={SignUp} />
-        <Route path='signin' components={SignIn} />
-        <Route path='createjob' component={CreateJob} />
-        <Route path='userprofile' component={UserProfile} />
+        <Route path='login' components={SignIn} />
+        <Route path='createjob' component={UserIsAuthenticated(CreateJob)} />
+        <Route path='userprofile' component={UserIsAuthenticated(UserProfile)} />
         <Route path='joblistings' component={JobListings} />
       </Route>
     </Router>

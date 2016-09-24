@@ -6,3 +6,4 @@ export const NOT_FILLED = 'not_filled';
 export const FB_SIGNUP = 'fb_signup';
 export const UPDATE_USER = 'update_user';
 export const GET_USER = 'get_user';
+export const LOGGED_OUT = 'logged_out';
