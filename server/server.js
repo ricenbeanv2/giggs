@@ -37,7 +37,7 @@ app.get('/auth/signin', userController.signin);
 require('./config/fbRoutes')(app, passport);
 
 app.use('/', helper, router);
-//app.use('/', router);
+// app.use('/', router);
 
 app.get('*', (request, response) => {
 	response.sendFile(path.resolve('./', 'client', 'index.html'));

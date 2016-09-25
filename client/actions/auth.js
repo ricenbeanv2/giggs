@@ -9,14 +9,12 @@ export function userSignUp(info) {
     if (info.password !== info.passconfirm) {
       dispatch({ type: PW_NOT_SAME, payload: 'Passwords not same' });
     } else {
-      axios.post('/auth/signup', info)
+      return axios.post('/auth/signup', info)
         .then((response) => {
           dispatch({ type: SIGN_UP, payload: response.data });
           if (typeof response.data !== 'string') {
             Cookies.set('user', response.data.user);
             Cookies.set('token', response.data.token);
-            getUserInfo(response.data.user.userid);
-            browserHistory.push('/userprofile')
           } else {
             console.log('inside else statement', response.data);
             if (response.data.includes('username')) {
@@ -36,6 +34,7 @@ export function userLogOut() {
   return (dispatch) => {
     dispatch({ type: LOGGED_OUT });
     Cookies.remove('user');
+    Cookies.remove('token');
   };
 }
 
@@ -48,7 +47,6 @@ export function userSignIn(info) {
         dispatch({ type: SIGN_IN, payload: response.data });
         Cookies.set('user', response.data.user);
         Cookies.set('token', response.data.token);
-        browserHistory.push('/userprofile');
       });
   };
 }
@@ -67,6 +65,7 @@ export function getUserInfo(id) {
     .then((response) => {
       dispatch({ type: GET_USER, payload: response.data });
       console.log('response.data inside getuserinfo', response.data);
+      browserHistory.push('/userprofile');
     });
   }
 }
@@ -77,7 +76,6 @@ export function updateUserInfo(info) {
       .then((response) => {
         console.log('response inside updateUserInfo', response);
         dispatch({ type: UPDATE_USER, payload: response.data });
-        setLocal(response.data);
         throw new SubmissionError({ _error: 'User Profile Updated!' });
       });
   };

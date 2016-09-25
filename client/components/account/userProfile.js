@@ -7,10 +7,6 @@ import renderField from '../renderField';
 import { updateUserInfo, getUserInfo } from '../../actions/auth';
 
 class UserProfile extends Component {
-  componentWillMount() {
-    console.log('component will mount', Cookies.getJSON('user'));
-    this.props.getUserInfo(Cookies.getJSON('user').userid);
-  }
   render() {
     const { error, handleSubmit, submitting } = this.props;
     return (

@@ -34,7 +34,7 @@ render((
     <Router history={history}>
       <Route path='/' component={App}>
         <Route path='signup' component={SignUp} />
-        <Route path='login' components={SignIn} />
+        <Route path='login' component={SignIn} />
         <Route path='createjob' component={UserIsAuthenticated(CreateJob)} />
         <Route path='userprofile' component={UserIsAuthenticated(UserProfile)} />
         <Route path='joblistings' component={JobListings} />

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import AuthReducer from './authReducer';
-import JobReducer from './jobReducer';
 import { reducer as formReducer } from 'redux-form';
 import { routerReducer } from 'react-router-redux';
+import AuthReducer from './authReducer';
+import JobReducer from './jobReducer';
 
 const rootReducer = combineReducers({
   routing: routerReducer,

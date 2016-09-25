@@ -17,6 +17,7 @@ let CreateJobForm = props => {
   ];
   const { error, handleSubmit, submitting } = props;
   if (submitting) {
+    console.log('inside submitting');
     loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
   }
   return (

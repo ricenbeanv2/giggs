@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
 
-import { createJob, notFilled } from './actionTypes';
+import { CREATE_JOB, notFilled } from './actionTypes';
 
 export function sendJob(jobDetails) {
   const jobDet = jobDetails;
@@ -18,7 +18,7 @@ export function sendJob(jobDetails) {
       .then((response) => {
         console.log('createJob payload:', response);
         browserHistory.push('/joblistings');
-        dispatch({ type: createJob, payload: response.data });
+        dispatch({ type: CREATE_JOB, payload: response.data });
       })
       .catch(() => {
         console.log('value:', Object.keys(jobDet).length);
