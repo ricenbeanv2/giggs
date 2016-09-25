@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { userSignIn } from '../../actions/auth';
+import Cookies from 'js-cookie';
+import { userSignIn, getUserInfo } from '../../actions/auth';
 
 import InputBox from '../inputBox';
 
@@ -22,7 +23,9 @@ class SignIn extends Component {
 
   loginHandler(event) {
     event.preventDefault();
-    this.props.userSignIn(this.state);
+    this.props.userSignIn(this.state).then(() => {
+      this.props.getUserInfo(Cookies.getJSON('user').userid);
+    });
   }
   render() {
     return (
@@ -48,7 +51,7 @@ function mapStateToProps({ auth }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ userSignIn }, dispatch);
+  return bindActionCreators({ userSignIn, getUserInfo }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

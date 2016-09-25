@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { userSignUp, facebookSignUp } from '../../actions/auth';
+import Cookies from 'js-cookie';
+import { userSignUp, facebookSignUp, getUserInfo } from '../../actions/auth';
 import renderField from '../renderField';
 
 let SignUpForm = props => {
@@ -9,17 +10,22 @@ let SignUpForm = props => {
   let loading = '';
   const { error, handleSubmit, submitting } = props;
   if (submitting) {
+    console.log('loading changed');
     loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
     passCheck = <div />;
   }
   if (typeof props.auth === 'string' && props.auth.includes('Passwords')) {
     passCheck = <div>{props.auth}</div>;
   } else {
-    console.log('inside else in signupform');
     passCheck = <div />;
   }
   return (
-    <form onSubmit={handleSubmit(props.userSignUp)}>
+    <form onSubmit={handleSubmit((data) => {
+      props.userSignUp(data).then(() => {
+        console.log('test');
+        props.getUserInfo(Cookies.getJSON('user').userid);
+      });
+    })}>
       <h3>Sign Up</h3>
       <div className="form-group">
         <Field name="username" component={renderField} type="text" className="form-control" placeholder="Username" />
@@ -63,4 +69,4 @@ SignUpForm = reduxForm({
   form: 'SignUpForm'
 })(SignUpForm);
 
-export default connect(mapStateToProps, { userSignUp })(SignUpForm);
+export default connect(mapStateToProps, { userSignUp, getUserInfo })(SignUpForm);
