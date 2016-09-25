@@ -5,33 +5,42 @@ import Select from 'react-select';
 
 import { getJobList } from '../../actions/jobs';
 import EachJob from './eachJob';
-import InputBox from '../inputBox';
 
 class JobListings extends Component {
+  componentWillMount() {
+    this.props.getJobList()
+    .then((response) => {
+        this.setState({data: response.data})
+    })
+    .catch((error) => {
+      console.log("Error: ", error);
+    })
+  }
+
   constructor(props) {
     super(props);
     this.state = {
-      jobName: 'testing',
-      openings: 'testing',
-      max_price: 'testing',
-      location: 'testing',
-      deadline: 'testing',
-      description: 'testing'
+      data: []
     };
-    this.handleChange = this.handleChange.bind(this);
   }
-  handleChange(props) {
-    console.log("This is working inside of JobListings Components");
-  }
+
 
   render() {
     return (
       <div>
-        <button onClick={this.handleChange}>Testing</button>
-        <EachJob job={this.state}/>
+        <EachJob data={this.state.data}/>
       </div>
     )
   }
 }
 
-export default JobListings;
+function mapStateToProps({ job }) {
+  return { job };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getJobList }, dispatch);
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobListings);

@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
 
-import { createJob, notFilled } from './actionTypes';
+import { createJob, notFilled, GET_JOBS } from './actionTypes';
 
 export function sendJob(jobDetails) {
   const jobDet = jobDetails;
@@ -32,9 +32,15 @@ export function sendJob(jobDetails) {
 
 export function getJobList() {
   console.log('inside job.js');
-  // const request = axios.get('/db/jobs/getAll');
-  return {
-    type: createJob,
-    payload: 'test'
-  };
+  const request = axios.get('/db/jobs/getAll');
+  return (dispatch) => {
+    return request
+    .then((response) => {
+      dispatch({type: GET_JOBS, payload:response.data});
+      return response;
+    })
+    .catch((error) =>{
+      console.log(error);
+    })
+  }
 }

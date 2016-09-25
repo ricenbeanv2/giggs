@@ -3,7 +3,7 @@ export default function (state = [], { type, payload }) {
     case 'CREATE_JOB':
       return payload;
     case 'GET_JOBS':
-      return payload;
+      return action.payload;
     default:
       return state;
   }
