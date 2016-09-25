@@ -15,6 +15,7 @@ import CreateJob from './components/jobs/createJob';
 import UserProfile from './components/account/userProfile';
 import SignUp from './components/account/signUp';
 import JobListings from './components/jobs/jobListings';
+import JobMap from './components/map/jobMap';
 
 //Basic routing, to add another route just do:
 //<Route path='/insertUrl' component={insertComponentName} />
@@ -37,6 +38,7 @@ render((
         <Route path='createjob' component={UserIsAuthenticated(CreateJob)} />
         <Route path='userprofile' component={UserIsAuthenticated(UserProfile)} />
         <Route path='joblistings' component={JobListings} />
+        <Route path='map' component={JobMap} />
       </Route>
     </Router>
   </Provider>
