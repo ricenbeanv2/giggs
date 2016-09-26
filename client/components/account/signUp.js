@@ -23,7 +23,6 @@ let SignUpForm = props => {
   return (
     <form onSubmit={handleSubmit((data) => {
       props.userSignUp(data).then(() => {
-        console.log('test');
         props.getUserInfo(Cookies.getJSON('user').userid);
       });
     })}>
