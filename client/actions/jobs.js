@@ -6,14 +6,13 @@ import { browserHistory } from 'react-router';
 import { GET_ALL_JOBS, CREATE_JOB, notFilled } from './actionTypes';
 
 export function sendJob(jobDetails) {
+  console.log('jobdetails', jobDetails);
   const jobDet = jobDetails;
   jobDet.category_id = jobDetails.category_id.value;
   jobDet.location_lat = 1.0;
   jobDet.location_lng = 2.0;
   jobDet.user_id = Cookies.getJSON('user').userid;
   console.log('cookies user', Cookies.getJSON('token'));
-  console.log('cookies ', Cookies.getJSON('user'));
-  console.log('jobDetails', jobDet);
   return (dispatch) => {
     return axios.post('/db/jobs/create', jobDet, { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then((response) => {
@@ -26,6 +25,7 @@ export function sendJob(jobDetails) {
         if (Object.keys(jobDet).length < 9) {
           throw new SubmissionError({ _error: 'Please fill out missing fields.' });
         }
+        throw new SubmissionError({ _error: 'Please log in.' });
       });
   };
 }

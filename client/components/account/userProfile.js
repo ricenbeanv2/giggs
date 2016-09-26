@@ -57,5 +57,5 @@ UserProfile = reduxForm({
 })(UserProfile);
 
 export default UserProfile = connect((state) => ({
-    initialValues: state.auth
+    initialValues: state.auth.userData
   }), { updateUserInfo, getUserInfo })(UserProfile);

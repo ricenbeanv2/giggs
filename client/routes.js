@@ -6,6 +6,7 @@ import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore, routerActions, routerMiddleware } from 'react-router-redux';
 import { UserAuthWrapper } from 'redux-auth-wrapper';
+import { persistStore, autoRehydrate } from 'redux-persist';
 import thunk from 'redux-thunk';
 
 import SignIn from './components/account/signIn.js';
@@ -21,8 +22,10 @@ import JobMap from './components/map/jobMap';
 //<Route path='/insertUrl' component={insertComponentName} />
 const routingMiddleware = routerMiddleware(browserHistory);
 const createStoreWithMiddleWare = applyMiddleware(thunk, routingMiddleware)(createStore);
-const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f);
+const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f, autoRehydrate());
 const history = syncHistoryWithStore(browserHistory, store);
+persistStore(store);
+
 const UserIsAuthenticated = UserAuthWrapper({
   authSelector: () => Cookies.getJSON('user'), // how to get the user state
   redirectAction: routerActions.replace, // the redux action to dispatch for redirect
