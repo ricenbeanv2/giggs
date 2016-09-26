@@ -19,7 +19,14 @@ const Categories = connection.define('Categories', {
 
 }, {
 	hooks: {
-		afterSync: () => propagateCategories(data),
+		afterSync: function() {
+			this.findOne({ where: { id: 1 }
+			}).then((found) => {
+				if (!found) {
+					propagateCategories(data);
+				}
+			}).catch(error => res.send(error));
+		},
 	},
 	freezeTableName: true,
 });
