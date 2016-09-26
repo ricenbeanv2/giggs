@@ -7,7 +7,7 @@ import JobReducer from './jobReducer';
 const rootReducer = combineReducers({
   routing: routerReducer,
   auth: AuthReducer,
-  job: JobReducer,
+  jobs: JobReducer,
   form: formReducer
 });
 
