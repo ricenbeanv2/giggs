@@ -8,8 +8,8 @@ import { GET_ALL_JOBS, CREATE_JOB, notFilled } from './actionTypes';
 export function sendJob(jobDetails) {
   const jobDet = jobDetails;
   jobDet.category_id = jobDetails.category_id.value;
-  jobDet.location_lat = 33.843364;
-  jobDet.location_lng = -118.251248;
+  jobDet.location_lat = 1.0;
+  jobDet.location_lng = 2.0;
   jobDet.user_id = Cookies.getJSON('user').userid;
   console.log('cookies user', Cookies.getJSON('token'));
   console.log('jobDetails', jobDet);
