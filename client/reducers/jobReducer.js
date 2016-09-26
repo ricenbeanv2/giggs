@@ -4,6 +4,8 @@ export default function (state = [], { type, payload }) {
       return payload;
     case 'GET_JOBS':
       return payload;
+    case 'GET_ALL_JOBS':
+      return payload;
     default:
       return state;
   }

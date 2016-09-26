@@ -3,14 +3,14 @@ import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
 
-import { CREATE_JOB, notFilled } from './actionTypes';
+import { GET_ALL_JOBS, CREATE_JOB, notFilled } from './actionTypes';
 
 export function sendJob(jobDetails) {
   const jobDet = jobDetails;
   jobDet.category_id = jobDetails.category_id.value;
-  jobDet.location_lat = 1.0;
-  jobDet.location_lng = 2.0;
-  jobDet.user_id = localStorage.getItem('id');
+  jobDet.location_lat = 33.843364;
+  jobDet.location_lng = -118.251248;
+  jobDet.user_id = Cookies.getJSON('user').userid;
   console.log('cookies user', Cookies.getJSON('token'));
   console.log('jobDetails', jobDet);
   return (dispatch) => {
@@ -31,10 +31,12 @@ export function sendJob(jobDetails) {
 }
 
 export function getJobList() {
-  console.log('inside job.js');
+/*  console.log('inside job.js');
   // const request = axios.get('/db/jobs/getAll');
   return {
     type: createJob,
     payload: 'test'
-  };
+  };*/
+  return axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
+     
 }
