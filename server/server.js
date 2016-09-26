@@ -7,7 +7,6 @@ const passport = require('passport');
 const moment = require('moment');
 
 const router = require('./config/routes');
-const helper = require('./config/helpers');
 const middleware = require('./config/middleware');
 const userController = require('./user/userCtrl');
 
@@ -17,7 +16,6 @@ app.set('PORT', process.env.PORT || 3000);
 app.use(cors());
 
 app.use(bodyParser.json());
-// app.use(require('cookie-parser'));
 
 app.use(require('express-session')({
 	secret: 'giggsthebest',
@@ -36,9 +34,7 @@ app.post('/auth/signup', middleware.checkUsername, middleware.checkEmail, userCo
 app.get('/auth/signin', userController.signin);
 require('./config/fbRoutes')(app, passport);
 
-// app.use('/', router);
-
-app.use('/db', helper, router);
+app.use('/db', router);
 app.get('/*', (request, response) => {
 	response.sendFile(path.resolve('./', 'client', 'index.html'));
 });
