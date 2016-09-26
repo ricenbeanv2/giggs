@@ -16,8 +16,7 @@ const Jobs = connection.define('Jobs', {
 	description: {
 		type: Sequelize.STRING,
 		len: [0, 255],
-		msg: 'Description must be between 0 & 250 characters.',
-
+		msg: 'Description must be between 0 & 255 characters.',
 	},
 
 	category_id: {
@@ -42,6 +41,13 @@ const Jobs = connection.define('Jobs', {
 	max_price: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
+	},
+
+	address: {
+		type: Sequelize.STRING,
+		allowNull: false,
+		len: [0, 255],
+		msg: 'Address must be address 0 & 255 characters.',
 	},
 
 	location_lat: {
