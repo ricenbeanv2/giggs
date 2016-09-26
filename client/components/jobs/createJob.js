@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import Geosuggest from 'react-geosuggest';
 
 import SelectionComponent from '../selectionComponent';
 import { sendJob } from '../../actions/jobs';
@@ -22,6 +23,7 @@ let CreateJobForm = props => {
   }
   return (
     <form onSubmit={handleSubmit(props.sendJob)}>
+      <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBG0SybP0EKWH3Jvwki7IR5AMyO_cUeeQc"></script>
       <h3>Create Job</h3>
       <div className="form-group">
         <label>Job Name</label>
@@ -41,6 +43,11 @@ let CreateJobForm = props => {
       <div className="form-group">
         <label>Description</label>
         <Field name="description" component={renderField} type="textarea" className="form-control" />
+      </div>
+
+      <div className="form-group">
+        <label>Address</label>
+        <Field name="address" component={Geosuggest} type="textarea" className="form-control" />
       </div>
 
       <div className="form-group">
