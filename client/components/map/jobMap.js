@@ -8,7 +8,7 @@ import ScriptjsLoader from 'react-google-maps/lib/async/ScriptjsLoader';
 class JobMap extends Component {
 	constructor(props) {
 		super(props);
-		
+
 		this.state = {
 			userIcon: './user.png',
 			jobIcon: './work.png',
@@ -68,7 +68,7 @@ class JobMap extends Component {
 					<GoogleMap defaultZoom={ 10 } defaultCenter={{ lat: this.state.lat, lng:this.state.lng }} >
 						<Marker key={ 'UserGeo' } position={{ lat: this.state.lat, lng:this.state.lng }} icon={ this.state.userIcon } />
 						{ this.props.jobs.map((job) => {
-							return (<Marker 
+							return (<Marker
 									key={ job.id }
 									position={{ lat: job.location_lat, lng: job.location_lng }}
 									icon={ this.state.jobIcon }/>
@@ -93,7 +93,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(JobMap);
 
 /*
 { this.props.jobs.map((job) => {
-							return (<Marker 
+							return (<Marker
 									key={ job.id }
 									position={{ lat: job.location_lat, lng: job.location_lng }}
 									icon={ this.state.jobIcon }/>
