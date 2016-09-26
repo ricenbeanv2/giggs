@@ -91,7 +91,7 @@ User.auth = userInput => {
 						}
 					});
 				} else {
-					reject('invalid token');
+					reject('invalid password');
 				}
 			});
 		})
