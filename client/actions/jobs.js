@@ -37,6 +37,14 @@ export function getJobList() {
     type: createJob,
     payload: 'test'
   };*/
-  return axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
-     
+  return (dispatch) => {
+    return axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
+      .then(response => {
+          dispatch({ type: GET_ALL_JOBS, payload: response.data });
+          console.log('response from getJobList:', response);
+        })
+      .catch(() => {
+        throw new SubmissionError({ _error: 'something terrible happened' });
+      });
+    }
 }

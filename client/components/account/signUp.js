@@ -19,6 +19,7 @@ let SignUpForm = props => {
   } else {
     passCheck = <div />;
   }
+  console.log(props.jobs)
   return (
     <form onSubmit={handleSubmit((data) => {
       props.userSignUp(data).then(() => {
@@ -61,8 +62,8 @@ let SignUpForm = props => {
   );
 };
 
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps({ auth, jobs }) {
+  return { auth, jobs };
 }
 
 SignUpForm = reduxForm({

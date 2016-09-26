@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
+import { bindActionCreators, createStore } from 'redux';
 import { connect } from 'react-redux';
 import { getJobList } from '../../actions/jobs';
 import { GoogleMap, Marker } from 'react-google-maps';
 import ScriptjsLoader from 'react-google-maps/lib/async/ScriptjsLoader';
 
-export default class JobMap extends Component {
+class JobMap extends Component {
 	constructor(props) {
 		super(props);
 		
 		this.state = {
 			userIcon: './user.png',
 			jobIcon: './work.png',
-			jobs: [],
 			lat: null,
 			lng: null
 		};
@@ -23,41 +23,35 @@ export default class JobMap extends Component {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
 		}
+		//get inital job list
+		this.props.getJobList();
+		//refesh job list
+		//setInterval(this.props.getJobList, 10000);
 	};
 
 	geoSuccess(position) {
-		getJobList().then(res => {
-			this.setState({
-				jobs: res.data,
-				lng: position.coords.longitude,
-				lat: position.coords.latitude
-			});
-		console.log(this.state)
-		});
-
+		this.setState({ lng: position.coords.longitude, lat: position.coords.latitude });
 	};
 
 	geoError(error) {
 		console.error(`ERROR ${error.code} : ${error.message}`);
 	};
 
-
 	render() {
+		if (this.state.lat == null && this.state.lng == null) {
+			return <div>Geolocation Not Found</div>
+		}
 
 		const loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
 		const spinnerStyle = {
-			'margin-left': '40%',
-			'padding-top': '100px'
-		}
+			marginLeft: '40%',
+			marginTop: '15%'
+		};
 		const mapStyle = {
 			height: "100%",
 			width:'100%',
 			position:'absolute'
 		};
-
-		if (this.state.lat == null && this.state.lng == null) {
-			return <div></div>
-		}
 
 		return (
 			<ScriptjsLoader
@@ -73,7 +67,7 @@ export default class JobMap extends Component {
 				googleMapElement={
 					<GoogleMap defaultZoom={ 10 } defaultCenter={{ lat: this.state.lat, lng:this.state.lng }} >
 						<Marker key={ 'UserGeo' } position={{ lat: this.state.lat, lng:this.state.lng }} icon={ this.state.userIcon } />
-						{ this.state.jobs.map((job) => {
+						{ this.props.jobs.map((job) => {
 							return (<Marker 
 									key={ job.id }
 									position={{ lat: job.location_lat, lng: job.location_lng }}
@@ -87,4 +81,22 @@ export default class JobMap extends Component {
 	};
 }
 
-//export default connect(null, { })(JobMap);
+function mapStateToProps({ jobs }) {
+  return { jobs };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getJobList }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobMap);
+
+/*
+{ this.props.jobs.map((job) => {
+							return (<Marker 
+									key={ job.id }
+									position={{ lat: job.location_lat, lng: job.location_lng }}
+									icon={ this.state.jobIcon }/>
+								)})
+						}
+*/
