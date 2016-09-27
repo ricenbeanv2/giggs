@@ -31,7 +31,7 @@ let SignUpForm = props => {
       <div className="form-group">
         <Field name="username" component={renderField} type="text" className="form-control" placeholder="Username" />
       </div>
-      
+
       <div className="form-group">
         <Field name="name" component={renderField} type="text" className="form-control" placeholder="Name" />
       </div>

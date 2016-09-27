@@ -13,6 +13,12 @@ module.exports = {
 		Category.findAll().then((cat) => {
 			res.status(200).send(cat);
 		}).catch(error => res.status(500).send(`Sever Error ${error}`));
-	}
+	},
 
+	getParentCategories: (req, res) => {
+		Category.findAll({ where: { parent_id: null } })
+			.then((data) => {
+				res.status(200).send(data);
+			}).catch(error => res.status(500).send(`Parent categories not found ${error}`));
+	}
 };
