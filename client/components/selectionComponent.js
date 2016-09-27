@@ -2,11 +2,16 @@ import React from 'react';
 import Select from 'react-select';
 
 const SelectionComponent = (props) => {
-  console.log('inside selectionComponent', props);
+  console.log('props in select', props);
   return (
     <Select
-      options={props.options} {...props.input}
-      onBlur={() => props.input.onBlur(props.value)}
+      {...props.input}
+      options={props.options}
+      // onBlur={() => props.input.onBlur(props.input.value)}
+      onBlur={() => {
+        console.log('blur triggered');
+        props.input.onBlur(props.input.value);
+      }}
     />
     );
 };

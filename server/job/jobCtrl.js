@@ -10,6 +10,7 @@ module.exports = {
 	createJob: (req, res) => {
 		const newJob = {
 			jobName: req.body.jobName,
+			address: req.body.address,
 			openings: req.body.openings,
 			description: req.body.description,
 			address: req.body.address,

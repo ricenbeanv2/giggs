@@ -2,15 +2,18 @@ import React from 'react';
 import Geosuggest from 'react-geosuggest';
 
 const GeoComponent = (props) => {
-  console.log('props', props)
+  console.log('inside geo props', props);
   return (
     <Geosuggest
+      {...props.input}
       placeholder="Enter Address"
-      type={props.type}
-      className={props.className}
-      onBlur={() => props.input.onBlur(props.value)}
+      inputClassName={props.className}
+      onBlur={() => props.input.onBlur(props.input.value)}
+      onSuggestSelect={(event) => {
+        props.input.onBlur(event.label);
+      }}
     />
-  )
+  );
 };
 
 export default GeoComponent;

@@ -1,5 +1,3 @@
-const webpack = require('webpack');
-
 module.exports = {
   entry: './client/routes.js',
   output: {
