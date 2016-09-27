@@ -11,6 +11,7 @@ export function userSignUp(info) {
     } else {
       return axios.post('/auth/signup', info)
         .then((response) => {
+          console.log('response.data', response.data);
           dispatch({ type: SIGN_UP, payload: response.data });
           if (typeof response.data !== 'string') {
             Cookies.set('user', response.data.user);
@@ -47,6 +48,10 @@ export function userSignIn(info) {
         dispatch({ type: SIGN_IN, payload: response.data });
         Cookies.set('user', response.data.user);
         Cookies.set('token', response.data.token);
+      })
+      .catch(() => {
+        console.log('username or pw invalid');
+        dispatch({ type: PW_NOT_SAME, paylod: 'Passwords not same' });
       });
   };
 }
