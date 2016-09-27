@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import Cookies from 'js-cookie';
 import { userSignUp, facebookSignUp, getUserInfo } from '../../actions/auth';
+
 import renderField from '../renderField';
 
 let SignUpForm = props => {
@@ -14,15 +15,17 @@ let SignUpForm = props => {
     loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
     passCheck = <div />;
   }
-  if (typeof props.auth === 'string' && props.auth.includes('Passwords')) {
-    passCheck = <div>{props.auth}</div>;
+  console.log('props.auth:', props.auth);
+  if (typeof props.auth.confirm === 'string' && props.auth.confirm.includes('Passwords')) {
+    passCheck = <div>{props.auth.confirm}</div>;
   } else {
     passCheck = <div />;
   }
-  console.log('jobs prop', props.jobs)
+  console.log(props.jobs)
   return (
     <form onSubmit={handleSubmit((data) => {
       props.userSignUp(data).then(() => {
+        console.log('test');
         props.getUserInfo(Cookies.getJSON('user').userid);
       });
     })}>

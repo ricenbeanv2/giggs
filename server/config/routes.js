@@ -15,6 +15,7 @@ router.get('/applicant/', helper, applicantController.getApplicants);
 //router.post('/category/create', helper, categoryController.propagateCategories);
 router.get('/category/getAll', categoryController.getAllCategories);
 router.get('/category/query', categoryController.queryCategory);
+router.get('/category/getParents', categoryController.getParentCategories);
 
 router.post('/jobs/create', helper, jobController.createJob);
 router.get('/jobs/getAll', jobController.getAllJobs);

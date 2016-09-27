@@ -11,6 +11,7 @@ export function userSignUp(info) {
     } else {
       return axios.post('/auth/signup', info)
         .then((response) => {
+          console.log('response.data', response.data);
           dispatch({ type: SIGN_UP, payload: response.data });
           if (typeof response.data !== 'string') {
             Cookies.set('user', response.data.user);
@@ -47,6 +48,10 @@ export function userSignIn(info) {
         dispatch({ type: SIGN_IN, payload: response.data });
         Cookies.set('user', response.data.user);
         Cookies.set('token', response.data.token);
+      })
+      .catch(() => {
+        console.log('username or pw invalid');
+        dispatch({ type: PW_NOT_SAME, paylod: 'Passwords not same' });
       });
   };
 }
@@ -71,8 +76,9 @@ export function getUserInfo(id) {
 }
 
 export function updateUserInfo(info) {
+  console.log('info', info);
   return (dispatch) => {
-    return axios.post('/db/users/update', { id: localStorage.getItem('id'), fields: info })
+    return axios.post('/db/users/update', { id: Cookies.getJSON('user').userid, fields: info }, { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then((response) => {
         console.log('response inside updateUserInfo', response);
         dispatch({ type: UPDATE_USER, payload: response.data });

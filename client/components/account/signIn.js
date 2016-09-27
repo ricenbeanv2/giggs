@@ -1,57 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Field, reduxForm } from 'redux-form';
 import Cookies from 'js-cookie';
 import { userSignIn, getUserInfo } from '../../actions/auth';
 
-import InputBox from '../inputBox';
+import renderField from '../renderField';
 
-class SignIn extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: ''
-    };
-    this.loginHandler = this.loginHandler.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(input, event) {
-    this.setState({ [input]: event.target.value });
-  }
-
-  loginHandler(event) {
-    event.preventDefault();
-    this.props.userSignIn(this.state).then(() => {
-      this.props.getUserInfo(Cookies.getJSON('user').userid);
-    });
-  }
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.loginHandler}>
-          <div className="form-group">
-            <InputBox type="text" input="username" value={this.state.username} place="Username" func={this.handleChange} />
-          </div>
-          <div className="form-group">
-            <InputBox type="password" input="password" value={this.state.password} place="Password" func={this.handleChange} />
-          </div>
-          <button type="submit" className="btn btn-primary">Login</button>
-        </form>
+let SignIn = props => {
+  const { error, handleSubmit, submitting } = props;
+  return (
+    <form onSubmit={handleSubmit((data) => {
+      props.userSignIn(data).then(() => {
+        props.getUserInfo(Cookies.getJSON('user').userid);
+      });
+    })}>
+      <h3>Log in</h3>
+      <div className="form-group">
+        <Field name="username" component={renderField} type="text" className="form-control" placeholder="Username" />
       </div>
+      <div className="form-group">
+        <Field name="password" component={renderField} type="password" className="form-control" placeholder="Password" />
+      </div>
+      <div>
+        <button type="submit" disabled={submitting} className="btn btn-primary">Log In</button>
+      </div>
+    </form>
+  );
+};
 
-      );
-    }
-}
+SignIn = reduxForm({
+  form: 'SignInForm'
+})(SignIn);
 
-
-function mapStateToProps({ auth }) {
-  return { auth };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ userSignIn, getUserInfo }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, { userSignIn, getUserInfo })(SignIn);

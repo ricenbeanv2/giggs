@@ -4,23 +4,24 @@ import { Field, reduxForm } from 'redux-form';
 
 import SelectionComponent from '../selectionComponent';
 import { sendJob } from '../../actions/jobs';
+import { getParents } from '../../actions/categories';
 import renderField from '../renderField';
 import GeoComponent from '../geoComponent';
 
 let CreateJobForm = props => {
   let loading = '';
-  const categories = [
-    { value: 'technology', label: 'Technology' },
-    { value: 'automotive', label: 'Automotive' },
-    { value: 'spa/salon', label: 'Spa/Salon' },
-    { value: 'home/office', label: 'Home/Office' },
-    { value: 'other', label: 'Other' }
-  ];
+  props.getParents();
   const { error, handleSubmit, submitting } = props;
   if (submitting) {
     console.log('inside submitting');
     loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
   }
+
+  const categories = [];
+  for (const parent of props.cats.parentCats) {
+    categories.push({ value: parent.name, label: parent.name.charAt(0).toUpperCase() + parent.name.slice(1) });
+  }
+  console.log('Parent Categories:', props.cats.parentCats);
   return (
     <form onSubmit={handleSubmit(props.sendJob)}>
       <h3>Create Job</h3>
@@ -67,9 +68,11 @@ let CreateJobForm = props => {
   );
 };
 
-
+function mapStateToProps({ cats }) {
+  return { cats };
+}
 CreateJobForm = reduxForm({
   form: 'CreateJobForm'
 })(CreateJobForm);
 
-export default connect(null, { sendJob })(CreateJobForm);
+export default connect(mapStateToProps, { sendJob, getParents })(CreateJobForm);

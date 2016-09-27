@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
 
-import { GET_ALL_JOBS, CREATE_JOB, notFilled } from './actionTypes';
+import { GET_ALL_JOBS, CREATE_JOB } from './actionTypes';
 
 export function sendJob(jobDetails) {
   const jobDet = jobDetails;

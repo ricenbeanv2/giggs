@@ -60,8 +60,9 @@ module.exports = {
 		//retun apply history
 	},
 	updateUser: (req, res) => {
-		const fields = req.body;
-		const userID = fields.id;
+		const fields = req.body.fields;
+		const userID = req.body.id;
+		console.log('fields inside update', fields);
 		delete fields.id;
 		User.updateInfo(userID, fields)
 		.then(result => {

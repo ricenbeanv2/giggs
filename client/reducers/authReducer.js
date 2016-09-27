@@ -15,7 +15,7 @@ export default function (state = INITIAL_STATE, { type, payload }) {
     case GET_USER:
       return { ...state, userData: payload };
     case UPDATE_USER:
-      return { ...state, updated: payload };
+      return { ...state, userData: payload };
     default:
       return state;
   }
