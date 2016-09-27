@@ -76,8 +76,9 @@ export function getUserInfo(id) {
 }
 
 export function updateUserInfo(info) {
+  console.log('info', info);
   return (dispatch) => {
-    return axios.post('/db/users/update', { id: localStorage.getItem('id'), fields: info })
+    return axios.post('/db/users/update', { id: Cookies.getJSON('user').userid, fields: info }, { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then((response) => {
         console.log('response inside updateUserInfo', response);
         dispatch({ type: UPDATE_USER, payload: response.data });
