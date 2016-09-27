@@ -3,11 +3,8 @@ import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
 
-<<<<<<< HEAD
 import { GET_ALL_JOBS, CREATE_JOB } from './actionTypes';
-=======
 import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, GET_CATEGORY } from './actionTypes';
->>>>>>> feat/profile
 
 export function sendJob(jobDetails) {
   const jobDet = jobDetails;
