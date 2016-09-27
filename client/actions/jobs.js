@@ -2,8 +2,6 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
-
-import { GET_ALL_JOBS, CREATE_JOB } from './actionTypes';
 import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, GET_CATEGORY } from './actionTypes';
 
 export function sendJob(jobDetails) {
