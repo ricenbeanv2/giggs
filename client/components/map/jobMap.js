@@ -78,7 +78,7 @@ class JobMap extends Component {
 				}
 			/>
 		);
-	};
+	}
 }
 
 function mapStateToProps({ jobs }) {
