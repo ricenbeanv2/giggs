@@ -1,33 +1,40 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 import Cookies from 'js-cookie';
 import { userSignIn, getUserInfo } from '../../actions/auth';
 
+
 import renderField from '../renderField';
 
-let SignIn = props => {
-  const { error, handleSubmit, submitting } = props;
-  return (
-    <form onSubmit={handleSubmit((data) => {
-      props.userSignIn(data).then(() => {
-        props.getUserInfo(Cookies.getJSON('user').userid);
-      });
-    })}>
-      <h3>Log in</h3>
-      <div className="form-group">
-        <Field name="username" component={renderField} type="text" className="form-control" placeholder="Username" />
-      </div>
-      <div className="form-group">
-        <Field name="password" component={renderField} type="password" className="form-control" placeholder="Password" />
-      </div>
+class SignIn extends Component {
+  render() {
+    const { error, handleSubmit, submitting } = this.props;
+    return (
       <div>
-        <button type="submit" disabled={submitting} className="btn btn-primary">Log In</button>
+        <form onSubmit={handleSubmit((data) => {
+          return this.props.userSignIn(data)
+          .then(() => {
+            console.log('inside userSignin');
+            return this.props.getUserInfo(Cookies.getJSON('user').userid);
+          });
+        })}>
+          <h3>Log in</h3>
+          <div className="form-group">
+            <Field name="username" component={renderField} type="text" className="form-control" placeholder="Username" />
+          </div>
+          <div className="form-group">
+            <Field name="password" component={renderField} type="password" className="form-control" placeholder="Password" />
+          </div>
+          <div>
+            <button type="submit" disabled={submitting} className="btn btn-primary">Log In</button>
+          </div>
+          {error && <strong>{error}</strong>}
+        </form>
       </div>
-    </form>
-  );
-};
-
+    );
+  }
+}
 SignIn = reduxForm({
   form: 'SignInForm'
 })(SignIn);
