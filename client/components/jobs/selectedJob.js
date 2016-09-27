@@ -1,31 +1,26 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getJobDetail } from '../../actions/jobs';
+import { getJobDetail, getCategoryName } from '../../actions/jobs';
 
 class SelectedJob extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      job: {}
+      job: {},
+      category: ''
     };
     this.clickHandler = this.clickHandler.bind(this);
   }
 
   clickHandler() {
-    console.log("in click handler");
-    this.props.getJobDetail(2).then(()=> {
-      console.log('this.props', this.props.jobs.job[0]);
-      this.setState({ job: this.props.jobs.job[0] });
-      console.log('this.state.job', this.state.job);
+    this.props.getJobDetail(5).then(() => {
+      this.setState({ job: this.props.jobs.job });
+      this.props.getCategoryName(1).then(() => {
+        this.setState({ category: this.props.jobs.category });
+      });
     });
   }
-
-  // componentDidMount() {
-  //   this.props.getJobDetail(2).then(()=> {
-  //     console.log('')
-  //   });
-  // }
 
   render() {
     return (
@@ -36,13 +31,13 @@ class SelectedJob extends Component {
         </button> <br />
         Job Name: {this.state.job.jobName} <br />
         Openings: {this.state.job.openings} <br />
-        category_id: {this.state.job.category_id} <br />
+        Category: {this.state.category} <br />
         description: {this.state.job.description} <br />
         location_lat: {this.state.job.location_lat} <br />
         location_lng: {this.state.job.location_lng} <br />
-        max_price: {this.state.job.max_price} <br />
-        createdAt: {this.state.job.createdAt} <br />
-        deadline: {this.state.job.createdAt} <br />
+        Max Price: ${this.state.job.max_price} <br />
+        Job Created: {this.state.job.createdAt} <br />
+        Deadline: {this.state.job.deadline} <br />
       </div>
     );
   }
@@ -53,7 +48,7 @@ function mapStateToProps({ jobs }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getJobDetail }, dispatch);
+  return bindActionCreators({ getJobDetail, getCategoryName }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectedJob);

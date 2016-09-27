@@ -9,3 +9,4 @@ export const GET_USER = 'get_user';
 export const LOGGED_OUT = 'logged_out';
 export const GET_ALL_JOBS = 'get_all_jobs';
 export const GET_JOBS = 'get_jobs';
+export const GET_CATEGORY = 'get_category';
