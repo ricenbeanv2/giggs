@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
 
-import { GET_ALL_JOBS, CREATE_JOB, notFilled } from './actionTypes';
+import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS } from './actionTypes';
 
 export function sendJob(jobDetails) {
   const jobDet = jobDetails;
@@ -47,4 +47,23 @@ export function getJobList() {
         throw new SubmissionError({ _error: 'something terrible happened' });
       });
     }
+}
+
+export function getJobDetail(jobID) {
+  const field = 'id';
+  return (dispatch) => {
+    return axios.get('/db/jobs/query', {
+      params: {
+        field,
+        key: jobID
+      }
+    })
+    .then(response => {
+      dispatch({ type: GET_JOBS, payload: response.data });
+      console.log('response from queryJob', response.data);
+    })
+    .catch((err) => {
+      throw err;
+    });
+  };
 }
