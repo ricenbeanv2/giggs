@@ -19,11 +19,10 @@ let SignUpForm = props => {
   } else {
     passCheck = <div />;
   }
-  console.log(props.jobs)
+  console.log('jobs prop', props.jobs)
   return (
     <form onSubmit={handleSubmit((data) => {
       props.userSignUp(data).then(() => {
-        console.log('test');
         props.getUserInfo(Cookies.getJSON('user').userid);
       });
     })}>

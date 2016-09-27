@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import SelectionComponent from '../selectionComponent';
 import { sendJob } from '../../actions/jobs';
 import renderField from '../renderField';
+import GeoComponent from '../geoComponent';
 
 let CreateJobForm = props => {
   let loading = '';
@@ -41,6 +42,11 @@ let CreateJobForm = props => {
       <div className="form-group">
         <label>Description</label>
         <Field name="description" component={renderField} type="textarea" className="form-control" />
+      </div>
+
+      <div className="form-group">
+        <label>Address</label>
+        <Field name="address" component={GeoComponent} type="text" className="form-control" />
       </div>
 
       <div className="form-group">

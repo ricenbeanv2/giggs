@@ -11,8 +11,9 @@ export function sendJob(jobDetails) {
   jobDet.location_lat = 1.0;
   jobDet.location_lng = 2.0;
   jobDet.user_id = Cookies.getJSON('user').userid;
+  console.log('jobdetails', jobDet);
   console.log('cookies user', Cookies.getJSON('token'));
-  console.log('jobDetails', jobDet);
+  console.log('cookies ', Cookies.getJSON('user'));
   return (dispatch) => {
     return axios.post('/db/jobs/create', jobDet, { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then((response) => {
@@ -25,7 +26,6 @@ export function sendJob(jobDetails) {
         if (Object.keys(jobDet).length < 9) {
           throw new SubmissionError({ _error: 'Please fill out missing fields.' });
         }
-        throw new SubmissionError({ _error: 'Please log in.' });
       });
   };
 }

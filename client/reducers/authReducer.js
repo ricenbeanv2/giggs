@@ -1,19 +1,21 @@
 import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT } from '../actions/actionTypes';
 
-export default function (state = {}, { type, payload }) {
+const INITIAL_STATE = { confirm: '', loggedOut: '', signUp: '', signIn: '', userData: {}, updated: [] };
+
+export default function (state = INITIAL_STATE, { type, payload }) {
   switch (type) {
     case PW_NOT_SAME:
-      return payload;
+      return { ...state, confirm: payload };
     case LOGGED_OUT:
-      return {};
+      return { ...state, loggedOut: payload };
     case SIGN_UP:
-      return payload;
+      return { ...state, signUp: payload };
     case SIGN_IN:
-      return payload;
+      return { ...state, signIn: payload };
     case GET_USER:
-      return payload;
+      return { ...state, userData: payload };
     case UPDATE_USER:
-      return payload;
+      return { ...state, updated: payload };
     default:
       return state;
   }
