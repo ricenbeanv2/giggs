@@ -19,10 +19,11 @@ let SignUpForm = props => {
   } else {
     passCheck = <div />;
   }
-  console.log('jobs prop', props.jobs)
+  console.log(props.jobs)
   return (
     <form onSubmit={handleSubmit((data) => {
       props.userSignUp(data).then(() => {
+        console.log('test');
         props.getUserInfo(Cookies.getJSON('user').userid);
       });
     })}>
@@ -30,7 +31,7 @@ let SignUpForm = props => {
       <div className="form-group">
         <Field name="username" component={renderField} type="text" className="form-control" placeholder="Username" />
       </div>
-
+      
       <div className="form-group">
         <Field name="name" component={renderField} type="text" className="form-control" placeholder="Name" />
       </div>
