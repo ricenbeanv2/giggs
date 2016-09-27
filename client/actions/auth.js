@@ -11,15 +11,12 @@ export function userSignUp(info) {
     } else {
       return axios.post('/auth/signup', info)
         .then((response) => {
-          console.log('response.data', response.data);
           dispatch({ type: SIGN_UP, payload: response.data });
           if (typeof response.data !== 'string') {
             Cookies.set('user', response.data.user);
             Cookies.set('token', response.data.token);
           } else {
-            console.log('inside else statement', response.data);
             if (response.data.includes('username')) {
-              console.log('inside here');
               throw new SubmissionError({ username: 'username already exists', _error: 'Please try again' });
             }
             if (response.data.includes('email')) {
@@ -48,10 +45,12 @@ export function userSignIn(info) {
         dispatch({ type: SIGN_IN, payload: response.data });
         Cookies.set('user', response.data.user);
         Cookies.set('token', response.data.token);
+
       })
-      .catch(() => {
-        console.log('username or pw invalid');
-        dispatch({ type: PW_NOT_SAME, paylod: 'Passwords not same' });
+      .catch((err) => {
+        console.log('username or pw invalid', err);
+        // dispatch({ type: PW_NOT_SAME, payload: 'Passwords not same' });
+        throw new SubmissionError({ _error: 'Invalid username or password' });
       });
   };
 }
@@ -72,7 +71,7 @@ export function getUserInfo(id) {
       console.log('response.data inside getuserinfo', response.data);
       browserHistory.push('/userprofile');
     });
-  }
+  };
 }
 
 export function updateUserInfo(info) {
@@ -81,7 +80,7 @@ export function updateUserInfo(info) {
     return axios.post('/db/users/update', { id: Cookies.getJSON('user').userid, fields: info }, { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then((response) => {
         console.log('response inside updateUserInfo', response);
-        dispatch({ type: UPDATE_USER, payload: response.data });
+        // dispatch({ type: UPDATE_USER, payload: response.data });
         throw new SubmissionError({ _error: 'User Profile Updated!' });
       });
   };

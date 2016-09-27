@@ -13,7 +13,6 @@ module.exports = {
 			address: req.body.address,
 			openings: req.body.openings,
 			description: req.body.description,
-			address: req.body.address,
 			max_price: req.body.max_price,
 			user_id: req.body.user_id,
 			location_lat: req.body.location_lat,
