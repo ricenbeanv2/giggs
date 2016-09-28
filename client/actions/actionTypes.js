@@ -11,3 +11,7 @@ export const GET_ALL_JOBS = 'get_all_jobs';
 export const GET_PARENT_CATS = 'get_parents_cats';
 export const GET_JOBS = 'get_jobs';
 export const GET_CATEGORY = 'get_category';
+export const SORT_PRICE = 'sort_price';
+export const SORT_CATEGORIES = 'sort_categories';
+export const SORT_DATE = 'sort_date'
+export const FILTER_CATEGORY = 'filter_category'
