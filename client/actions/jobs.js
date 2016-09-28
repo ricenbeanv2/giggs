@@ -2,24 +2,15 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
-<<<<<<< 275edfc71cd974a56c076220ce382ad7678998e8
 
 import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY, SET_JOBID, GET_LAT_LONG } from './actionTypes';
 
-=======
-import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, GET_CATEGORY, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY, GET_LAT_LONG } from './actionTypes';
-
->>>>>>> [feature] Converts address to lat/long after selecting an address
 export function sendJob(jobDetails, latLong) {
   const jobDet = jobDetails;
   jobDet.category_id = jobDetails.category_id.value;
   jobDet.user_id = Cookies.getJSON('user').userid;
   jobDet.location_lat = latLong.lat;
-<<<<<<< 275edfc71cd974a56c076220ce382ad7678998e8
   jobDet.location_lng = latLong.lng;
-=======
-  jobDet.location_long = latLong.lng;
->>>>>>> [feature] Converts address to lat/long after selecting an address
 
   return (dispatch) => {
     return axios.post('/db/jobs/create', jobDet, { headers: { 'x-access-token': Cookies.getJSON('token') } })
@@ -43,15 +34,10 @@ export function getLatLong(address) {
         key: 'AIzaSyAJu6SvKcz7H7fNJb-akc4PJ7BYhlbhqAw'
       }
     }).then((response) => {
-<<<<<<< 275edfc71cd974a56c076220ce382ad7678998e8
-=======
-      console.log('Geolocation response:', response.data.results[0].geometry.location);
->>>>>>> [feature] Converts address to lat/long after selecting an address
       dispatch({ type: GET_LAT_LONG, payload: response.data.results[0].geometry.location });
     });
   };
 }
-
 export function getJobList() {
   let request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
