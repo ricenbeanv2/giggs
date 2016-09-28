@@ -23,7 +23,6 @@ class JobListings extends Component {
   handleChanges(event){
     event.preventDefault();
     this.setState({changes: event.target.value})
-    console.log('event.target.value', event.target.value);
   }
 
   handleSubmit(){
