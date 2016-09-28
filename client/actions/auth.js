@@ -75,6 +75,17 @@ export function getUserInfo(id) {
   }
 }
 
+export function getUser(id) {
+  console.log('id inside getuserinfo', id);
+  return (dispatch) => {
+  return axios.get('/db/users/' + id, { headers: { 'x-access-token': Cookies.getJSON('token') } })
+    .then((response) => {
+      dispatch({ type: GET_USER, payload: response.data });
+      //console.log('response.data inside getuserinfo', response.data);
+    });
+  }
+}
+
 export function updateUserInfo(info) {
   console.log('info', info);
   return (dispatch) => {

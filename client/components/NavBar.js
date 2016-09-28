@@ -14,6 +14,7 @@ const NavBar = () => {
           <li><Link to="/map">Map</Link></li>
           <li><Link to="/createjob">Create Job </Link></li>
           <li><Link to="/userprofile">User Profile </Link></li>
+          <li><Link to="/profile">PROFILE </Link></li>
           <li><LogOut /></li>
         </ul>
       </nav>
@@ -27,7 +28,8 @@ const NavBar = () => {
         <li><Link to="/map">Map</Link></li>
         <li><Link to="/login">Sign in </Link></li>
         <li><Link to="/signup">Sign up </Link></li>
-        <li><Link to="/userprofile">User Profile </Link></li>
+        <li><Link to="/userprofile">Update User Profile </Link></li>
+        <li><Link to="/profile">PROFILE </Link></li>
         <li><Link to="/selectedjob">Job Selected</Link></li>
         <li><LogOut /></li>
       </ul>
