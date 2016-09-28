@@ -9,17 +9,15 @@ export function sendJob(jobDetails, latLong) {
   jobDet.category_id = jobDetails.category_id.value;
   jobDet.user_id = Cookies.getJSON('user').userid;
   jobDet.location_lat = latLong.lat;
-  jobDet.location_long = latLong.lng;
+  jobDet.location_lng = latLong.lng;
 
   return (dispatch) => {
     return axios.post('/db/jobs/create', jobDet, { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then((response) => {
-        console.log('createJob payload:', response);
         browserHistory.push('/joblistings');
         dispatch({ type: CREATE_JOB, payload: response.data });
       })
       .catch(() => {
-        console.log('value:', Object.keys(jobDet).length);
         if (Object.keys(jobDet).length < 9) {
           throw new SubmissionError({ _error: 'Please fill out missing fields.' });
         }
@@ -35,7 +33,6 @@ export function getLatLong(address) {
         key: 'AIzaSyAJu6SvKcz7H7fNJb-akc4PJ7BYhlbhqAw'
       }
     }).then((response) => {
-      console.log('Geolocation response:', response.data.results[0].geometry.location);
       dispatch({ type: GET_LAT_LONG, payload: response.data.results[0].geometry.location });
     });
   };
@@ -52,12 +49,11 @@ export function getJobList() {
     return axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then(response => {
           dispatch({ type: GET_ALL_JOBS, payload: response.data });
-          console.log('response from getJobList:', response);
         })
       .catch(() => {
         throw new SubmissionError({ _error: 'something terrible happened' });
       });
-    }
+    };
 }
 
 export function getJobDetail(jobID) {
