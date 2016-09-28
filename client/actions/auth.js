@@ -91,7 +91,7 @@ export function updateUserInfo(info) {
     return axios.post('/db/users/update', { id: Cookies.getJSON('user').userid, fields: info }, { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then((response) => {
         console.log('response inside updateUserInfo', response);
-        // dispatch({ type: UPDATE_USER, payload: response.data });
+        dispatch({ type: UPDATE_USER, payload: response.data });
         throw new SubmissionError({ _error: 'User Profile Updated!' });
       });
   };
