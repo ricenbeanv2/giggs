@@ -101,6 +101,8 @@ export function sortPriceChange() {
   }
 }
 
+// function getCategoryName
+
 export function sortCategories() {
   var dataArray = [];
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })

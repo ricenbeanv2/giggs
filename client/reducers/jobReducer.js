@@ -9,17 +9,17 @@ export default function (state = INITIAL_STATE, { type, payload }) {
     case GET_JOBS:
       return { ...state, job: payload };
     case GET_ALL_JOBS:
-      return { ...state, jobList: payload };
+      return { ...state, joblist: payload };
     case GET_CATEGORY:
       return { ...state, category: payload };
     case SORT_CATEGORIES:
-      return {...state, jobList: payload}
+      return {...state, joblist: payload}
     case SORT_PRICE:
-      return {...state, jobList: payload}
+      return {...state, joblist: payload}
     case SORT_DATE:
-      return {...state, jobList: payload}
+      return {...state, joblist: payload}
     case FILTER_CATEGORY:
-      return {...state, jobList: payload}
+      return {...state, joblist: payload}
     default:
       return state;
   }

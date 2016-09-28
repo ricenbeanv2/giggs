@@ -10,11 +10,12 @@ import EachJob from './eachJob';
 class JobListings extends Component {
   componentWillMount() {
     this.props.getJobList()
+    console.log('Inside jobListings: ', this.props.jobs)
   }
   constructor(props){
     super(props)
     this.state = {
-      changes: undefined
+      changes: []
     }
     this.handleChanges = this.handleChanges.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,7 +43,7 @@ class JobListings extends Component {
           <input type='text' placeholder='Search category' value={this.state.changes} onChange={this.handleChanges}/>
         </form>
         <button onClick={this.handleSubmit}>Submit</button>
-        <EachJob data={this.props.jobs.jobList}/>
+        <EachJob data={this.props.jobs.joblist}/>
       </div>
     )
   }
