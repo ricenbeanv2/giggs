@@ -30,6 +30,7 @@ export function sendJob(jobDetails) {
 }
 
 export function getJobList() {
+  var dataArray;
   return (dispatch) => {
     return axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then((response) => {
@@ -39,6 +40,9 @@ export function getJobList() {
               eachJob.category_id = response.data[0].name
             })
           })
+
+          dataArray = response.data;
+          console.log('dataArray: ', dataArray)
           dispatch({ type: GET_ALL_JOBS, payload: response.data});
         })
       .catch(() => {
@@ -136,16 +140,15 @@ export function sortDate() {
 }
 
 
-export function filterCategory(searchCategory_id) {
-  var dataArray = [];
-  const request = axios.get('/db/jobs/query?field=category_id&key=' + searchCategory_id, { headers: { 'x-access-token': Cookies.getJSON('token') } })
+export function filterCategory(searchCategory, jobList) {
+  var dataArray = jobList;
   return (dispatch) => {
-    return request
-    .then((response) => {
-      dispatch({type: FILTER_CATEGORY, payload: response.data})
+    var filteredData= jobList.filter((eachJob) => {
+      if (eachJob.category_id === searchCategory){
+        return eachJob
+      }
     })
-    .catch((error) => {
-      console.log('Error:', error);
-    })
+    console.log('filteredData: ', filteredData)
+    dispatch({type: FILTER_CATEGORY, payload: filteredData})
   }
 }
