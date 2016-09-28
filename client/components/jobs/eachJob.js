@@ -4,7 +4,6 @@ const eachJob = (props) => {
   return (
     <div>{
         props.data.map((eachJob, index) => {
-          console.log(props.data)
           return <div key={index} className='well'>
             <h4>Job</h4>
             <p>{eachJob.jobName}</p>

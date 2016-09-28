@@ -33,13 +33,13 @@ export function getJobList() {
   return (dispatch) => {
     return axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then((response) => {
-          return response.data.map((eachJob) => {
-            return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
+            response.data.map((eachJob) => {
+            axios.get('db/category/query?field=id&key=' + eachJob.category_id)
             .then((response) => {
               eachJob.category_id = response.data[0].name
             })
           })
-          dispatch({ type: GET_ALL_JOBS, payload: response.data });
+          dispatch({ type: GET_ALL_JOBS, payload: response.data});
         })
       .catch(() => {
         throw new SubmissionError({ _error: 'something terrible happened' });

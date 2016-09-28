@@ -41,7 +41,7 @@ class JobListings extends Component {
           <input type='text' placeholder='Search category' value={this.state.changes} onChange={this.handleChanges}/>
         </form>
         <button onClick={this.handleSubmit}>Submit</button>
-        <EachJob data={this.props.jobs.joblist}/>
+        <EachJob data={this.props.jobs.jobList}/>
       </div>
     )
   }
