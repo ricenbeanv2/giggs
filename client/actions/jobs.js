@@ -32,8 +32,16 @@ export function sendJob(jobDetails) {
 export function getJobList() {
   return (dispatch) => {
     return axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
-      .then(response => {
+      .then((response) => {
+          return response.data.map((eachJob) => {
+            return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
+            .then((response) => {
+              eachJob.category_id = response.data[0].name
+              console.log('after reassigning', eachJob.category_id)
+            })
+          })
           dispatch({ type: GET_ALL_JOBS, payload: response.data });
+          console.log('response.data: ', response.data)
         })
       .catch(() => {
         throw new SubmissionError({ _error: 'something terrible happened' });
@@ -93,8 +101,6 @@ export function sortPriceChange() {
     })
   }
 }
-
-// function getCategoryName
 
 export function sortCategories() {
   var dataArray = [];
