@@ -1,5 +1,4 @@
 import Moment from 'moment';
-
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -26,7 +25,6 @@ class SelectedJob extends Component {
 
   render() {
     return (
-
       <div>
         <button className="btn btn-secondary" onClick={this.clickHandler}>
           Get
