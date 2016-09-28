@@ -11,7 +11,7 @@ const eachJob = (props) => {
             <h4>Category</h4>
             <p>{eachJob.category_id}</p>
             <h4>Location</h4>
-            <p>{eachJob.location_lat}</p>
+            <p>{eachJob.address}</p>
             <h4>Description</h4>
             <p>{eachJob.description}</p>
             <h4>Openings</h4>
