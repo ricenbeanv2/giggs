@@ -30,17 +30,10 @@ export function sendJob(jobDetails) {
 }
 
 export function getJobList() {
-/*  console.log('inside job.js');
-  // const request = axios.get('/db/jobs/getAll');
-  return {
-    type: createJob,
-    payload: 'test'
-  };*/
   return (dispatch) => {
     return axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then(response => {
           dispatch({ type: GET_ALL_JOBS, payload: response.data });
-          //console.log('response from getJobList:', response);
         })
       .catch(() => {
         throw new SubmissionError({ _error: 'something terrible happened' });
@@ -109,14 +102,7 @@ export function sortCategories() {
   return (dispatch) => {
     return request
     .then((response) => {
-         response.data.map((eachObject) => {
-         eachObject.category_id = categoryObject[eachObject.category_id.toString()]
-      })
-        console.log(response.data.sort((a,b) => {
-        return a.category_id - b.category_id;
-      }))
-
-
+      //INSERT LOGIC HERE
     })
     .catch((error) => {
       console.log('Error: ', error);
@@ -152,7 +138,6 @@ export function filterCategory(searchCategory_id) {
   return (dispatch) => {
     return request
     .then((response) => {
-      console.log('Response in filterCategory: ', response.data)
       dispatch({type: FILTER_CATEGORY, payload: response.data})
     })
     .catch((error) => {

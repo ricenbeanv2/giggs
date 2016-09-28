@@ -10,12 +10,11 @@ import EachJob from './eachJob';
 class JobListings extends Component {
   componentWillMount() {
     this.props.getJobList()
-    console.log('Inside jobListings: ', this.props.jobs)
   }
   constructor(props){
     super(props)
     this.state = {
-      changes: []
+      changes: undefined
     }
     this.handleChanges = this.handleChanges.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,7 +23,6 @@ class JobListings extends Component {
   handleChanges(event){
     event.preventDefault();
     this.setState({changes: event.target.value})
-    console.log('event.target.value', event.target.value);
   }
 
   handleSubmit(){
