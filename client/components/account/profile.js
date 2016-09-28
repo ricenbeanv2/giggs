@@ -19,9 +19,11 @@ class UserProfilePage extends Component {
 		this.props.getJobList();
 	}
 
+
+
 	render() {
 		const user = this.props.auth.userData;
-		console.log("=================>", user)
+		console.log("===========>", user)
 		const userid = Cookies.getJSON('user').userid;
 		if (!this.props.jobs.jobList || !this.props.auth.userData) {
 			return <div>loading</div>
@@ -33,10 +35,10 @@ class UserProfilePage extends Component {
 			<h3>User Info</h3>
 			<ul>
 			{
-				Object.keys(user).map(function(info, i){
+				Object.keys(user).map((info, i) => {
 					return (
 						<li key={i}>
-							<pre><code>{JSON.stringify(user[info], null, 4)}</code></pre>
+							<pre>{user[info]}</pre>
 						</li>
 					)
 				})
@@ -45,7 +47,7 @@ class UserProfilePage extends Component {
 			<h3>User Jobs</h3>
 			<ul>
 			{
-				this.props.jobs.jobList.filter(job => job.user_id == userid).map(function(job){
+				this.props.jobs.jobList.filter(job => job.user_id == userid).map(job => {
 					return (
 						<li key={job.id}>
 							<pre><code>{JSON.stringify(job, null, 4)}</code></pre>
@@ -61,7 +63,6 @@ class UserProfilePage extends Component {
 }
 
 function mapStateToProps({ jobs, auth }) {
-	console.log(jobs)
 	return { jobs, auth };
 }
 
