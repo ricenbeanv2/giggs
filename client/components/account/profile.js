@@ -20,23 +20,41 @@ class UserProfilePage extends Component {
 	}
 
 	render() {
+		const user = this.props.auth.userData;
+		console.log("=================>", user)
 		const userid = Cookies.getJSON('user').userid;
-		if (!this.props.jobs.jobList) {
+		if (!this.props.jobs.jobList || !this.props.auth.userData) {
 			return <div>loading</div>
 		}
 
 		return (	
 			//<pre><code>{JSON.stringify(this.props.jobs.jobList, null, 4)}</code></pre>
+			<div>
+			<h3>User Info</h3>
 			<ul>
-				{
-					this.props.jobs.jobList.filter(job => job.user_id == userid).map(function(job){
-						return (
-							<li key={job.id}><pre><code>{JSON.stringify(job, null, 4)}</code></pre></li>
-							)
-					})
-				}
+			{
+				Object.keys(user).map(function(info, i){
+					return (
+						<li key={i}>
+							<pre><code>{JSON.stringify(user[info], null, 4)}</code></pre>
+						</li>
+					)
+				})
+			}
 			</ul>
-
+			<h3>User Jobs</h3>
+			<ul>
+			{
+				this.props.jobs.jobList.filter(job => job.user_id == userid).map(function(job){
+					return (
+						<li key={job.id}>
+							<pre><code>{JSON.stringify(job, null, 4)}</code></pre>
+						</li>
+					)
+				})
+			}
+			</ul>
+			</div>
 		);
 	}
 
