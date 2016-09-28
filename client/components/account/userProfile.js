@@ -10,7 +10,6 @@ class UserProfile extends Component {
     const { error, handleSubmit, submitting } = this.props;
     return (
       <form onSubmit={handleSubmit(this.props.updateUserInfo)}>
-        <pre><code>{JSON.stringify(this.props, null, 4)}</code></pre>
         <h3>User Profile</h3>
         <div className="form-group">
           <label>Username</label>
