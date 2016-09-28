@@ -30,17 +30,20 @@ export function sendJob(jobDetails) {
 }
 
 export function getJobList() {
-/*  console.log('inside job.js');
-  // const request = axios.get('/db/jobs/getAll');
-  return {
-    type: createJob,
-    payload: 'test'
-  };*/
+  var dataArray;
   return (dispatch) => {
     return axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
-      .then(response => {
-          dispatch({ type: GET_ALL_JOBS, payload: response.data });
-          //console.log('response from getJobList:', response);
+      .then((response) => {
+            response.data.map((eachJob) => {
+            axios.get('db/category/query?field=id&key=' + eachJob.category_id)
+            .then((response) => {
+              eachJob.category_id = response.data[0].name
+            })
+          })
+
+          dataArray = response.data;
+          console.log('dataArray: ', dataArray)
+          dispatch({ type: GET_ALL_JOBS, payload: response.data});
         })
       .catch(() => {
         throw new SubmissionError({ _error: 'something terrible happened' });
@@ -107,14 +110,7 @@ export function sortCategories() {
   return (dispatch) => {
     return request
     .then((response) => {
-         response.data.map((eachObject) => {
-         eachObject.category_id = categoryObject[eachObject.category_id.toString()]
-      })
-        console.log(response.data.sort((a,b) => {
-        return a.category_id - b.category_id;
-      }))
-
-
+      //INSERT LOGIC HERE
     })
     .catch((error) => {
       console.log('Error: ', error);
@@ -144,17 +140,15 @@ export function sortDate() {
 }
 
 
-export function filterCategory(searchCategory_id) {
-  var dataArray = [];
-  const request = axios.get('/db/jobs/query?field=category_id&key=' + searchCategory_id, { headers: { 'x-access-token': Cookies.getJSON('token') } })
+export function filterCategory(searchCategory, jobList) {
+  var dataArray = jobList;
   return (dispatch) => {
-    return request
-    .then((response) => {
-      console.log('Response in filterCategory: ', response.data)
-      dispatch({type: FILTER_CATEGORY, payload: response.data})
+    var filteredData= jobList.filter((eachJob) => {
+      if (eachJob.category_id === searchCategory){
+        return eachJob
+      }
     })
-    .catch((error) => {
-      console.log('Error:', error);
-    })
+    console.log('filteredData: ', filteredData)
+    dispatch({type: FILTER_CATEGORY, payload: filteredData})
   }
 }

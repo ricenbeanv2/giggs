@@ -14,7 +14,8 @@ class JobListings extends Component {
   constructor(props){
     super(props)
     this.state = {
-      changes: undefined
+      changes: undefined,
+      data: this.props.jobs.jobList
     }
     this.handleChanges = this.handleChanges.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,11 +24,10 @@ class JobListings extends Component {
   handleChanges(event){
     event.preventDefault();
     this.setState({changes: event.target.value})
-    console.log('event.target.value', event.target.value);
   }
 
   handleSubmit(){
-    this.props.filterCategory(this.state.changes)
+    this.props.filterCategory(this.state.changes, this.props.jobs.jobList)
   }
 
   render() {
