@@ -11,7 +11,6 @@ export function sendJob(jobDetails, latLong) {
   jobDet.user_id = Cookies.getJSON('user').userid;
   jobDet.location_lat = latLong.lat;
   jobDet.location_lng = latLong.lng;
-
   return (dispatch) => {
     return axios.post('/db/jobs/create', jobDet, { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then((response) => {
