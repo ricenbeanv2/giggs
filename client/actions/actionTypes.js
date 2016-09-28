@@ -16,3 +16,8 @@ export const APPLY_JOB = 'apply_job';
 export const CANCEL_JOB = 'cancel_job';
 export const UPDATE_BID = 'update_bid';
 export const GET_APPLICANTS = 'get_applicants';
+
+export const SORT_PRICE = 'sort_price';
+export const SORT_CATEGORIES = 'sort_categories';
+export const SORT_DATE = 'sort_date';
+export const FILTER_CATEGORY = 'filter_category';
