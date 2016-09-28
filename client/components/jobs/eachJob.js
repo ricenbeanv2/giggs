@@ -11,17 +11,22 @@ const eachJob = (props) => {
           <p>{eachJob.category_id}</p>
           <h4>Location</h4>
           <p>{eachJob.address}</p>
-          <p>{eachJob.location_lat}</p>
           <h4>Description</h4>
           <p>{eachJob.description}</p>
           <h4>Openings</h4>
           <p>{eachJob.openings}</p>
           <h4>Max Price</h4>
           <p>{eachJob.max_price}</p>
-
+          
           <p>{eachJob.deadline.toString()}</p>
         </div>
         })
+=======
+          <h4>Deadline</h4>
+          <p>{eachJob.deadline.toString()}</p>
+        </div>
+      })
+>>>>>>> [feature] Converts address to lat/long after selecting an address
       }</div>
   );
 };

@@ -27,11 +27,6 @@ class JobListings extends Component {
   }
 
   handleSubmit(){
-    this.props.filterCategory(this.state.changes, this.props.jobs.jobList)
-    console.log('event.target.value', event.target.value);
-  }
-
-  handleSubmit(){
     this.props.filterCategory(this.state.changes)
   }
 
