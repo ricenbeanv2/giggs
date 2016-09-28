@@ -2,17 +2,16 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
-import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY, SET_JOBID } from './actionTypes';
 
-export function sendJob(jobDetails) {
+import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY, SET_JOBID, GET_LAT_LONG } from './actionTypes';
+
+export function sendJob(jobDetails, latLong) {
   const jobDet = jobDetails;
   jobDet.category_id = jobDetails.category_id.value;
-  jobDet.location_lat = 1.0;
-  jobDet.location_lng = 2.0;
   jobDet.user_id = Cookies.getJSON('user').userid;
-  console.log('jobdetails', jobDet);
-  console.log('cookies user', Cookies.getJSON('token'));
-  console.log('cookies ', Cookies.getJSON('user'));
+  jobDet.location_lat = latLong.lat;
+  jobDet.location_long = latLong.lng;
+
   return (dispatch) => {
     return axios.post('/db/jobs/create', jobDet, { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then((response) => {
@@ -26,6 +25,20 @@ export function sendJob(jobDetails) {
           throw new SubmissionError({ _error: 'Please fill out missing fields.' });
         }
       });
+  };
+}
+
+export function getLatLong(address) {
+  return (dispatch) => {
+    axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+      params: {
+        address: address,
+        key: 'AIzaSyAJu6SvKcz7H7fNJb-akc4PJ7BYhlbhqAw'
+      }
+    }).then((response) => {
+      console.log('Geolocation response:', response.data.results[0].geometry.location);
+      dispatch({ type: GET_LAT_LONG, payload: response.data.results[0].geometry.location });
+    });
   };
 }
 

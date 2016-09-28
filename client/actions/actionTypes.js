@@ -18,6 +18,7 @@ export const UPDATE_BID = 'update_bid';
 export const GET_APPLICANTS = 'get_applicants';
 export const UPDATE_STATUS = 'update_status';
 
+export const GET_LAT_LONG = 'get_lat_long';
 export const SORT_PRICE = 'sort_price';
 export const SORT_CATEGORIES = 'sort_categories';
 export const SORT_DATE = 'sort_date';
