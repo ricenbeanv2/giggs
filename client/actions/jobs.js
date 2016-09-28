@@ -34,6 +34,7 @@ export function getLatLong(address) {
         key: 'AIzaSyAJu6SvKcz7H7fNJb-akc4PJ7BYhlbhqAw'
       }
     }).then((response) => {
+      console.log('Geolocation response:', response.data.results[0].geometry.location);
       dispatch({ type: GET_LAT_LONG, payload: response.data.results[0].geometry.location });
     });
   };
