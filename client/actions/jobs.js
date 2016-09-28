@@ -37,11 +37,9 @@ export function getJobList() {
             return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
             .then((response) => {
               eachJob.category_id = response.data[0].name
-              console.log('after reassigning', eachJob.category_id)
             })
           })
           dispatch({ type: GET_ALL_JOBS, payload: response.data });
-          console.log('response.data: ', response.data)
         })
       .catch(() => {
         throw new SubmissionError({ _error: 'something terrible happened' });
