@@ -138,7 +138,6 @@ export function sortPriceChange() {
 }
 
 export function sortCategories() {
-  var dataArray = [];
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
     return request
@@ -163,7 +162,17 @@ export function sortCategories() {
       })
     })
     .then((response) => {
-      console.log('Line 166: ', response)
+      return response.sort(function(a, b){
+        var nameA=a.category_id.toLowerCase(), nameB=b.category_id.toLowerCase()
+        if (nameA < nameB)
+            return -1
+        if (nameA > nameB)
+            return 1
+        return 0
+      })
+    })
+    .then((response) => {
+      dispatch({type: SORT_CATEGORIES, payload: response})
     })
     .catch((error) => {
       console.log('Error: ', error);
@@ -211,10 +220,9 @@ export function sortDate() {
 }
 
 export function filterCategory(searchCategory) {
+  console.log('Line 223:', searchCategory)
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
-    let filtered = [];
-    let dataArray;
     return request
       .then((response) => {
           return Promise.all(
@@ -239,7 +247,7 @@ export function filterCategory(searchCategory) {
         })
         .then((response) => {
         return response.filter((eachJob) => {
-          if(eachJob.category_id === searchCategory){
+          if(eachJob.category_id === searchCategory.replace(/ /g,'')){
             return eachJob;
           }
         })
