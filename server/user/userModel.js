@@ -7,11 +7,11 @@ const bcrypt = require('bcrypt');
 const User = connection.define('Users', {
 	username: {
 		type: Sequelize.STRING,
-		allowNull: true,
+		allowNull: false,
 	},
 	password: {
 		type: Sequelize.STRING,
-		allowNull: true,
+		allowNull: false,
 	},
 	name: {
 		type: Sequelize.STRING,

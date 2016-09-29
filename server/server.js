@@ -9,6 +9,7 @@ const moment = require('moment');
 const router = require('./config/routes');
 const middleware = require('./config/middleware');
 const userController = require('./user/userCtrl');
+const EmployeeReviews = require('./review/employeeReviewsModel');
 
 const app = express();
 //set up port

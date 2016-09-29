@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bindActionCreators, createStore } from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getJobList } from '../../actions/jobs';
 import { GoogleMap, Marker } from 'react-google-maps';

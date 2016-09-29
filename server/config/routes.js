@@ -3,6 +3,7 @@ const applicantController = require('../applicant/applicantCtrl');
 const categoryController = require('../category/categoryCtrl');
 const jobController = require('../job/jobCtrl');
 const userController = require('../user/userCtrl');
+const reviewsController = require('../review/reviewCtrl');
 const checkEmail = require('../config/middleware').checkEmail;
 const checkUsername = require('../config/middleware').checkUsername;
 const helper = require('../config/helpers');
@@ -20,6 +21,8 @@ router.get('/category/getParents', categoryController.getParentCategories);
 router.post('/jobs/create', helper, jobController.createJob);
 router.get('/jobs/getAll', jobController.getAllJobs);
 router.get('/jobs/query', jobController.queryJob);
+
+router.get('/reviews/helloWorld', reviewsController.helloWorld);
 
 router.get('/users/:id', helper, userController.getUserInfo);
 router.post('/users/update', helper, checkEmail, checkUsername, userController.updateUser);
