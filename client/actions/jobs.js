@@ -30,21 +30,32 @@ export function sendJob(jobDetails) {
 }
 
 export function getJobList() {
-  var dataArray;
+  let request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
-    return axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
+    return request
       .then((response) => {
+          return Promise.all(
             response.data.map((eachJob) => {
-            axios.get('db/category/query?field=id&key=' + eachJob.category_id)
-            .then((response) => {
-              eachJob.category_id = response.data[0].name
+              return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
+                .then((response) => {
+                eachJob.category_id = response.data[0].name
+              return eachJob;
+            })
+            .catch((error) => {
+            throw error;
             })
           })
-
-          dataArray = response.data;
-          console.log('dataArray: ', dataArray)
-          dispatch({ type: GET_ALL_JOBS, payload: response.data});
-                })
+        )
+      })
+    .then((response) => {
+      return response.map((eachJob) => {
+        eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
+        return eachJob;
+      })
+    })
+    .then((response) => {
+      dispatch({type: GET_ALL_JOBS, payload:response})
+    })
       .catch(() => {
         throw new SubmissionError({ _error: 'something terrible happened' });
       });
@@ -92,11 +103,33 @@ export function sortPriceChange() {
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
     return request
-    .then((response) => {
-      dataArray = response.data.sort((least, greatest)=>{
-        return least.max_price - greatest.max_price
+      .then((response) => {
+          return Promise.all(
+            response.data.map((eachJob) => {
+              return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
+                .then((response) => {
+                eachJob.category_id = response.data[0].name
+              return eachJob;
+            })
+            .catch((error) => {
+            throw error;
+            })
+          })
+        )
       })
-      dispatch({type: SORT_PRICE, payload: dataArray})
+    .then((response) => {
+      return response.map((eachJob) => {
+        eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
+        return eachJob;
+      })
+    })
+    .then((response) => {
+      return response.sort((cheapestJob, expensiveJob) => {
+        return cheapestJob.max_price - expensiveJob.max_price
+      })
+    })
+    .then((response) => {
+      dispatch({type: SORT_PRICE, payload:response})
     })
     .catch((error) => {
       console.log("Error: ", error);
@@ -104,13 +137,43 @@ export function sortPriceChange() {
   }
 }
 
+
 export function sortCategories() {
-  var dataArray = [];
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
     return request
+      .then((response) => {
+          return Promise.all(
+            response.data.map((eachJob) => {
+              return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
+                .then((response) => {
+                eachJob.category_id = response.data[0].name
+              return eachJob;
+            })
+            .catch((error) => {
+            throw error;
+            })
+          })
+        )
+      })
     .then((response) => {
-      //INSERT LOGIC HERE
+      return response.map((eachJob) => {
+        eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
+        return eachJob;
+      })
+    })
+    .then((response) => {
+      return response.sort(function(a, b){
+        var nameA=a.category_id.toLowerCase(), nameB=b.category_id.toLowerCase()
+        if (nameA < nameB)
+            return -1
+        if (nameA > nameB)
+            return 1
+        return 0
+      })
+    })
+    .then((response) => {
+      dispatch({type: SORT_CATEGORIES, payload: response})
     })
     .catch((error) => {
       console.log('Error: ', error);
@@ -123,31 +186,77 @@ export function sortDate() {
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
     return request
+      .then((response) => {
+          return Promise.all(
+            response.data.map((eachJob) => {
+              return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
+                .then((response) => {
+                eachJob.category_id = response.data[0].name
+              return eachJob;
+            })
+            .catch((error) => {
+            throw error;
+            })
+          })
+        )
+      })
     .then((response) => {
-      dataArray = response.data
-      .map(function(eachObj){
-    		eachObj.deadline = new Date(eachObj.deadline.slice(0,10).replace(/-/g, ' '))
-    		return eachObj;
-    	 }).sort(function(earliestDate, latestDate){
-    		return latestDate.deadline - earliestDate.deadline
-    	 })
-      dispatch({type: SORT_DATE, payload: dataArray})
+      return response.map((eachJob) => {
+        eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' '));
+        return eachJob;
+      })
+    })
+    .then((response) =>{
+      return response.sort((earliestDate, latestDate) => {
+        return latestDate.deadline - earliestDate.deadline
+      })
+    })
+    .then((response) => {
+      dispatch({type: SORT_DATE, payload: response})
     })
     .catch((error) =>{
-      console.log('Error: ', error)
+      throw error;
     })
   }
 }
 
-export function filterCategory(searchCategory, jobList) {
-  var dataArray = jobList;
+export function filterCategory(searchCategory) {
+  const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
-    var filteredData= jobList.filter((eachJob) => {
-      if (eachJob.category_id === searchCategory){
-        return eachJob
-      }
-    })
-    console.log('filteredData: ', filteredData)
-    dispatch({type: FILTER_CATEGORY, payload: filteredData})
-  }
+    return request
+      .then((response) => {
+          return Promise.all(
+            response.data.map((eachJob) => {
+              return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
+                .then((response) => {
+                  eachJob.category_id = response.data[0].name
+                  return eachJob;
+                })
+                .catch((error) => {
+                  throw error;
+                })
+
+            })
+          )
+        })
+        .then((response) => {
+          return response.map((eachJob) => {
+            eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
+            return eachJob;
+          })
+        })
+        .then((response) => {
+        return response.filter((eachJob) => {
+          if(eachJob.category_id === searchCategory.replace(/ /g,'')){
+            return eachJob;
+          }
+        })
+      })
+      .then((response) => {
+        dispatch({type: FILTER_CATEGORY, payload: response})
+      })
+      .catch(() => {
+        throw new SubmissionError({ _error: 'something terrible happened' });
+      });
+    }
 }
