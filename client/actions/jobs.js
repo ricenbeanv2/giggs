@@ -202,13 +202,13 @@ export function sortDate() {
       })
     .then((response) => {
       return response.map((eachJob) => {
-        eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
+        eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' '));
         return eachJob;
       })
     })
     .then((response) =>{
       return response.sort((earliestDate, latestDate) => {
-        return earliestDate.deadline - latestDate.deadline
+        return latestDate.deadline - earliestDate.deadline
       })
     })
     .then((response) => {
