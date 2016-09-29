@@ -123,22 +123,39 @@ export function sortDate() {
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
     return request
+      .then((response) => {
+          return Promise.all(
+            response.data.map((eachJob) => {
+              return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
+                .then((response) => {
+                eachJob.category_id = response.data[0].name
+              return eachJob;
+            })
+            .catch((error) => {
+            throw error;
+            })
+          })
+        )
+      })
     .then((response) => {
-      dataArray = response.data
-      .map(function(eachObj){
-    		eachObj.deadline = new Date(eachObj.deadline.slice(0,10).replace(/-/g, ' '))
-    		return eachObj;
-    	 }).sort(function(earliestDate, latestDate){
-    		return latestDate.deadline - earliestDate.deadline
-    	 })
-      dispatch({type: SORT_DATE, payload: dataArray})
+      return response.map((eachJob) => {
+        eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
+        return eachJob;
+      })
+    })
+    .then((response) =>{
+      return response.sort((earliestDate, latestDate) => {
+        return earliestDate.deadline - latestDate.deadline
+      })
+    })
+    .then((response) => {
+      dispatch({type: SORT_DATE, payload: response})
     })
     .catch((error) =>{
-      console.log('Error: ', error)
+      throw error;
     })
   }
 }
-
 
 export function filterCategory(searchCategory) {
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
