@@ -11,7 +11,6 @@ const NavBar = () => {
         <ul className="nav navbar-nav">
           <li><Link to="/">Giggs </Link></li>
           <li><Link to="/joblistings">Job Listings </Link></li>
-          <li><Link to="/selectedjob">Job Selected</Link></li>
           <li><Link to="/map">Map</Link></li>
           <li><Link to="/createjob">Create Job </Link></li>
           <li><Link to="/selectedjob">Job Selected</Link></li>

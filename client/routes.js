@@ -26,7 +26,7 @@ import Chat from './components/account/chat';
 const routingMiddleware = routerMiddleware(browserHistory);
 const createStoreWithMiddleWare = applyMiddleware(thunk, routingMiddleware)(createStore);
 const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f, autoRehydrate());
-const history = syncHistoryWithStore(browserHistory, store);
+// const history = syncHistoryWithStore(browserHistory, store);
 persistStore(store);
 
 const UserIsAuthenticated = UserAuthWrapper({
@@ -37,7 +37,7 @@ const UserIsAuthenticated = UserAuthWrapper({
 
 render((
   <Provider store={store}>
-    <Router history={history}>
+    <Router history={browserHistory}>
       <Route path='/' component={App}>
         <Route path='signup' component={SignUp} />
         <Route path='login' component={SignIn} />
