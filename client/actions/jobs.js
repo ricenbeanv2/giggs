@@ -109,28 +109,8 @@ export function sortCategories() {
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
     return request
-      .then((response) => {
-          return Promise.all(
-            response.data.map((eachJob) => {
-              return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
-                .then((response) => {
-                  eachJob.category_id = response.data[0].name
-                  return eachJob;
-                })
-                .catch((error) => {
-                  throw error;
-                })
-
-            })
-          )
-        })
-    .then((response) =>{
-      return response.sort((firstJob, lastJob) => {
-        return firstJob.category_id - lastJob.category_id;
-      })
-    })
     .then((response) => {
-      dispatch({type: GET_CATEGORY, payload: response})
+      //INSERT LOGIC HERE
     })
     .catch((error) => {
       console.log('Error: ', error);
