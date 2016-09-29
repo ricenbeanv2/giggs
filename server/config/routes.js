@@ -22,7 +22,7 @@ router.post('/jobs/create', helper, jobController.createJob);
 router.get('/jobs/getAll', jobController.getAllJobs);
 router.get('/jobs/query', jobController.queryJob);
 
-router.get('/reviews/helloWorld', reviewsController.helloWorld);
+router.post('/reviews/create', reviewsController.createReview);
 
 router.get('/users/:id', helper, userController.getUserInfo);
 router.post('/users/update', helper, checkEmail, checkUsername, userController.updateUser);
