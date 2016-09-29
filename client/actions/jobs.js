@@ -45,13 +45,6 @@ export function getJobList() {
             throw error;
             })
           })
-<<<<<<< HEAD
-
-          dataArray = response.data;
-          console.log('dataArray: ', dataArray)
-          dispatch({ type: GET_ALL_JOBS, payload: response.data});
-                })
-=======
         )
       })
     .then((response) => {
@@ -63,7 +56,6 @@ export function getJobList() {
     .then((response) => {
       dispatch({type: GET_ALL_JOBS, payload:response})
     })
->>>>>>> feature/bugfix
       .catch(() => {
         throw new SubmissionError({ _error: 'something terrible happened' });
       });
@@ -228,13 +220,8 @@ export function sortDate() {
   }
 }
 
-<<<<<<< HEAD
-export function filterCategory(searchCategory, jobList) {
-  var dataArray = jobList;
-=======
 export function filterCategory(searchCategory) {
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
->>>>>>> feature/bugfix
   return (dispatch) => {
     return request
       .then((response) => {
