@@ -37,6 +37,7 @@ export function getLatLong(address) {
     });
   };
 }
+
 export function getJobList() {
   let request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
