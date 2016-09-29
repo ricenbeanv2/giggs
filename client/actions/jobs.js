@@ -140,15 +140,39 @@ export function sortDate() {
 }
 
 
-export function filterCategory(searchCategory, jobList) {
-  var dataArray = jobList;
+export function filterCategory(searchCategory) {
+  const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
-    var filteredData= jobList.filter((eachJob) => {
-      if (eachJob.category_id === searchCategory){
-        return eachJob
-      }
-    })
-    console.log('filteredData: ', filteredData)
-    dispatch({type: FILTER_CATEGORY, payload: filteredData})
-  }
+    let filtered = [];
+    let dataArray;
+    return request
+      .then((response) => {
+          return Promise.all(
+            response.data.map((eachJob) => {
+              return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
+                .then((response) => {
+                  eachJob.category_id = response.data[0].name
+                  return eachJob;
+                })
+                .catch((error) => {
+                  throw error;
+                })
+
+            })
+          )
+        })
+        .then((response) => {
+        return response.filter((eachJob) => {
+          if(eachJob.category_id === searchCategory){
+            return eachJob;
+          }
+        })
+      })
+      .then((response) => {
+        dispatch({type: FILTER_CATEGORY, payload: response})
+      })
+      .catch(() => {
+        throw new SubmissionError({ _error: 'something terrible happened' });
+      });
+    }
 }
