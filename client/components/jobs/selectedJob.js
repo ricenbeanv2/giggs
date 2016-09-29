@@ -17,10 +17,9 @@ class SelectedJob extends Component {
       job: {},
       category: ''
     };
-    this.clickHandler = this.clickHandler.bind(this);
   }
 
-  clickHandler() {
+  componentWillMount() {
     this.props.getJobDetail(5).then(() => {
       this.setState({ job: this.props.jobs.job });
       this.props.getCategoryName(1).then(() => {
@@ -32,10 +31,7 @@ class SelectedJob extends Component {
   render() {
     return (
       <div>
-        <div className="col-md-8">
-          <button className="btn btn-secondary" onClick={this.clickHandler}>
-            Get
-          </button> <br />
+        <div className="col-md-6">
           <h4> Job Name: </h4> {this.state.job.jobName} <br />
           <h4> User: </h4> {this.state.job.user_id} <br />
           <h4> Openings: </h4> {this.state.job.openings} <br />

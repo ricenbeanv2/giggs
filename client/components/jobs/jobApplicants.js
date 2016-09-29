@@ -2,28 +2,45 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getApplicants } from '../../actions/applicants';
+import Moment from 'moment';
 
 class JobApplicants extends Component {
-  componentDidMount() {
+
+  componentWillMount() {
     this.props.getApplicants(5)
-    .then(response => {
-      console.log("response", response.data);
-      console.log("this.props.apply", this.props.apply);
+    .then(() => {
+      console.log("this.props", this.props);
     })
     .catch(error => {
+      console.log("this.props", this.props);
       throw error;
-    }).bind(this);
+    });
+  }
+
+  renderApplicants(applicantData) {
+    return (
+      <div key={applicantData.user_id}>
+        <h4>
+          user: {applicantData.user_id}
+        </h4>
+        <h4>
+          bid_price: {applicantData.bid_price}
+        </h4>
+        <h4>
+          applied at: {applicantData.bid_price}
+        </h4>
+      </div>
+    );
   }
 
   render() {
     return (
       <div className="col-md-4">
-        Job Applicants here:
+        Job Applicants:
+        {this.props.apply.applicants.map(this.renderApplicants)}
       </div>
     );
   }
-
-
 }
 
 function mapStateToProps({ apply }) {
