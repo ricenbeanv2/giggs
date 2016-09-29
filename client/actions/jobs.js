@@ -232,6 +232,12 @@ export function filterCategory(searchCategory) {
           )
         })
         .then((response) => {
+          return response.map((eachJob) => {
+            eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
+            return eachJob;
+          })
+        })
+        .then((response) => {
         return response.filter((eachJob) => {
           if(eachJob.category_id === searchCategory){
             return eachJob;
