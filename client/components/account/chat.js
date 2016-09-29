@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Cookies from 'js-cookie';
 
 export default class Chat extends Component {
   constructor(props) {
@@ -11,7 +12,9 @@ export default class Chat extends Component {
   }
 
   componentDidMount() {
+    const roomId = Cookies.getJSON('user').userid + Cookies.getJSON.username;
     socket.on('message', message => {
+      console.log('message in mount:', message);
       this.setState({ messages: [message, ...this.state.messages] });
     });
   }
@@ -23,13 +26,15 @@ export default class Chat extends Component {
   }
 
   sendMessage(e) {
-    if (this.state.message !== '' && e.charCode === 13) {
+    if (this.state.message !== '' && (e.charCode === 13 || e.type === 'click')) {
       const message = {
         body: this.state.message,
-        from: 'Me'
+        from: Cookies.getJSON('user').username,
+        id: Cookies.getJSON('user').userid
       };
       this.setState({ messages: [message, ...this.state.messages] });
-      socket.emit('message', this.state.message);
+      console.log('cookie', Cookies.getJSON('user').username);
+      socket.emit('message', message);
       // event.target.value = '';
     }
   }

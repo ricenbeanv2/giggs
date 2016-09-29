@@ -8,9 +8,6 @@ import { getJobList, sortPriceChange, sortCategories, sortDate, filterCategory }
 import EachJob from './eachJob';
 
 class JobListings extends Component {
-  componentWillMount() {
-    this.props.getJobList()
-  }
   constructor(props){
     super(props)
     this.state = {
@@ -21,14 +18,13 @@ class JobListings extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentWillMount() {
+    this.props.getJobList()
+  }
+
   handleChanges(event){
     event.preventDefault();
     this.setState({changes: event.target.value})
-  }
-
-  handleSubmit(){
-    this.props.filterCategory(this.state.changes, this.props.jobs.jobList)
-    console.log('event.target.value', event.target.value);
   }
 
   handleSubmit(){
@@ -47,7 +43,7 @@ class JobListings extends Component {
           <input type='text' placeholder='Search category' value={this.state.changes} onChange={this.handleChanges}/>
         </form>
         <button onClick={this.handleSubmit}>Submit</button>
-        <EachJob data={this.props.jobs.jobList}/>
+        <EachJob data={this.props.jobs.jobList} />
       </div>
     )
   }
