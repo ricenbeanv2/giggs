@@ -18,7 +18,7 @@ const eachJob = (props) => {
             <h4>Max Price</h4>
             <p>{eachJob.max_price}</p>
             <h4>Deadline</h4>
-            <p>{eachJob.deadline}</p>
+            <p>{eachJob.deadline.toString()}</p>
           </div>
         })
       }</div>
