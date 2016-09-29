@@ -29,33 +29,33 @@ class UserProfilePage extends Component {
 			return <div>loading</div>
 		}
 
-		return (	
+		return (
 			//<pre><code>{JSON.stringify(this.props.jobs.jobList, null, 4)}</code></pre>
 			<div>
-			<h3>User Info</h3>
-			<ul>
-			{
-				Object.keys(user).map((info, i) => {
-					return (
-						<li key={i}>
-							<pre>{user[info]}</pre>
-						</li>
-					)
-				})
-			}
-			</ul>
-			<h3>User Jobs</h3>
-			<ul>
-			{
-				this.props.jobs.jobList.filter(job => job.user_id == userid).map(job => {
-					return (
-						<li key={job.id}>
-							<pre><code>{JSON.stringify(job, null, 4)}</code></pre>
-						</li>
-					)
-				})
-			}
-			</ul>
+				<h3>User Info</h3>
+				<ul>
+					{
+						Object.keys(user).map((info, i) => {
+							return (
+								<li key={i}>
+									<pre>{user[info]}</pre>
+								</li>
+							)
+						})
+					}
+				</ul>
+				<h3>User Jobs</h3>
+				<ul>
+					{
+						this.props.jobs.jobList.filter(job => job.user_id == userid).map(job => {
+							return (
+								<li key={job.id}>
+									<pre><code>{JSON.stringify(job, null, 4)}</code></pre>
+								</li>
+							)
+						})
+					}
+				</ul>
 			</div>
 		);
 	}
