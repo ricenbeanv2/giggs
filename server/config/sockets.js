@@ -8,11 +8,9 @@ module.exports = io => {
     socket.on('message', msg => {
       console.log('msg received: ', msg);
       socket.broadcast.emit('message', {
-        msg,
-        from: socket.id.slice(8)
+        body: msg,
+        from: 'Other user'
       });
-      
-      socket.to('testroom').emit('message', msg);
     });
   });
 };

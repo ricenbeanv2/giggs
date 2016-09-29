@@ -71,7 +71,7 @@ export function getJobList() {
       .catch(() => {
         throw new SubmissionError({ _error: 'something terrible happened' });
       });
-    };
+    }
 }
 
 export function getJobDetail(jobID) {

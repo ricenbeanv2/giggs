@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import io from 'socket.io-client';
 
 export default class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: []
+      messages: [],
+      message: ''
     };
+    this.sendMessage = this.sendMessage.bind(this);
   }
 
   componentDidMount() {
@@ -15,26 +16,34 @@ export default class Chat extends Component {
     });
   }
 
-  handleSubmit = event => {
-    const body = event.target.value;
-    if (body) {
+  handleChange(name, e) {
+    let change = {};
+    change[name] = e.target.value;
+    this.setState(change);
+  }
+
+  sendMessage(e) {
+    if (this.state.message !== '' && e.charCode === 13) {
       const message = {
-        body,
+        body: this.state.message,
         from: 'Me'
       };
       this.setState({ messages: [message, ...this.state.messages] });
-      socket.emit('message', body);
+      socket.emit('message', this.state.message);
       // event.target.value = '';
     }
   }
   render() {
     const messages = this.state.messages.map((message, index) => {
-      return <li key={index}><b>{message.from}:</b>{message.body}</li>;
+      return <li key={index}><b>{message.from}: </b>{message.body}</li>;
     });
     return (
       <div>
-        <input type='text' placeholder='Enter a message...' onKeyUp={this.handleSubmit} />
-        {messages}
+        <form onSubmit={this.sendMessage}>
+          <textarea type='text' rows='5' cols='30' style={{ resize: 'none' }}placeholder='Enter a message...' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} onKeyPress={this.sendMessage}/>
+          {messages}
+          <input type='button' value='send' onClick={this.sendMessage} />
+        </form>
       </div>
     );
   }
