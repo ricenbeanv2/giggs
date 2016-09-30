@@ -8,7 +8,7 @@ import { getApplicants } from '../../actions/applicants';
 class ApplicantList extends Component {
 
   componentWillMount() {
-    this.props.getApplicants(this.props.jobs.job.id);
+    this.props.getApplicants(this.props.jobs.jobId);
   }
 
   renderApplicants(applicantData) {

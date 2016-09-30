@@ -58,7 +58,7 @@ module.exports = {
 	getApplicants: (req, res) => {
 		Applicant.getApplicants(req.query.job_id)
 		.then(data => {
-			res.status(200).json(data);
+			res.status(200).send(data);
 		})
 		.catch(err => {
 			res.status(400).send(err);
