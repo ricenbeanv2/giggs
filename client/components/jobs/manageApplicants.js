@@ -16,8 +16,19 @@ class ManageApplicants extends Component {
     console.log('this.props.jobs.job', this.props.jobs.job);
   }
 
-  updateStatus(jobID, status) {
-    console.log('in updateStatus', jobID);
+  updateStatus(applicantID, status) {
+    const params = {
+      id: applicantID,
+      job_status: status
+    };
+    this.props.changeStatus(params)
+    .then(() => {
+      this.props.getApplicants(this.props.jobs.job.id);
+    })
+    .catch(error => {
+      throw error;
+    })
+    ;
   }
   renderApplicants(applicantData) {
     return (
@@ -40,17 +51,23 @@ class ManageApplicants extends Component {
             case 'pending':
               return (
                 <div>
-                  <button onClick={() => this.updateStatus(applicantData.job_id, 'accept')}>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => this.updateStatus(applicantData.id, 'accepted')}>
                     Accept
                   </button>
-                  <button onClick={() => this.updateStatus(applicantData.job_id, 'rejected')}>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => this.updateStatus(applicantData.id, 'rejected')}>
                     Reject
                   </button>
                 </div>
               );
             case 'accepted':
               return (
-                <button onClick={() => this.updateStatus(applicantData.job_id, 'completed')}>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => this.updateStatus(applicantData.id, 'completed')}>
                   Mark as completed
                 </button>
               );
