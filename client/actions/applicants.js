@@ -1,14 +1,26 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { APPLY_JOB, CANCEL_JOB, UPDATE_BID, GET_APPLICANTS } from './actionTypes';
+import { APPLY_JOB, CANCEL_APP, UPDATE_BID, GET_APPLICANTS, UPDATE_STATUS } from './actionTypes';
 
-export function getApplicants(job_id) {
+export function getApplicants(jobID) {
   return (dispatch) => {
-    return axios.get('/db/applicant/', { params: { job_id } }, {
+    return axios.get('/db/applicant/', { params: { job_id: jobID } }, {
       headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then(response => {
-      console.log("in axios calling for job_id");
-      dispatch({ type: GET_APPLICANTS, payload: response.data });
+      return Promise.all(
+        response.data.map(applicant => {
+          return axios.get(`/db/users/${applicant.user_id}`,
+            { headers: { 'x-access-token': Cookies.getJSON('token') } })
+            .then(res => {
+              applicant.username = res.data.username;
+              return applicant;
+            })
+          })
+      )
+      .then((result) => {
+        console.log('application action: ', result)
+        dispatch({ type: GET_APPLICANTS, payload: result });
+      })
     })
     .catch(error => {
       throw error;
@@ -30,10 +42,12 @@ export function updateBid(info) {
 }
 
 export function applyJob(info) {
+  console.log('info: ', info);
   return (dispatch) => {
     return axios.post('/db/applicant/apply', info, {
       headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then(response => {
+      console.log('response: ', response.data);
       dispatch({ type: APPLY_JOB, payload: response.data });
     })
     .catch(error => {
@@ -42,12 +56,25 @@ export function applyJob(info) {
   };
 }
 
-export function cancelJob(info) {
+export function cancelApp(info) {
   return (dispatch) => {
     return axios.post('/db/applicant/cancel', info,
     { headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then(response => {
-      dispatch({ type: CANCEL_JOB, payload: response.data });
+      dispatch({ type: CANCEL_APP, payload: response.data });
+    })
+    .catch(error => {
+      throw error;
+    });
+  };
+}
+
+export function changeStatus(params) {
+  return (dispatch) => {
+    return axios.get('/db/applicants/changeStatus', { params },
+    { headers: { 'x-access-token': Cookies.getJSON('token') } })
+    .then(response => {
+      dispatch({ type: UPDATE_STATUS, payload: response.data });
     })
     .catch(error => {
       throw error;

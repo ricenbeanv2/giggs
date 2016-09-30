@@ -1,6 +1,6 @@
-import { APPLY_JOB, CANCEL_JOB, UPDATE_BID, GET_APPLICANTS } from '../actions/actionTypes';
+import { APPLY_JOB, CANCEL_JOB, UPDATE_BID, GET_APPLICANTS, UPDATE_STATUS } from '../actions/actionTypes';
 
-const INITIAL_STATE = { apply: {}, cancel: '', update: '', applicants: [] };
+const INITIAL_STATE = { apply: {}, cancel: '', update: '', applicants: [], status: '' };
 
 export default function (state = INITIAL_STATE, { type, payload }) {
   switch (type) {
@@ -12,6 +12,8 @@ export default function (state = INITIAL_STATE, { type, payload }) {
       return { ...state, update: payload };
     case GET_APPLICANTS:
       return { ...state, applicants: payload };
+    case UPDATE_STATUS:
+      return { ...state, status: payload };
     default:
       return state;
   }

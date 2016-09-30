@@ -61,9 +61,18 @@ module.exports = {
 			res.status(200).json(data);
 		})
 		.catch(err => {
-			res.status(200).send(err);
+			res.status(400).send(err);
 		});
-	}
+	},
 
+	statusChange: (req, res) => {
+		Applicant.statusChange(req.query)
+		.then(data => {
+			res.status(200).json(data);
+		})
+		.catch(err => {
+			res.status(400).send(err);
+		})
+	}
 
 };

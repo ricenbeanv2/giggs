@@ -12,6 +12,7 @@ router.post('/applicant/apply', helper, applicantController.applyJob);
 router.post('/applicant/cancel', helper, applicantController.cancelApplied);
 router.post('/applicant/updateBid', helper, applicantController.updateBid);
 router.get('/applicant/', applicantController.getApplicants);
+router.get('/applicant/changeStatus', helper, applicantController.statusChange);
 
 //router.post('/category/create', helper, categoryController.propagateCategories);
 router.get('/category/getAll', categoryController.getAllCategories);

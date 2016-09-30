@@ -28,7 +28,7 @@ const Applicant = connection.define('Applicants', {
 	},
 
 	job_status: {
-		type: Sequelize.ENUM('pending', 'accepted', 'rejected'),
+		type: Sequelize.ENUM('pending', 'accepted', 'rejected', 'completed'),
 		allowNull: false
 	},
 }, {
@@ -46,10 +46,16 @@ Applicant.create = params => {
 		})
 		.then(entry => {
 			if (entry) {
-				//check if user already applied
-				reject('user already applied for job');
-			}
-			if (!entry) {
+				//check if user already applied, update entry
+				// reject('user already applied for job');
+				entry.update({ bid_price: params.bid_price })
+				.then(result => {
+					resolve(result);
+				})
+				.catch(err => {
+					reject(err);
+				});
+			} else {
 				//create a new entry in applicants if not applied
 				Applicant.build(params).save()
 				.then(result => {
@@ -128,6 +134,28 @@ Applicant.getApplicants = jobID => {
 				reject('no one applied for the job');
 			} else {
 				resolve(result);
+			}
+		})
+		.catch(err => {
+			reject(err);
+		});
+	});
+};
+
+Applicant.statusChange = params => {
+	return new Promise((resolve, reject) => {
+		Applicant.findById(params.id)
+		.then(entry => {
+			if (entry) {
+				entry.update({ job_status: params.job_status })
+				.then(result => {
+					resolve(result);
+				})
+				.catch(error => {
+					reject(error);
+				});
+			} else {
+				reject('application does not exists');
 			}
 		})
 		.catch(err => {
