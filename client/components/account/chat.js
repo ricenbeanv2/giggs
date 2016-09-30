@@ -12,11 +12,12 @@ export default class Chat extends Component {
   }
 
   componentDidMount() {
-    const roomId = Cookies.getJSON('user').userid + Cookies.getJSON.username;
     socket.on('message', message => {
       console.log('message in mount:', message);
       this.setState({ messages: [message, ...this.state.messages] });
     });
+
+    socket.emit('join', Cookies.getJSON('user').username);
   }
 
   handleChange(name, e) {
@@ -33,7 +34,7 @@ export default class Chat extends Component {
         id: Cookies.getJSON('user').userid
       };
       this.setState({ messages: [message, ...this.state.messages] });
-      console.log('cookie', Cookies.getJSON('user').username);
+      console.log('message: ', message);
       socket.emit('message', message);
       // event.target.value = '';
     }

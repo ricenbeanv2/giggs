@@ -6,13 +6,14 @@ module.exports = io => {
       console.log('user disconnected');
     });
 
+    socket.on('join', name => {
+      console.log('Joined: ', name);
+      socket.join('calvin');
+    });
+    
     socket.on('message', msg => {
       console.log('msg received: ', msg);
-      socket.join('calvin');
-      socket.to('calvin').emit({
-        body: msg.body,
-        from: 'Other user'
-      });
+      socket.broadcast.to('calvin').emit('message', msg);
     });
   });
 };
