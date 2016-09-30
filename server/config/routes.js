@@ -24,6 +24,8 @@ router.get('/jobs/query', jobController.queryJob);
 
 /********** MIND NAMES OF MODELS Employee VS Employer **********/
 router.post('/reviews/create', reviewsController.createReview);
+router.get('/reviews/getAll', reviewsController.getReviews);
+router.get('/reviews/query', reviewsController.queryReview);
 
 router.get('/users/:id', helper, userController.getUserInfo);
 router.post('/users/update', helper, checkEmail, checkUsername, userController.updateUser);
