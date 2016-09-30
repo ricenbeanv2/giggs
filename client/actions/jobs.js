@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
-import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, GET_CATEGORY, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY } from './actionTypes';
+import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY, SET_JOBID } from './actionTypes';
 
 export function sendJob(jobDetails) {
   const jobDet = jobDetails;
@@ -67,8 +67,10 @@ export function getJobList() {
 }
 
 export function getJobDetail(jobID) {
+  console.log('jobs.js: inside start of getJobDetail actions');
   const field = 'id';
   return (dispatch) => {
+    dispatch({type: SET_JOBID, payload: jobID})
     return axios.get('/db/jobs/query', {
       params: {
         field,
@@ -76,28 +78,24 @@ export function getJobDetail(jobID) {
       }
     })
     .then(response => {
-      dispatch({ type: GET_JOBS, payload: response.data[0] });
+      axios.get(`/db/users/${response.data[0].user_id}`,
+        { headers: { 'x-access-token': Cookies.getJSON('token') } })
+      .then(res => {
+        response.data[0].username = res.data.username;
+        axios.get('/db/category/query', {
+          params: {
+            field,
+            key: response.data[0].category_id
+          }
+        })
+        .then(resp => {
+          response.data[0].category = resp.data[0].name;
+          dispatch({ type: GET_JOBS, payload: response.data[0] });
+        });
+      });
     })
     .catch((err) => {
       throw err;
-    });
-  };
-}
-
-export function getCategoryName(categoryID) {
-  const field = 'id';
-  return (dispatch) => {
-    return axios.get('/db/category/query', {
-      params: {
-        field,
-        key: categoryID
-      }
-    })
-    .then(response => {
-      dispatch({ type: GET_CATEGORY, payload: response.data[0].name });
-    })
-    .catch(error => {
-      throw error;
     });
   };
 }
