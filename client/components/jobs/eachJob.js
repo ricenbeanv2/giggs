@@ -30,3 +30,5 @@ let eachJob = (props) => {
     </div>
   );
 };
+
+export default eachJob;
