@@ -9,7 +9,7 @@ import { UserAuthWrapper } from 'redux-auth-wrapper';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import thunk from 'redux-thunk';
 
-import SignIn from './components/account/signIn.js';
+import SignIn from './components/account/signIn';
 import rootReducer from './reducers/mainReducer';
 import App from './app.js';
 import CreateJob from './components/jobs/createJob';
@@ -18,14 +18,15 @@ import SignUp from './components/account/signUp';
 import JobListings from './components/jobs/jobListings';
 import JobMap from './components/map/jobMap';
 import SelectedJob from './components/jobs/selectedJob';
-import Profile from './components/account/profile.js';
+import Profile from './components/account/profile';
+import Chat from './components/account/chat';
 
 //Basic routing, to add another route just do:
 //<Route path='/insertUrl' component={insertComponentName} />
 const routingMiddleware = routerMiddleware(browserHistory);
 const createStoreWithMiddleWare = applyMiddleware(thunk, routingMiddleware)(createStore);
 const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f, autoRehydrate());
-const history = syncHistoryWithStore(browserHistory, store);
+// const history = syncHistoryWithStore(browserHistory, store);
 persistStore(store);
 
 const UserIsAuthenticated = UserAuthWrapper({
@@ -36,7 +37,7 @@ const UserIsAuthenticated = UserAuthWrapper({
 
 render((
   <Provider store={store}>
-    <Router history={history}>
+    <Router history={browserHistory}>
       <Route path='/' component={App}>
         <Route path='signup' component={SignUp} />
         <Route path='login' component={SignIn} />
@@ -46,6 +47,7 @@ render((
         <Route path='joblistings' component={JobListings} />
         <Route path='map' component={JobMap} />
         <Route path='selectedjob' component={SelectedJob} />
+        <Route path='chat' component={Chat} />
       </Route>
     </Router>
   </Provider>

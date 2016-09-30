@@ -6,6 +6,7 @@ const Users = require('../user/userModel');
 const Jobs = connection.define('Jobs', {
 	jobName: {
 		type: Sequelize.STRING,
+		allowNull: false,
 	},
 
 	openings: {

@@ -58,7 +58,11 @@ export function getJobList() {
       })
     .then((response) => {
       return response.map((eachJob) => {
+        if (eachJob.deadline === null) {
+          eachJob.deadline = 'TO BE ANNOUNCED'
+        } else {
         eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
+        }
         return eachJob;
       })
     })
@@ -128,7 +132,11 @@ export function sortPriceChange() {
       })
     .then((response) => {
       return response.map((eachJob) => {
+        if (eachJob.deadline === null) {
+          eachJob.deadline = 'TO BE ANNOUNCED'
+        } else {
         eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
+        }
         return eachJob;
       })
     })
@@ -145,7 +153,6 @@ export function sortPriceChange() {
     })
   }
 }
-
 
 export function sortCategories() {
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
@@ -167,7 +174,11 @@ export function sortCategories() {
       })
     .then((response) => {
       return response.map((eachJob) => {
+        if (eachJob.deadline === null) {
+          eachJob.deadline = 'TO BE ANNOUNCED'
+        } else {
         eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
+        }
         return eachJob;
       })
     })
@@ -211,7 +222,7 @@ export function sortDate() {
       })
     .then((response) => {
       return response.map((eachJob) => {
-        eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' '));
+        eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
         return eachJob;
       })
     })
@@ -250,7 +261,11 @@ export function filterCategory(searchCategory) {
         })
         .then((response) => {
           return response.map((eachJob) => {
+            if (eachJob.deadline === null) {
+              eachJob.deadline = 'TO BE ANNOUNCED'
+            } else {
             eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
+            }
             return eachJob;
           })
         })

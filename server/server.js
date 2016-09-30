@@ -9,8 +9,14 @@ const moment = require('moment');
 const router = require('./config/routes');
 const middleware = require('./config/middleware');
 const userController = require('./user/userCtrl');
+const EmployeeReviews = require('./review/employeeReviewsModel');
 
 const app = express();
+
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+require('./config/sockets')(io);
+
 //set up port
 app.set('PORT', process.env.PORT || 3000);
 app.use(cors());
@@ -44,7 +50,7 @@ connection.sync().then(() => {
 	console.log('tables synced');
 });
 
-app.listen(app.get('PORT'), () => {
+http.listen(app.get('PORT'), () => {
 	console.log(`[${moment().format('hh:mm:ss')}]Express Server listening on port`, app.get('PORT'));
 });
 
