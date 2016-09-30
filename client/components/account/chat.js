@@ -36,7 +36,7 @@ export default class Chat extends Component {
       this.setState({ messages: [message, ...this.state.messages] });
       console.log('message: ', message);
       socket.emit('message', message);
-      // event.target.value = '';
+      this.setState({ message: '' });
     }
   }
   render() {
@@ -44,11 +44,15 @@ export default class Chat extends Component {
       return <li key={index}><b>{message.from}: </b>{message.body}</li>;
     });
     return (
-      <div>
+      <div className='chat'>
         <form onSubmit={this.sendMessage}>
-          <textarea type='text' rows='5' cols='30' style={{ resize: 'none' }}placeholder='Enter a message...' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} onKeyPress={this.sendMessage}/>
-          {messages}
-          <input type='button' value='send' onClick={this.sendMessage} />
+          <div className='message-box'>
+            {messages}
+          </div>
+          <div className='text-box'>
+            <textarea type='text' rows='1' cols='30' style={{ resize: 'none' }} placeholder='Enter a message...' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} onKeyPress={this.sendMessage}/>
+            <input type='button' value='send' onClick={this.sendMessage} />
+          </div>
         </form>
       </div>
     );
