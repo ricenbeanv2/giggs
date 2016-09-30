@@ -19,8 +19,6 @@ class UserProfilePage extends Component {
 		this.props.getJobList();
 	}
 
-
-
 	render() {
 		const user = this.props.auth.userData;
 		console.log("===========>", user)

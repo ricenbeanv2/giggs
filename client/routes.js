@@ -9,7 +9,7 @@ import { UserAuthWrapper } from 'redux-auth-wrapper';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import thunk from 'redux-thunk';
 
-import SignIn from './components/account/signIn.js';
+import SignIn from './components/account/signIn';
 import rootReducer from './reducers/mainReducer';
 import App from './app.js';
 import CreateJob from './components/jobs/createJob';
@@ -19,8 +19,8 @@ import JobListings from './components/jobs/jobListings';
 import JobMap from './components/map/jobMap';
 import SelectedJob from './components/jobs/selectedJob';
 import JobAdmin from './components/jobs/jobAdmin.js';
-import Profile from './components/account/profile.js';
-
+import Profile from './components/account/profile';
+import Chat from './components/account/chat';
 
 //Basic routing, to add another route just do:
 //<Route path='/insertUrl' component={insertComponentName} />
@@ -49,7 +49,7 @@ render((
         <Route path='map' component={JobMap} />
         <Route path='selectedjob' component={SelectedJob} />
         <Route path='jobadmin' component={JobAdmin} />
-
+        <Route path='chat' component={Chat} />
       </Route>
     </Router>
   </Provider>

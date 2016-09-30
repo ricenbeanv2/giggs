@@ -59,7 +59,7 @@ let SignUpForm = props => {
       </div>
       {error && <strong>{error}</strong>}
       <img src={loading} />
-      {passCheck}
+      {/* {passCheck} */}
     </form>
   );
 };
