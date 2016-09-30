@@ -1,8 +1,10 @@
 import React from 'react';
+import GetReviews from './reviews/getReviews'
 
-const eachJob = (props) => {
+let eachJob = (props) => {
   return (
-    <div>{
+    <div>
+      {
       props.data.map((eachJob, index) => {
         return <div key={index} className='well'>
           <h4>Job</h4>
@@ -18,11 +20,14 @@ const eachJob = (props) => {
           <p>{eachJob.openings}</p>
           <h4>Max Price</h4>
           <p>{eachJob.max_price}</p>
-
+          <h4>Deadline</h4>
           <p>{eachJob.deadline.toString()}</p>
+          <h4>Reviews</h4>
+          <GetReviews />
         </div>
         })
-      }</div>
+      }
+    </div>
   );
 };
 
