@@ -11,9 +11,12 @@ export const GET_PUBLIC_USER = 'get_public_user';
 export const GET_ALL_JOBS = 'get_all_jobs';
 export const GET_PARENT_CATS = 'get_parents_cats';
 export const GET_JOBS = 'get_jobs';
+<<<<<<< HEAD
 <<<<<<< 275edfc71cd974a56c076220ce382ad7678998e8
 export const SET_JOBID = 'set_jobid';
 =======
+=======
+>>>>>>> e9572ae82154c38767bbbe0961afa745b1ce11fd
 export const GET_LAT_LONG = 'get_lat_long';
 export const GET_CATEGORY = 'get_category';
 >>>>>>> [feature] Converts address to lat/long after selecting an address
