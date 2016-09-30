@@ -11,11 +11,9 @@ const NavBar = () => {
         <ul className="nav navbar-nav">
           <li><Link to="/">Giggs </Link></li>
           <li><Link to="/joblistings">Job Listings </Link></li>
-          <li><Link to="/selectedjob">Job Selected</Link></li>
           <li><Link to="/map">Map</Link></li>
           <li><Link to="/createjob">Create Job </Link></li>
-          <li><Link to="/selectedjob">Job Selected</Link></li>
-          <li><Link to="/jobadmin">Job Admin</Link></li>
+          <li><Link to="/selectedjob">Recent Job </Link></li>
           <li><Link to="/userprofile">User Profile </Link></li>
           <li><Link to="/profile">PROFILE </Link></li>
           <li><Link to="/chat">Chat </Link></li>
@@ -32,8 +30,6 @@ const NavBar = () => {
         <li><Link to="/map">Map</Link></li>
         <li><Link to="/login">Sign in </Link></li>
         <li><Link to="/signup">Sign up </Link></li>
-        <li><Link to="/selectedjob">Job Selected</Link></li>
-        <li><Link to="/jobadmin">Job Admin</Link></li>
         <li><LogOut /></li>
       </ul>
     </nav>

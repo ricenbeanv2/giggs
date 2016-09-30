@@ -9,7 +9,7 @@ class ApplyJob extends Component {
     super(props);
     this.state = {
       user_id: Cookies.getJSON('user').userid,
-      job_id: this.props.jobs.job.id,
+      job_id: this.props.jobs.jobId,
       bid_price: ''
     };
     this.handleApply = this.handleApply.bind(this);
@@ -25,7 +25,7 @@ class ApplyJob extends Component {
     //bid_price = this.state.bid
     this.props.applyJob(this.state)
     .then(() => {
-      this.props.getApplicants(this.props.jobs.job.id);
+      this.props.getApplicants(this.props.jobs.jobId);
     });
 
     this.setState({ bid_price: '' });

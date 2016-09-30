@@ -45,7 +45,12 @@ class EachJob extends Component {
                 <p>{eachJob.max_price}</p>
                 <h4>Deadline</h4>
                 <p>{eachJob.deadline.toString()}</p>
-                <button onClick={() => this.redirectToJobPage(eachJob.id, eachJob.user_id)}> Go to Job </button>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => this.redirectToJobPage(eachJob.id, eachJob.user_id)}
+                >
+                  Go to Job >>
+                </button>
                 <h4>Reviews</h4>
                 <GetReviews />
               </div>
