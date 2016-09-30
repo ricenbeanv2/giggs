@@ -10,7 +10,7 @@ import ApplyJob from './applyJob';
 class SelectedJob extends Component {
 
   componentWillMount() {
-    this.props.getJobDetail(5);
+    this.props.getJobDetail(this.props.jobs.jobId);
   }
 
   render() {

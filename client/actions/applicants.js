@@ -69,15 +69,22 @@ export function cancelApp(info) {
   };
 }
 
-export function changeStatus(params) {
+export function changeStatus(info) {
   return (dispatch) => {
-    return axios.get('/db/applicants/changeStatus', { params },
-    { headers: { 'x-access-token': Cookies.getJSON('token') } })
-    .then(response => {
-      dispatch({ type: UPDATE_STATUS, payload: response.data });
+    console.log("in changestatus, applicants.js, params", info);
+    return axios.get('/db/applicant/changeStatus', {
+      params: {
+        id: info.id,
+        job_status: info.job_status
+      },
+      headers: { 'x-access-token': Cookies.getJSON('token') }
     })
-    .catch(error => {
-      throw error;
-    });
-  };
+      .then(response => {
+        console.log("response", response);
+        dispatch({ type: UPDATE_STATUS, payload: response.data });
+      })
+      .catch(error => {
+        console.log("error", error);
+      });
+    };
 }
