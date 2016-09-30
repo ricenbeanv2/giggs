@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { getJobList } from '../../actions/jobs';
 import { GoogleMap, Marker } from 'react-google-maps';
 import ScriptjsLoader from 'react-google-maps/lib/async/ScriptjsLoader';
+import InfoBox from './infoBox';
+
 
 class JobMap extends Component {
 	constructor(props) {
@@ -54,6 +56,7 @@ class JobMap extends Component {
 		};
 
 		return (
+			<div>
 			<ScriptjsLoader
 				hostname={ 'maps.googleapis.com' }
 				pathname={ '/maps/api/js' }
@@ -65,7 +68,7 @@ class JobMap extends Component {
 				}
 				containerElement={ <div style={ mapStyle } /> }
 				googleMapElement={
-					<GoogleMap defaultZoom={ 10 } defaultCenter={{ lat: this.state.lat, lng:this.state.lng }} >
+					<GoogleMap defaultZoom={ 15 } defaultCenter={{ lat: this.state.lat, lng:this.state.lng }} >
 						<Marker key={ 'UserGeo' } position={{ lat: this.state.lat, lng:this.state.lng }} icon={ this.state.userIcon } />
 						{ this.props.jobs.jobList.map((job) => {
 							return (<Marker
@@ -77,6 +80,8 @@ class JobMap extends Component {
 					</GoogleMap>
 				}
 			/>
+			<InfoBox />
+			</div>
 		);
 	}
 }
@@ -90,13 +95,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(JobMap);
-
-/*
-{ this.props.jobs.map((job) => {
-							return (<Marker
-									key={ job.id }
-									position={{ lat: job.location_lat, lng: job.location_lng }}
-									icon={ this.state.jobIcon }/>
-								)})
-						}
-*/
