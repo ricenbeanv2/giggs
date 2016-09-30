@@ -1,17 +1,37 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { getUserList } from '../../actions/auth';
+import SelectionComponent from '../selectionComponent';
 
-export default class Chat extends Component {
+const UserButton = props => {
+  return <button onClick={() => props.switchRoom(props.username)}>{props.username}</button>;
+};
+
+class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
       messages: [],
-      message: ''
+      message: '',
+      users: [],
+      room: ''
     };
     this.sendMessage = this.sendMessage.bind(this);
+    this.switchRoom = this.switchRoom.bind(this);
   }
 
+  //Change users passed in eventually to be all employees/employers related to
+  //the user
   componentDidMount() {
+    const usernames = [];
+    this.props.getUserList([1, 2]).then(() => {
+      this.props.auth.userList.forEach((user) => {
+        usernames.push(user.username);
+      });
+      this.setState({ users: usernames });
+    });
+
     socket.on('message', message => {
       console.log('message in mount:', message);
       this.setState({ messages: [message, ...this.state.messages] });
@@ -26,6 +46,9 @@ export default class Chat extends Component {
     this.setState(change);
   }
 
+  switchRoom(username) {
+    this.setState({ room: username });
+  }
   sendMessage(e) {
     if (this.state.message !== '' && (e.charCode === 13 || e.type === 'click')) {
       const message = {
@@ -39,12 +62,20 @@ export default class Chat extends Component {
       this.setState({ message: '' });
     }
   }
+
   render() {
     const messages = this.state.messages.map((message, index) => {
       return <li key={index}><b>{message.from}: </b>{message.body}</li>;
     });
+    console.log('current room: ', this.state.room);
     return (
       <div className='chat'>
+        <SelectionComponent />
+        <div>
+          {this.state.users.map((username, idx) => {
+            return <UserButton switchRoom={this.switchRoom} key={idx} username={username} />;
+          })}
+        </div>
         <form onSubmit={this.sendMessage}>
           <div className='message-box'>
             {messages}
@@ -58,3 +89,9 @@ export default class Chat extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ auth }) => {
+  return { auth };
+};
+
+export default connect(mapStateToProps, { getUserList })(Chat);

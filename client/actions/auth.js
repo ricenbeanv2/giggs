@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { browserHistory } from 'react-router';
 import { SubmissionError } from 'redux-form';
-import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT } from './actionTypes';
+import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT, USER_LIST } from './actionTypes';
 
 export function userSignUp(info) {
   return (dispatch) => {
@@ -82,7 +82,23 @@ export function getUser(id) {
       dispatch({ type: GET_USER, payload: response.data });
       //console.log('response.data inside getuserinfo', response.data);
     });
-  }
+  };
+}
+
+export function getUserList(ids) {
+  //ids should be an array of ids
+  console.log('ids inside getUserList: ', ids);
+  const config = { params: { field: 'id', key: `[${ids.toString()}]`} , headers: { 'x-access-token': Cookies.getJSON('token') } };
+  return dispatch => {
+    return axios.get('/db/users/query', config)
+      .then(response => {
+        dispatch({ type: USER_LIST, payload: response.data });
+        console.log('response', response.data);
+      })
+      .catch(error => {
+        console.log('error: ', error);
+      });
+  };
 }
 
 export function updateUserInfo(info) {
