@@ -50,7 +50,7 @@ export default class Chat extends Component {
             {messages}
           </div>
           <div className='text-box'>
-            <textarea type='text' rows='1' cols='30' style={{ resize: 'none' }} placeholder='Enter a message...' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} onKeyPress={this.sendMessage}/>
+            <textarea type='text' rows='1' cols='30' style={{ resize: 'none' }} placeholder='Enter a message...' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} onKeyPress={this.sendMessage} />
             <input type='button' value='send' onClick={this.sendMessage} />
           </div>
         </form>
