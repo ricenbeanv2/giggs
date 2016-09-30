@@ -1,6 +1,6 @@
-import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT, GET_PUBLIC_USER } from '../actions/actionTypes';
+import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT, GET_PUBLIC_USER, USER_LIST } from '../actions/actionTypes';
 
-const INITIAL_STATE = { confirm: '', loggedOut: '', signUp: '', signIn: '', userData: {}, publicUserData: {}, updated: [] };
+const INITIAL_STATE = { confirm: '', loggedOut: '', signUp: '', signIn: '', userData: {}, publicUserData: {}, updated: [], userList: [] };
 
 export default function (state = INITIAL_STATE, { type, payload }) {
   switch (type) {
@@ -16,6 +16,8 @@ export default function (state = INITIAL_STATE, { type, payload }) {
       return { ...state, publicUserData: payload };
     case GET_USER:
       return { ...state, userData: payload };
+    case USER_LIST:
+      return { ...state, userList: payload };
     case UPDATE_USER:
       return { ...state, userData: payload };
     default:

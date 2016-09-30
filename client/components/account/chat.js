@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
+import { connect } from 'react-redux';
+import { getUserList } from '../../actions/auth';
 
-export default class Chat extends Component {
+class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +14,7 @@ export default class Chat extends Component {
   }
 
   componentDidMount() {
+    this.props.getUserList([1, 2]);
     socket.on('message', message => {
       console.log('message in mount:', message);
       this.setState({ messages: [message, ...this.state.messages] });
@@ -58,3 +61,5 @@ export default class Chat extends Component {
     );
   }
 }
+
+export default connect(null, { getUserList })(Chat);
