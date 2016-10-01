@@ -15,7 +15,7 @@ class JobMap extends Component {
 		this.state = {
 			userIcon: './user.png',
 			jobIcon: './work.png',
-			showInfo: false,
+			showInfo: true,
 			lat: null,
 			lng: null
 		};
@@ -30,7 +30,7 @@ class JobMap extends Component {
 		}
 		//get inital job list
 		this.props.getJobList();
-		setInterval(this.props.getJobList, 10000);
+		//setInterval(this.props.getJobList, 10000);
 	};
 
 	toggle() {
@@ -87,7 +87,7 @@ class JobMap extends Component {
 					</GoogleMap>
 				}
 			/>
-			<InfoBox onClick={() => console.log("sometinh")} />
+			<InfoBox />
 			</div>
 		);
 	}
