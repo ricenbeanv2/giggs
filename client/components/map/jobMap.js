@@ -15,6 +15,7 @@ class JobMap extends Component {
 		this.state = {
 			userIcon: './user.png',
 			jobIcon: './work.png',
+			showInfo: false,
 			lat: null,
 			lng: null
 		};
@@ -27,12 +28,14 @@ class JobMap extends Component {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
 		}
-		console.log("this.props", this.props)
 		//get inital job list
 		this.props.getJobList();
-		console.log(this.props)
-		//setInterval(this.props.getJobList, 10000);
+		setInterval(this.props.getJobList, 10000);
 	};
+
+	toggle() {
+		this.state.showInfo ? this.setState({showInfo:false}) : this.setState({showInfo:true});
+	}
 
 	geoSuccess(position) {
 		this.setState({ lng: position.coords.longitude, lat: position.coords.latitude });
@@ -57,7 +60,6 @@ class JobMap extends Component {
 			width:'100%',
 			position:'absolute'
 		};
-		console.log('props inside render:',this.props)
 
 		return (
 			<div>
@@ -79,13 +81,13 @@ class JobMap extends Component {
 									key={ job.id }
 									position={{ lat: job.location_lat, lng: job.location_lng }}
 									icon={ this.state.jobIcon }
-									onClick={ (e) => this.props.onJobClick(job) } />
+									onClick={ (e) => {this.props.onJobClick(job, this.state.showInfo); this.toggle() }} />
 								)}) 
 						}
 					</GoogleMap>
 				}
 			/>
-			<InfoBox />x
+			<InfoBox onClick={() => console.log("sometinh")} />
 			</div>
 		);
 	}

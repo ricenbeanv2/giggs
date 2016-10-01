@@ -11,9 +11,15 @@ class InfoBox extends Component {
 		super(props);
 
 		this.state = {};
+
 	};
 
 	render() {
+		console.log(this.props)
+		if (!this.props.show) {
+			return <div></div>
+		}
+
 		const InfoBoxStyle = {
 			position: 'absolute',
 			backgroundColor: 'white',
@@ -24,7 +30,7 @@ class InfoBox extends Component {
 		};
 
 		return (
-
+			
 				<div style={ InfoBoxStyle }>
 					<ToastContainer 
 						toastMessageFactory={ ToastMessageFactory }
@@ -43,20 +49,15 @@ class InfoBox extends Component {
 						</li>
 					}
 					</ul>
-					<div className="btn-container">
-						<button>
-							SOMETHING
-						</button>
-					</div>
 				</div>
 			)	
 	}
 }
 
 const mapStateToProps = (state) => {
-	console.log(state.map.job)
 	return {
 		job: state.map.job,
+		show: state.map.show
 	};
 };
 
