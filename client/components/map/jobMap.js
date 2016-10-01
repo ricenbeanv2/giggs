@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, Store } from 'redux';
 import { connect } from 'react-redux';
-import { getJobList } from '../../actions/jobs';
+import { getJobList, onJobClick } from '../../actions/jobs';
 import { GoogleMap, Marker } from 'react-google-maps';
 import ScriptjsLoader from 'react-google-maps/lib/async/ScriptjsLoader';
+import { GET_ALL_JOBS, GET_INFOBOX_JOB } from '../../actions/actionTypes';
 import InfoBox from './infoBox';
 
 
@@ -19,15 +20,17 @@ class JobMap extends Component {
 		};
 
 		this.geoSuccess = this.geoSuccess.bind(this);
+		this.geoError = this.geoError.bind(this);
 	};
 
-	componentDidMount() {
+	componentWillMount() {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
 		}
+		console.log("this.props", this.props)
 		//get inital job list
 		this.props.getJobList();
-		//refesh job list
+		console.log(this.props)
 		//setInterval(this.props.getJobList, 10000);
 	};
 
@@ -54,6 +57,7 @@ class JobMap extends Component {
 			width:'100%',
 			position:'absolute'
 		};
+		console.log('props inside render:',this.props)
 
 		return (
 			<div>
@@ -70,17 +74,18 @@ class JobMap extends Component {
 				googleMapElement={
 					<GoogleMap defaultZoom={ 15 } defaultCenter={{ lat: this.state.lat, lng:this.state.lng }} >
 						<Marker key={ 'UserGeo' } position={{ lat: this.state.lat, lng:this.state.lng }} icon={ this.state.userIcon } />
-						{ this.props.jobs.jobList.map((job) => {
+						{ this.props.jobs.jobList.map((job, i) => {
 							return (<Marker
 									key={ job.id }
 									position={{ lat: job.location_lat, lng: job.location_lng }}
-									icon={ this.state.jobIcon }/>
-								)})
+									icon={ this.state.jobIcon }
+									onClick={ (e) => this.props.onJobClick(job) } />
+								)}) 
 						}
 					</GoogleMap>
 				}
 			/>
-			<InfoBox />
+			<InfoBox />x
 			</div>
 		);
 	}
@@ -90,8 +95,5 @@ function mapStateToProps({ jobs }) {
   return { jobs };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getJobList }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(JobMap);
+export default connect(mapStateToProps, { getJobList, onJobClick })(JobMap);
+//<pre><code>{JSON.stringify(job, null, 4)}</code></pre>
