@@ -24,3 +24,5 @@ export const SORT_PRICE = 'sort_price';
 export const SORT_CATEGORIES = 'sort_categories';
 export const SORT_DATE = 'sort_date';
 export const FILTER_CATEGORY = 'filter_category';
+
+export const GET_INFOBOX_JOB = 'get_info_job';

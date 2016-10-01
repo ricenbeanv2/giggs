@@ -10,74 +10,55 @@ class InfoBox extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			
-		};
-
-		this.addAlert = this.addAlert.bind(this);
-		this.clearAlert = this.clearAlert.bind(this);
-		
+		this.state = {};
 	};
-
-	componentDidMount() {
-		this.props.getJobList();
-	}
-
-	addAlert() {
-		this.refs.container.success(`hi! Now is ${new Date()}`, `///title\\\\\\`, {
-			closeButton: true,
-		});
-	}
-
-	clearAlert() {
-		this.refs.container.clear();
-	}
 
 	render() {
 		const InfoBoxStyle = {
-			position: 'relative',
+			position: 'absolute',
 			backgroundColor: 'white',
 			zIndex: '1000',
 			width: '25em',
-			height: '100vh',
-			'overflow-y': 'auto'
-		}
-
-		if (!this.props.jobs.jobList) {
-			return <div>loading</div>
-		}
+			border: '2px solid black',
+			'overflowY': 'auto'
+		};
 
 		return (
 
-				<div style={InfoBoxStyle}>
+				<div style={ InfoBoxStyle }>
 					<ToastContainer 
-						toastMessageFactory={ToastMessageFactory}
+						toastMessageFactory={ ToastMessageFactory }
 						ref="container"
-						className="toast-top-right"
 					/>
-					<h1 style={{textAlign : 'center'}}> JOBLIST </h1>
+					<h1 style={{textAlign : 'center'}}> Details </h1>
 					<ul>
 					{
-						this.props.jobs.jobList.map(job => {
-							return (
-								<li key={job.id}>
-									<pre><code>{JSON.stringify(job, null, 4)}</code></pre>
-								</li>
-							)
-						})
+						<li>
+							<strong>Job</strong><p>{this.props.job.jobName}</p>
+							<strong>Openings</strong><p>{this.props.job.openings}</p>
+							<strong>Description</strong><p>{this.props.job.description}</p>
+							<strong>Payment</strong><p>{"$ " + this.props.job.max_price}</p>
+							<strong>Address</strong><p>{this.props.job.address}</p>
+							<strong>Deadline</strong><p>{this.props.job.deadline}</p>
+						</li>
 					}
 					</ul>
+					<div className="btn-container">
+						<button>
+							SOMETHING
+						</button>
+					</div>
 				</div>
 			)	
 	}
 }
 
-function mapStateToProps({ jobs }) {
-  return { jobs };
-}
+const mapStateToProps = (state) => {
+	console.log(state.map.job)
+	return {
+		job: state.map.job,
+	};
+};
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getJobList }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(InfoBox);
+export default connect(mapStateToProps)(InfoBox);
+//<pre><code>{JSON.stringify(job, null, 4)}</code></pre>

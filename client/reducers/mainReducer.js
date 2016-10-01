@@ -5,6 +5,7 @@ import AuthReducer from './authReducer';
 import JobReducer from './jobReducer';
 import CatReducer from './catReducer';
 import ApplyReducer from './applyReducer';
+import MapReducer from './mapReducer';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   jobs: JobReducer,
   form: formReducer,
   cats: CatReducer,
-  apply: ApplyReducer
+  apply: ApplyReducer,
+  map: MapReducer
 });
 
 export default rootReducer;
