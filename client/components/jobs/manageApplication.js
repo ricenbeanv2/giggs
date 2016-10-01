@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
-import { cancelApp, updateBid, getApplicants } from '../../actions/applicants';
+import { browserHistory } from 'react-router';
+import { cancelApp, updateBid, getApplicants, queryApp } from '../../actions/applicants';
 
 class ManageApplication extends Component {
   constructor(props) {
@@ -36,9 +37,13 @@ class ManageApplication extends Component {
     this.props.cancelApp(this.state)
     .then(() => {
       this.props.getApplicants(this.props.jobs.jobId);
-      //redirect them to joblisting
-      //remove this component :()
+      this.props.queryApp({
+        job_id: this.state.job_id,
+        user_id: this.state.user_id
+      });
     });
+    //redirect
+    browserHistory.push('/selectedJob');
   }
 
   render() {

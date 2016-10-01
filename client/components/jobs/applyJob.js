@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
-import { applyJob, getApplicants } from '../../actions/applicants';
+import { applyJob, getApplicants, queryApp } from '../../actions/applicants';
 
 class ApplyJob extends Component {
   constructor(props) {
@@ -26,8 +26,11 @@ class ApplyJob extends Component {
     this.props.applyJob(this.state)
     .then(() => {
       this.props.getApplicants(this.props.jobs.jobId);
+      this.props.queryApp({
+        job_id: this.state.job_id,
+        user_id: this.state.user_id
+      });
     });
-
     this.setState({ bid_price: '' });
   }
 
@@ -66,7 +69,7 @@ function mapStateToProps({ apply, jobs }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ applyJob, getApplicants }, dispatch);
+  return bindActionCreators({ applyJob, getApplicants, queryApp }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApplyJob);
