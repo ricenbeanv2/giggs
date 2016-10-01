@@ -28,7 +28,7 @@ export function sendJob(jobDetails, latLong) {
 
 export function getLatLong(address) {
   return (dispatch) => {
-    axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+    return axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
         address: address,
         key: 'AIzaSyAJu6SvKcz7H7fNJb-akc4PJ7BYhlbhqAw'
