@@ -2,6 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 
 const SelectionComponent = (props) => {
+  console.log('props inside selection component: ', props);
   return (
     <Select
       {...props.input}

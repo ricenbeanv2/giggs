@@ -3,11 +3,7 @@ import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import { getUserList } from '../../actions/auth';
 import { getEmployers, getEmployees } from '../../actions/applicants';
-import SelectionComponent from '../selectionComponent';
-
-const UserButton = props => {
-  return <button onClick={() => props.switchRoom(props.username)}>{props.username}</button>;
-};
+import Select from 'react-select';
 
 class Chat extends Component {
   constructor(props) {
@@ -16,29 +12,29 @@ class Chat extends Component {
       messages: [],
       message: '',
       users: [],
-      room: ''
+      room: '',
+      selected: ''
     };
     this.sendMessage = this.sendMessage.bind(this);
     this.switchRoom = this.switchRoom.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   //Change users passed in eventually to be all employees/employers related to
   //the user
   componentDidMount() {
-    const usernames = [];
-    this.props.getUserList([1, 2]).then(() => {
-      this.props.auth.userList.forEach((user) => {
-        usernames.push(user.username);
-      });
-      this.setState({ users: usernames });
-    });
-
     const relationships = [];
     this.props.getEmployers(Cookies.getJSON('user').userid).then(() => {
       relationships.push(...this.props.apply.employers);
       this.props.getEmployees(Cookies.getJSON('user').userid).then(() => {
         relationships.push(...this.props.apply.employees);
-        this.props.getUserList(relationships);
+        this.props.getUserList(relationships).then(() => {
+          console.log('this.props inside getUserList', this.props.auth.userList);
+          const usernames = this.props.auth.userList.map(user => {
+            return user.username;
+          });
+          this.setState({ users: usernames });
+        });
       });
     });
 
@@ -50,14 +46,20 @@ class Chat extends Component {
     socket.emit('join', Cookies.getJSON('user').username);
   }
 
+  switchRoom(username) {
+    this.setState({ room: username });
+  }
+
+  onChange(value) {
+    console.log('value inside onChange', value);
+    this.setState({ selected: value.value });
+    this.switchRoom(value.value);
+  }
+
   handleChange(name, e) {
     const change = {};
     change[name] = e.target.value;
     this.setState(change);
-  }
-
-  switchRoom(username) {
-    this.setState({ room: username });
   }
 
   sendMessage(e) {
@@ -78,17 +80,18 @@ class Chat extends Component {
     const messages = this.state.messages.map((message, index) => {
       return <li key={index}><b>{message.from}: </b>{message.body}</li>;
     });
-    console.log('employer/employee ids in render: ', this.props.apply);
-    console.log('current room: ', this.state.room);
-    console.log('Userlist: ', this.props.auth);
+
+    const options = this.state.users.map(user => {
+      return { value: user, label: user };
+    });
+
+    const chatRoom = [Cookies.getJSON('user').username, this.state.selected].sort();
+    console.log('chatRoom: ', chatRoom);
+    socket.emit('join', chatRoom.join(''));
+
     return (
       <div className='chat'>
-        <SelectionComponent />
-        <div>
-          {this.state.users.map((username, idx) => {
-            return <UserButton switchRoom={this.switchRoom} key={idx} username={username} />;
-          })}
-        </div>
+        <Select onChange={this.onChange} options={options} value={this.state.selected} />
         <form onSubmit={this.sendMessage}>
           <div className='message-box'>
             {messages}
