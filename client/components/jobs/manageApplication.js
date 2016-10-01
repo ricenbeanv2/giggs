@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
-import { applyJob, getApplicants, queryApp } from '../../actions/applicants';
+import { browserHistory } from 'react-router';
+import { cancelApp, updateBid, getApplicants, queryApp } from '../../actions/applicants';
 
-class ApplyJob extends Component {
+class ManageApplication extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,18 +13,28 @@ class ApplyJob extends Component {
       job_id: this.props.jobs.jobId,
       bid_price: ''
     };
-    this.handleApply = this.handleApply.bind(this);
+    this.handleBidChange = this.handleBidChange.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
   }
 
   onInputChange(e) {
     this.setState({ bid_price: e.target.value });
   }
 
-  handleApply(e) {
+  handleBidChange(e) {
     e.preventDefault();
-    //bid_price = this.state.bid
-    this.props.applyJob(this.state)
+    this.props.updateBid(this.state)
+    .then(() => {
+      this.props.getApplicants(this.props.jobs.jobId);
+    });
+
+    this.setState({ bid_price: '' });
+  }
+
+  handleCancel(e) {
+    e.preventDefault();
+    this.props.cancelApp(this.state)
     .then(() => {
       this.props.getApplicants(this.props.jobs.jobId);
       this.props.queryApp({
@@ -31,17 +42,26 @@ class ApplyJob extends Component {
         user_id: this.state.user_id
       });
     });
-    this.setState({ bid_price: '' });
+    //redirect
+    browserHistory.push('/selectedJob');
   }
 
   render() {
     return (
       <div className="col-md-4">
-        <form onSubmit={this.handleApply} className="input-group">
+        <button
+          className="btn btn-secondary"
+          onClick={this.handleCancel}
+        >
+          Cancel Application
+        </button>
+        <br />
+
+        <form onSubmit={this.handleBidChange} className="input-group">
           <div className="input-group-addon">$</div>
           <input
             className="form-control"
-            placeholder="Enter Bid Price"
+            placeholder="Update Bid Price"
             value={this.state.bid_price}
             type="number"
             min="1"
@@ -55,7 +75,7 @@ class ApplyJob extends Component {
               className="btn btn-important"
               type="submit"
             >
-              Apply
+              Update
             </button>
           </span>
         </form>
@@ -69,7 +89,7 @@ function mapStateToProps({ apply, jobs }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ applyJob, getApplicants, queryApp }, dispatch);
+  return bindActionCreators({ cancelApp, updateBid, getApplicants }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ApplyJob);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageApplication);

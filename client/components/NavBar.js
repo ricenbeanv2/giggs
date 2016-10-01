@@ -13,7 +13,6 @@ const NavBar = () => {
           <li><Link to="/joblistings">Job Listings </Link></li>
           <li><Link to="/map">Map</Link></li>
           <li><Link to="/createjob">Create Job </Link></li>
-          <li><Link to="/selectedjob">Recent Job </Link></li>
           <li><Link to="/userprofile">User Profile </Link></li>
           <li><Link to="/profile">PROFILE </Link></li>
           <li><Link to="/chat">Chat </Link></li>

@@ -12,8 +12,8 @@ class ManageApplicants extends Component {
   }
 
   componentWillMount() {
-    this.props.getApplicants(this.props.jobs.job.id);
-    console.log('this.props.jobs.job', this.props.jobs.job);
+    this.props.getApplicants(this.props.jobs.jobId);
+    console.log('this.props.jobs.job', this.props.jobs.jobId);
   }
 
   updateStatus(applicantID, status) {
@@ -23,7 +23,7 @@ class ManageApplicants extends Component {
     };
     this.props.changeStatus(params)
     .then(() => {
-      this.props.getApplicants(this.props.jobs.job.id);
+      this.props.getApplicants(this.props.jobs.jobId);
     })
     .catch(error => {
       throw error;
@@ -53,12 +53,14 @@ class ManageApplicants extends Component {
                 <div>
                   <button
                     className="btn btn-secondary"
-                    onClick={() => this.updateStatus(applicantData.id, 'accepted')}>
+                    onClick={() => this.updateStatus(applicantData.id, 'accepted')}
+                  >
                     Accept
                   </button>
                   <button
                     className="btn btn-secondary"
-                    onClick={() => this.updateStatus(applicantData.id, 'rejected')}>
+                    onClick={() => this.updateStatus(applicantData.id, 'rejected')}
+                  >
                     Reject
                   </button>
                 </div>
@@ -67,13 +69,14 @@ class ManageApplicants extends Component {
               return (
                 <button
                   className="btn btn-secondary"
-                  onClick={() => this.updateStatus(applicantData.id, 'completed')}>
+                  onClick={() => this.updateStatus(applicantData.id, 'completed')}
+                >
                   Mark as completed
                 </button>
               );
             case 'completed':
               return (
-                <button>
+                <button className="btn btn-secondary">
                   Review
                 </button>);
             default:
