@@ -64,9 +64,9 @@ let SignUpForm = props => {
   );
 };
 
-function mapStateToProps({ auth, jobs }) {
+const mapStateToProps = ({ auth, jobs }) => {
   return { auth, jobs };
-}
+};
 
 SignUpForm = reduxForm({
   form: 'SignUpForm'
