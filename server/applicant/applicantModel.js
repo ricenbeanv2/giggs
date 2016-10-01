@@ -142,6 +142,26 @@ Applicant.getApplicants = jobID => {
 	});
 };
 
+Applicant.getJobsApplied = userId => {
+		return new Promise((resolve, reject) => {
+			Applicant.findAll({
+				where: {
+					user_id: userId
+				}
+			})
+			.then(result => {
+				if (!result) {
+					reject('this user has not applied to any jobs');
+				} else {
+					resolve(result);
+				}
+			})
+			.catch(err => {
+				reject(err);
+			});
+		});
+};
+
 Applicant.statusChange = params => {
 	return new Promise((resolve, reject) => {
 		Applicant.findById(params.id)

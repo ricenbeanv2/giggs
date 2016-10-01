@@ -12,7 +12,9 @@ router.post('/applicant/apply', helper, applicantController.applyJob);
 router.post('/applicant/cancel', helper, applicantController.cancelApplied);
 router.post('/applicant/updateBid', helper, applicantController.updateBid);
 router.get('/applicant/', applicantController.getApplicants);
+router.get('/applicant/getJobs', applicantController.getJobsApplied);
 router.get('/applicant/changeStatus', helper, applicantController.statusChange);
+router.get('/applicant/getAll', applicantController.getAllApplicants);
 
 //router.post('/category/create', helper, categoryController.propagateCategories);
 router.get('/category/getAll', categoryController.getAllCategories);
@@ -28,6 +30,7 @@ router.post('/reviews/create', reviewsController.createReview);
 router.get('/reviews/getAll', reviewsController.getReviews);
 router.get('/reviews/query', reviewsController.queryReview);
 
+router.get('/users/query', helper, userController.getUsers);
 router.get('/users/:id', helper, userController.getUserInfo);
 router.post('/users/update', helper, checkEmail, checkUsername, userController.updateUser);
 

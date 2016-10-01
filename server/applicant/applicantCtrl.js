@@ -65,6 +65,26 @@ module.exports = {
 		});
 	},
 
+	getAllApplicants: (req, res) => {
+		Applicant.findAll({ where: { [req.query.field]: JSON.parse(req.query.key) } })
+		.then((data) => {
+			res.status(200).send(data);
+		})
+		.catch(err => {
+			res.status(400).send(err);
+		});
+	},
+
+	getJobsApplied: (req, res) => {
+		Applicant.getJobsApplied(req.query.user_id)
+		.then(data => {
+			res.status(200).json(data);
+		})
+		.catch(err => {
+			res.status(400).send(err);
+		});
+	},
+
 	statusChange: (req, res) => {
 		Applicant.statusChange(req.query)
 		.then(data => {
@@ -72,7 +92,7 @@ module.exports = {
 		})
 		.catch(err => {
 			res.status(400).send(err);
-		})
+		});
 	}
 
 };

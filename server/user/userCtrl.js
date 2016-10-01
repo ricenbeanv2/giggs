@@ -71,7 +71,15 @@ module.exports = {
 		.catch(err => {
 			res.status(400).send(err);
 		});
+	},
+
+	getUsers: (req, res) => {
+		User.findAll({ where: { [req.query.field]: JSON.parse(req.query.key) } })
+			.then(data => {
+				res.status(200).send(data);
+			})
+			.catch(err => {
+				res.status(400).send(err);
+			});
 	}
-
-
 };
