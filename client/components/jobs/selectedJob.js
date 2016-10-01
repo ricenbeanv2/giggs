@@ -6,6 +6,10 @@ import { getJobDetail } from '../../actions/jobs';
 
 import ApplicantList from './applicantList';
 import ApplyJob from './applyJob';
+import ManageApplication from './manageApplication';
+//if already applied for job show manageApplication
+//check if status is still pending, allow them to change their bid_price
+//if completed/accepted?
 
 class SelectedJob extends Component {
 
@@ -28,7 +32,9 @@ class SelectedJob extends Component {
           <h4> Deadline: </h4>{Moment(this.props.jobs.job.deadline).format('LLL')} <br />
         </div>
         <ApplicantList />
+
         <ApplyJob />
+        <ManageApplication />
       </div>
     );
   }

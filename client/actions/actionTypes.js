@@ -15,7 +15,7 @@ export const SET_JOBID = 'set_jobid';
 export const GET_LAT_LONG = 'get_lat_long';
 
 export const APPLY_JOB = 'apply_job';
-export const CANCEL_APP = 'cancel_job';
+export const CANCEL_APP = 'cancel_app';
 export const UPDATE_BID = 'update_bid';
 export const GET_APPLICANTS = 'get_applicants';
 export const UPDATE_STATUS = 'update_status';

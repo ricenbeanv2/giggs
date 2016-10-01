@@ -71,7 +71,6 @@ export function cancelApp(info) {
 
 export function changeStatus(info) {
   return (dispatch) => {
-    console.log("in changestatus, applicants.js, params", info);
     return axios.get('/db/applicant/changeStatus', {
       params: {
         id: info.id,
@@ -80,11 +79,10 @@ export function changeStatus(info) {
       headers: { 'x-access-token': Cookies.getJSON('token') }
     })
       .then(response => {
-        console.log("response", response);
         dispatch({ type: UPDATE_STATUS, payload: response.data });
       })
       .catch(error => {
-        console.log("error", error);
+        throw error;
       });
     };
 }
