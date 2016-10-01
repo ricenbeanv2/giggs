@@ -86,14 +86,11 @@ export function getUser(id) {
 }
 
 export function getUserList(ids) {
-  //ids should be an array of ids
-  console.log('ids inside getUserList: ', ids);
-  const config = { params: { field: 'id', key: `[${ids.toString()}]`} , headers: { 'x-access-token': Cookies.getJSON('token') } };
+  const config = { params: { field: 'id', key: `[${ids.toString()}]` }, headers: { 'x-access-token': Cookies.getJSON('token') } };
   return dispatch => {
     return axios.get('/db/users/query', config)
       .then(response => {
         dispatch({ type: USER_LIST, payload: response.data });
-        console.log('response', response.data);
       })
       .catch(error => {
         console.log('error: ', error);
