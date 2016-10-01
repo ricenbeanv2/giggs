@@ -7,7 +7,7 @@ const App = props => {
     <div>
       <NavBar />
       {props.children}
-      <Chat />
+      {/* <Chat /> */}
     </div>
   );
 };

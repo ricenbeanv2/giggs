@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import { getUserList } from '../../actions/auth';
+import { getEmployers, getEmployees } from '../../actions/applicants';
 import SelectionComponent from '../selectionComponent';
 
 const UserButton = props => {
@@ -32,6 +33,15 @@ class Chat extends Component {
       this.setState({ users: usernames });
     });
 
+    const relationships = [];
+    this.props.getEmployers(Cookies.getJSON('user').userid).then(() => {
+      relationships.push(...this.props.apply.employers);
+      this.props.getEmployees(Cookies.getJSON('user').userid).then(() => {
+        relationships.push(...this.props.apply.employees);
+        this.props.getUserList(relationships);
+      });
+    });
+
     socket.on('message', message => {
       console.log('message in mount:', message);
       this.setState({ messages: [message, ...this.state.messages] });
@@ -41,7 +51,7 @@ class Chat extends Component {
   }
 
   handleChange(name, e) {
-    let change = {};
+    const change = {};
     change[name] = e.target.value;
     this.setState(change);
   }
@@ -49,6 +59,7 @@ class Chat extends Component {
   switchRoom(username) {
     this.setState({ room: username });
   }
+
   sendMessage(e) {
     if (this.state.message !== '' && (e.charCode === 13 || e.type === 'click')) {
       const message = {
@@ -67,7 +78,9 @@ class Chat extends Component {
     const messages = this.state.messages.map((message, index) => {
       return <li key={index}><b>{message.from}: </b>{message.body}</li>;
     });
+    console.log('employer/employee ids in render: ', this.props.apply);
     console.log('current room: ', this.state.room);
+    console.log('Userlist: ', this.props.auth);
     return (
       <div className='chat'>
         <SelectionComponent />
@@ -90,8 +103,8 @@ class Chat extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  return { auth };
+const mapStateToProps = ({ auth, apply }) => {
+  return { auth, apply };
 };
 
-export default connect(mapStateToProps, { getUserList })(Chat);
+export default connect(mapStateToProps, { getUserList, getEmployers, getEmployees })(Chat);

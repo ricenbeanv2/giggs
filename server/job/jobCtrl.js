@@ -37,7 +37,7 @@ module.exports = {
 	},
 
 	queryJob: (req, res) => {
-		Job.findAll({ where: { [req.query.field]: req.query.key } })
+		Job.findAll({ where: { [req.query.field]: JSON.parse(req.query.key) } })
 		.then((data) => {
 			res.status(200).send(data);
 		}).catch(error => res.status(500).send(`Job Not Found ${error}`));
