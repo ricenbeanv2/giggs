@@ -14,7 +14,11 @@ router.post('/applicant/updateBid', helper, applicantController.updateBid);
 router.get('/applicant/', applicantController.getApplicants);
 router.get('/applicant/getJobs', applicantController.getJobsApplied);
 router.get('/applicant/changeStatus', helper, applicantController.statusChange);
+<<<<<<< HEAD
 router.get('/applicant/getAll', applicantController.getAllApplicants);
+=======
+router.get('/applicant/queryEntry', helper, applicantController.queryEntry);
+>>>>>>> feat/single-job
 
 //router.post('/category/create', helper, categoryController.propagateCategories);
 router.get('/category/getAll', categoryController.getAllCategories);

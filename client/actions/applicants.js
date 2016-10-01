@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { APPLY_JOB, CANCEL_APP, UPDATE_BID, GET_APPLICANTS, UPDATE_STATUS, GET_EMPLOYERS, GET_EMPLOYEES } from './actionTypes';
+import { APPLY_JOB, CANCEL_APP, UPDATE_BID, GET_APPLICANTS, UPDATE_STATUS, GET_EMPLOYERS, GET_EMPLOYEES, QUERY_APP } from './actionTypes';
 
 export function getApplicants(jobID) {
   return (dispatch) => {
@@ -120,7 +120,6 @@ export function cancelApp(info) {
 
 export function changeStatus(info) {
   return (dispatch) => {
-    console.log("in changestatus, applicants.js, params", info);
     return axios.get('/db/applicant/changeStatus', {
       params: {
         id: info.id,
@@ -129,11 +128,28 @@ export function changeStatus(info) {
       headers: { 'x-access-token': Cookies.getJSON('token') }
     })
       .then(response => {
-        console.log("response", response);
         dispatch({ type: UPDATE_STATUS, payload: response.data });
       })
       .catch(error => {
-        console.log("error", error);
+        throw error;
       });
     };
+}
+
+export function queryApp(info) {
+  return (dispatch) => {
+    return axios.get('/db/applicant/queryEntry', {
+      params: {
+        user_id: info.user_id,
+        job_id: info.job_id
+      },
+      headers: { 'x-access-token': Cookies.getJSON('token') }
+    })
+    .then(response => {
+      dispatch({ type: QUERY_APP, payload: response.data });
+    })
+    .catch(error => {
+      throw error;
+    });
+  };
 }

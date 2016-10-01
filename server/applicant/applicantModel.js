@@ -48,13 +48,6 @@ Applicant.create = params => {
 			if (entry) {
 				//check if user already applied
 				reject('user already applied for job');
-				// entry.update({ bid_price: params.bid_price })
-				// .then(result => {
-				// 	resolve(result);
-				// })
-				// .catch(err => {
-				// 	reject(err);
-				// });
 			} else {
 				//create a new entry in applicants if not applied
 				Applicant.build(params).save()
@@ -180,6 +173,23 @@ Applicant.statusChange = params => {
 		})
 		.catch(err => {
 			reject(err);
+		});
+	});
+};
+
+Applicant.queryEntry = params => {
+	return new Promise((resolve, reject) => {
+		Applicant.findOne({
+			where: {
+				job_id: params.job_id,
+				user_id: params.user_id
+			}
+		})
+		.then(result => {
+			resolve(result);
+		})
+		.catch(error => {
+			reject(error);
 		});
 	});
 };
