@@ -11,9 +11,9 @@ class ApplicantList extends Component {
     this.props.getApplicants(this.props.jobs.jobId);
   }
 
-  renderApplicants(applicantData) {
+  renderApplicants(applicantData, key) {
     return (
-      <div key={applicantData.user_id}>
+      <div key={key}>
         <p>
           User: {applicantData.username}
         </p>
