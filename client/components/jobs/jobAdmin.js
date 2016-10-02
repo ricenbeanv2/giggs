@@ -10,10 +10,23 @@ class JobAdmin extends Component {
   constructor(props) {
     super(props);
     this.handleCancelJob = this.handleCancelJob.bind(this);
+    this.state = {
+      allPending: true
+    };
+  }
+
+  componentWillMount() {
+    this.props.getApplicants(this.props.jobs.jobId).then(() => {
+      const boo = this.props.apply.applicants
+      .map(applicant => applicant.job_status)
+      .every(elem => elem === 'pending' || elem === 'rejected');
+      this.setState({ allPending: boo });
+    });
   }
 
   handleCancelJob(e) {
     e.preventDefault();
+    //check if any applicant are completed/ accepted, show erro message, disable cancel
     this.props.rejectAll(this.props.jobs.jobId).then(() => {
       this.props.getApplicants(this.props.jobs.jobId);
     });
@@ -35,9 +48,14 @@ class JobAdmin extends Component {
           <button
             className="btn btn-secondary"
             onClick={this.handleCancelJob}
+            disabled={!this.state.allPending}
           >
             Cancel Job
           </button>
+          { !this.state.allPending ?
+            <p>
+              You cannot cancel this job, one or more applicants are accepted.
+            </p> : null }
         </div>
         <ManageApplicants />
       </div>
