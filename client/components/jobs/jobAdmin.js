@@ -14,11 +14,9 @@ class JobAdmin extends Component {
 
   handleCancelJob(e) {
     e.preventDefault();
-
-    this.props.getApplicants(this.props.jobs.id).then((){
-      this.props.rejectAll(jobID, applicantsArr)
-
-    })
+    this.props.rejectAll(this.props.jobs.jobId).then(() => {
+      this.props.getApplicants(this.props.jobs.jobId);
+    });
   }
 
   render() {

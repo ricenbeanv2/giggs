@@ -155,12 +155,13 @@ export function queryApp(info) {
 }
 
 export function rejectAll(jobID) {
-  // {list of id}
   return (dispatch) => {
-    return axios.get('/db/applicant/changeStatus', {
+    return axios.get('/db/applicant/changeAllStatus', {
       params: {
-
-      }
+        job_id: jobID,
+        job_status: 'rejected'
+      },
+      headers: { 'x-access-token': Cookies.getJSON('token') }
     })
     .then(response => {
       dispatch({ type: REJECT_ALL, payload: response.data });
@@ -168,5 +169,5 @@ export function rejectAll(jobID) {
     .catch(error => {
       throw error;
     });
-  }
+  };
 }

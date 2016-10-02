@@ -196,25 +196,15 @@ Applicant.queryEntry = params => {
 
 Applicant.changeAllStatus = params => {
 	return new Promise((resolve, reject) => {
-		Applicant.findAll({
-			where: {
-				job_id: params.job_id
-			}
-		})
-		.then(result => {
-			result.update({
-				job_status: params.job_status
+		Applicant.update(
+			{ job_status: params.job_status },
+			{ where: { job_id: params.job_id } })
+			.then(affectedRows => {
+				resolve(affectedRows);
 			})
-			.then(data => {
-				resolve(data);
-			})
-			.catch(error => {
-				reject(error);
+			.catch(err => {
+				reject(err);
 			});
-		})
-		.catch(err => {
-			reject(err);
-		});
 	});
 };
 module.exports = Applicant;
