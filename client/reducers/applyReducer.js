@@ -1,6 +1,6 @@
-import { APPLY_JOB, CANCEL_APP, UPDATE_BID, GET_APPLICANTS, QUERY_APP, UPDATE_STATUS, GET_EMPLOYERS, GET_EMPLOYEES } from '../actions/actionTypes';
+import { APPLY_JOB, CANCEL_APP, UPDATE_BID, GET_APPLICANTS, QUERY_APP, UPDATE_STATUS, GET_EMPLOYERS, GET_EMPLOYEES, REJECT_ALL } from '../actions/actionTypes';
 
-const INITIAL_STATE = { apply: {}, cancel: '', update: '', applicants: [], status: '', entry: '', employers: [], employees: [] };
+const INITIAL_STATE = { apply: {}, cancel: '', update: '', applicants: [], status: '', entry: '', employers: [], employees: [], reject: '' };
 
 export default function (state = INITIAL_STATE, { type, payload }) {
   switch (type) {
@@ -20,6 +20,8 @@ export default function (state = INITIAL_STATE, { type, payload }) {
       return { ...state, status: payload };
     case QUERY_APP:
       return { ...state, entry: payload };
+    case REJECT_ALL:
+      return { ...state, reject: payload };
     default:
       return state;
   }

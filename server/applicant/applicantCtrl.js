@@ -103,6 +103,16 @@ module.exports = {
 		.catch(err => {
 			res.status(400).send(err);
 		});
+	},
+
+	changeAllStatus: (req, res) => {
+		Applicant.changeAllStatus(req.query)
+		.then(data => {
+			res.status(200).json(data);
+		})
+		.catch(err => {
+			res.status(400).send(err);
+		});
 	}
 
 };

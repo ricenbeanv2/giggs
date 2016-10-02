@@ -16,6 +16,7 @@ router.get('/applicant/getJobs', applicantController.getJobsApplied);
 router.get('/applicant/changeStatus', helper, applicantController.statusChange);
 router.get('/applicant/getAll', applicantController.getAllApplicants);
 router.get('/applicant/queryEntry', helper, applicantController.queryEntry);
+router.get('applicant/changeAllStatus', helper, applicantController.changeAllStatus);
 //router.post('/category/create', helper, categoryController.propagateCategories);
 router.get('/category/getAll', categoryController.getAllCategories);
 router.get('/category/query', categoryController.queryCategory);
