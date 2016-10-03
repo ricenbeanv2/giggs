@@ -2,7 +2,7 @@ import { GET_REVIEWS, CREATE_REVIEW } from '../actions/actionTypes';
 
 const INITIAL_STATE = { get: [], create:[] };
 
-export default function (state = INITIAL_STATE, { type, job }) {
+export default function (state = INITIAL_STATE, { type, payload }) {
 	switch (type) {
 		case GET_REVIEWS:
 			return { ...state, get: payload };

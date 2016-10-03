@@ -1,47 +1,52 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { createReview } from '../../../actions/review';
+
+import StarReview from './starReview';
 
 class createReviews extends Component {
   constructor(props){
     super(props)
     this.state = {
-      testing: ' '
+      numbericalEmployerReview: null,
+      employerReview: '',
+      job_id: 4,
+      review_id: 2,
+      type: 'employer'
+
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleStarRate = this.handleStarRate.bind(this);
   }
 
   handleSubmit(event){
     event.preventDefault();
-    this.props.createReview(this.state.testing)
+    console.log('this.state.testing', this.state)
+    this.props.createReview(this.state)
   }
   handleChange(event){
-    this.setState({testing : event.target.value})
+    event.preventDefault();
+    this.setState({ employerReview : event.target.value})
+    console.log('this.state.employerReview', this.state.employerReview)
   }
+   handleStarRate(event){
+     event.preventDefault();
+     this.setState({numbericalEmployerReview: event.target.value})
+     console.log('Inside starReview:', event.target.value)
+   }
+
   render() {
     return(
       <div>
-      <div>
-          <div className="stars">
-          <input type="radio" name="star" className="star-1" id="star-1" />
-          <label className="star-1" htmlFor="star-1">1</label>
-          <input type="radio" name="star" className="star-2" id="star-2" />
-          <label className="star-2" htmlFor="star-2">2</label>
-          <input type="radio" name="star" className="star-3" id="star-3" />
-          <label className="star-3" htmlFor="star-3">3</label>
-          <input type="radio" name="star" className="star-4" id="star-4" />
-          <label className="star-4" htmlFor="star-4">4</label>
-          <input type="radio" name="star" className="star-5" id="star-5" />
-          <label className="star-5" htmlFor="star-5">5</label>
-          <span></span>
-        </div></div>
         <form onSubmit={this.handleSubmit}>
+          <h4> Write a review! </h4>
+          <p> Its always great to hear from you!</p>
+          <StarReview star={this.handleStarRate}/>
           <input type="text"
             placeholder="Write a review..."
-            value={this.state.testing}
+            value={this.state.employerReview}
             onChange={this.handleChange}
             ></input>
           <button>Submit</button>
