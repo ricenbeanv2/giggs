@@ -1,4 +1,4 @@
-import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY, SET_JOBID, GET_LAT_LONG } from '../actions/actionTypes';
+import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY, SET_JOBID, GET_LAT_LONG, CANCEL_JOB } from '../actions/actionTypes';
 
 const INITIAL_STATE = { job: [], jobList: [], created: [], category: [], latLong: {}, jobId: '', cancelJob: '' };
 
@@ -22,6 +22,8 @@ export default function (state = INITIAL_STATE, { type, payload }) {
       return { ...state, jobList: payload };
     case SET_JOBID:
       return { ...state, jobId: payload };
+    case CANCEL_JOB:
+      return { ...state, cancelJob: payload };
     default:
       return state;
   }

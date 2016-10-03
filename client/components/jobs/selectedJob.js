@@ -33,6 +33,9 @@ class SelectedJob extends Component {
     } else {
       userAdmin = <ApplyJob />;
     }
+    if (this.props.jobs.job.status === 'canceled') {
+      userAdmin = <p> This job is canceled </p>;
+    }
 
     return (
       <div>

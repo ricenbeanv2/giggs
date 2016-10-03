@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getJobDetail } from '../../actions/jobs';
+import { getJobDetail, cancelJob } from '../../actions/jobs';
 import { getApplicants, rejectAll } from '../../actions/applicants';
 import ManageApplicants from './manageApplicants';
 
@@ -29,6 +29,7 @@ class JobAdmin extends Component {
     //check if any applicant are completed/ accepted, show erro message, disable cancel
     this.props.rejectAll(this.props.jobs.jobId).then(() => {
       this.props.getApplicants(this.props.jobs.jobId);
+      this.props.cancelJob(this.props.jobs.jobId);
     });
   }
 
@@ -69,7 +70,7 @@ function mapStateToProps({ apply, jobs }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getJobDetail, getApplicants, rejectAll }, dispatch);
+  return bindActionCreators({ getJobDetail, getApplicants, rejectAll, cancelJob }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(JobAdmin);
