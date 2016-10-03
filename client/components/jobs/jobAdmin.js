@@ -38,6 +38,7 @@ class JobAdmin extends Component {
         <h3> Manage Job </h3>
         <div>
           <h4> Job Name: </h4> {this.props.jobs.job.jobName} <br />
+          <h4> Username: </h4> {this.props.jobs.job.username} <br />
           <h4> Openings: </h4> {this.props.jobs.job.openings} <br />
           <h4> Address: </h4> {this.props.jobs.job.address} <br />
           <h4> Category: </h4> {this.props.jobs.job.category} <br />

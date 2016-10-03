@@ -62,6 +62,11 @@ const Jobs = connection.define('Jobs', {
 	deadline: {
 		type: Sequelize.DATE,
 	},
+
+	status: {
+		type: Sequelize.ENUM('active', 'inactive', 'canceled'),
+		allowNull: false
+	}
 }, {
 	freezeTableName: true,
 });

@@ -17,7 +17,6 @@ class ManageApplication extends Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
   }
-
   onInputChange(e) {
     this.setState({ bid_price: e.target.value });
   }
@@ -89,7 +88,7 @@ function mapStateToProps({ apply, jobs }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ cancelApp, updateBid, getApplicants }, dispatch);
+  return bindActionCreators({ cancelApp, updateBid, getApplicants, queryApp }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageApplication);
