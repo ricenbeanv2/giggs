@@ -71,7 +71,10 @@ class Chat extends Component {
         id: Cookies.getJSON('user').userid,
         roomName: this.state.room
       };
-      this.setState({ messages: [message, ...this.state.messages] });
+      const newMessages = this.state.messages;
+      newMessages.push(message);
+      console.log('newmsgs: ', newMessages);
+      this.setState({ messages: newMessages });
       socket.emit('message', message);
       this.props.sendMessage(this.state.room, message.message);
       this.setState({ message: '' });
