@@ -2,11 +2,6 @@ const Job = require('./jobModel');
 const Category = require('../category/categoryModel');
 
 module.exports = {
-
-	helloWorld: (req, res) => {
-		res.send('hello Jobs');
-	},
-
 	createJob: (req, res) => {
 		const newJob = {
 			jobName: req.body.jobName,
@@ -22,16 +17,16 @@ module.exports = {
 		};
 
 		function jobCreation() {
-			Job.create(newJob).then((jobs) => {
+			Job.create(newJob).then(jobs => {
 				res.status(201).send(jobs);
 			})
-			.catch((error) => {
+			.catch(error => {
 				res.status(500).send(`Server Error Job Not Created ${error}`);
 			});
 		}
 
 		Category.findOne({ where: { name: req.body.category_id }
-		}).then((cat) => {
+		}).then(cat => {
 			newJob.category_id = cat.dataValues.id;
 			jobCreation();
 		}).catch(error => res.status(500).send(`Category does not Exist ${error}`));
@@ -39,13 +34,13 @@ module.exports = {
 
 	queryJob: (req, res) => {
 		Job.findAll({ where: { [req.query.field]: JSON.parse(req.query.key) } })
-		.then((data) => {
+		.then(data => {
 			res.status(200).send(data);
 		}).catch(error => res.status(500).send(`Job Not Found ${error}`));
 	},
 
 	getAllJobs: (req, res) => {
-		Job.findAll().then((jobs) => {
+		Job.findAll().then(jobs => {
 			res.status(200).send(jobs);
 		}).catch(error => res.status(500).send(`Sever Error ${error}`));
 	},

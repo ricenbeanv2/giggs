@@ -42,12 +42,12 @@ class Chat extends Component {
       console.log('message in mount:', message);
       this.setState({ messages: [message, ...this.state.messages] });
     });
-
-    socket.emit('join', Cookies.getJSON('user').username);
   }
 
   switchRoom(username) {
-    this.setState({ room: username });
+    const chatRoom = [Cookies.getJSON('user').username, username].sort().join('');
+    this.setState({ room: chatRoom });
+    socket.emit('join', chatRoom);
   }
 
   onChange(value) {
@@ -67,7 +67,8 @@ class Chat extends Component {
       const message = {
         body: this.state.message,
         from: Cookies.getJSON('user').username,
-        id: Cookies.getJSON('user').userid
+        id: Cookies.getJSON('user').userid,
+        roomName: this.state.room
       };
       this.setState({ messages: [message, ...this.state.messages] });
       console.log('message: ', message);
@@ -84,9 +85,6 @@ class Chat extends Component {
     const options = this.state.users.map(user => {
       return { value: user, label: user };
     });
-
-    const chatRoom = [Cookies.getJSON('user').username, this.state.selected].sort();
-    socket.emit('join', chatRoom.join(''));
 
     return (
       <div className='chat'>
