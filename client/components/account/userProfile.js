@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import renderField from '../renderField';
 import { updateUserInfo, getUserInfo } from '../../actions/auth';
 import UserApplications from './userApplications';
+import UserJobPosts from './UserJobPosts';
 
 class UserProfile extends Component {
   render() {
@@ -50,6 +51,7 @@ class UserProfile extends Component {
           {/* {passCheck} */}
         </form>
         <UserApplications />
+        <UserJobPosts />
       </div>
     );
   }

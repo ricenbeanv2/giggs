@@ -123,8 +123,15 @@ export function getUserApps() {
   };
 }
 
-export function getUserPosts(id) {
+export function getUserPosts() {
   return dispatch => {
-    dispatch({ type: USER_POSTS, payload: 'sth' });
-  }
+    return axios.get('/db/jobs/query',
+    {
+      params: { key: Cookies.getJSON('user').userid, field: 'user_id' },
+      headers: { 'x-access-token': Cookies.getJSON('token') }
+    })
+    .then(response => {
+      dispatch({ type: USER_POSTS, payload: response.data });
+    });
+  };
 }
