@@ -86,7 +86,6 @@ class Chat extends Component {
     });
 
     const chatRoom = [Cookies.getJSON('user').username, this.state.selected].sort();
-    console.log('chatRoom: ', chatRoom);
     socket.emit('join', chatRoom.join(''));
 
     return (
