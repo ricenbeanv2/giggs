@@ -33,6 +33,9 @@ export const SORT_CATEGORIES = 'sort_categories';
 export const SORT_DATE = 'sort_date';
 export const FILTER_CATEGORY = 'filter_category';
 
+export const GET_CHAT_HISTORY = 'get_chat_history';
+export const POST_MESSAGE = 'post_message';
+
 export const GET_INFOBOX_JOB = 'get_info_job';
 
 export const USER_LIST = 'user_list';
