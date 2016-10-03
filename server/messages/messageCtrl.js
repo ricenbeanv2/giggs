@@ -5,7 +5,8 @@ module.exports = {
     const newMsg = {
       roomName: req.body.roomName,
       user_id: req.body.user_id,
-      message: req.body.message
+      message: req.body.message,
+      username: req.body.username
     };
 
     Message.create(newMsg).then(msg => {

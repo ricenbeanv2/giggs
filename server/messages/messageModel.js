@@ -18,6 +18,11 @@ const Messages = connection.define('Messages', {
     },
   },
 
+  username: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  
   message: {
     type: Sequelize.STRING,
     allownull: false,

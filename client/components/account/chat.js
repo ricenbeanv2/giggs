@@ -21,8 +21,6 @@ class Chat extends Component {
     this.onChange = this.onChange.bind(this);
   }
 
-  //Change users passed in eventually to be all employees/employers related to
-  //the user
   componentDidMount() {
     const relationships = [];
     this.props.getEmployers(Cookies.getJSON('user').userid).then(() => {
@@ -31,9 +29,7 @@ class Chat extends Component {
         relationships.push(...this.props.apply.employees);
         this.props.getUserList(relationships).then(() => {
           console.log('this.props inside getUserList', this.props.auth.userList);
-          const usernames = this.props.auth.userList.map(user => {
-            return user.username;
-          });
+          const usernames = this.props.auth.userList.map(user => user.username);
           this.setState({ users: usernames });
         });
       });
@@ -61,7 +57,10 @@ class Chat extends Component {
     const chatRoom = [Cookies.getJSON('user').username, username].sort().join('');
     this.setState({ room: chatRoom });
     socket.emit('join', chatRoom);
-    this.props.getHistory(chatRoom);
+    this.props.getHistory(chatRoom).then(() => {
+      console.log('history: ', this.props.chat.history);
+      this.setState({ messages: this.props.chat.history });
+    });
   }
 
   sendMessage(e) {

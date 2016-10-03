@@ -7,11 +7,8 @@ export const getHistory = roomName => {
   return dispatch => {
     return axios.get(`/db/messages/history?roomName=${roomName}`)
       .then(response => {
-        const messages = response.data.map(msg => {
-          return msg.message;
-        });
-        console.log('messages array: ', messages);
-        dispatch({ type: GET_CHAT_HISTORY, payload: messages });
+        console.log('response.data: ', response.data);
+        dispatch({ type: GET_CHAT_HISTORY, payload: response.data });
       });
   };
 };
