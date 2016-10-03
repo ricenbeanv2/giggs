@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { createReview } from '../../actions/review';
+// import { createReview } from '../../actions/review';
+import { createReview } from '../../../actions/review';
 
 class createReviews extends Component {
   constructor(props){
@@ -49,3 +50,5 @@ function mapDispatchToProps(dispatch) {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(createReviews);
+
+// export default createReviews;

@@ -5,9 +5,9 @@ const INITIAL_STATE = { get: [], create:[] };
 export default function (state = INITIAL_STATE, { type, job }) {
 	switch (type) {
 		case GET_REVIEWS:
-			return { ...state, get: 'TESTING' };
+			return { ...state, get: payload };
       case CREATE_REVIEW:
-        return { ...state, create: 'TESTING' };
+        return { ...state, create: payload };
 		default:
 			return state;
 	}
