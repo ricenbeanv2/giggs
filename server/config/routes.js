@@ -16,6 +16,7 @@ router.get('/applicant/getJobs', applicantController.getJobsApplied);
 router.get('/applicant/changeStatus', helper, applicantController.statusChange);
 router.get('/applicant/getAll', applicantController.getAllApplicants);
 router.get('/applicant/queryEntry', helper, applicantController.queryEntry);
+router.get('/applicant/changeAllStatus', helper, applicantController.changeAllStatus);
 //router.post('/category/create', helper, categoryController.propagateCategories);
 router.get('/category/getAll', categoryController.getAllCategories);
 router.get('/category/query', categoryController.queryCategory);
@@ -24,6 +25,7 @@ router.get('/category/getParents', categoryController.getParentCategories);
 router.post('/jobs/create', helper, jobController.createJob);
 router.get('/jobs/getAll', jobController.getAllJobs);
 router.get('/jobs/query', jobController.queryJob);
+router.post('/jobs/updateStatus', jobController.updateStatus);
 
 /********** MIND NAMES OF MODELS Employee VS Employer **********/
 router.post('/reviews/create', reviewsController.createReview);

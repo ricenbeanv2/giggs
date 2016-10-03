@@ -9,15 +9,9 @@ import { queryApp } from '../../actions/applicants';
 import ApplicantList from './applicantList';
 import ApplyJob from './applyJob';
 import ManageApplication from './manageApplication';
-//if already applied for job show manageApplication
-
-//show only pending applciants in applicant list
-
-//check if status is still pending show ManageApplication
-//if completed/accepted?
 
 class SelectedJob extends Component {
-
+//disable apply button when job is cancel / deadline is passed
   componentDidMount() {
     this.props.getJobDetail(this.props.jobs.jobId)
     .then(() => {
@@ -38,6 +32,9 @@ class SelectedJob extends Component {
       }
     } else {
       userAdmin = <ApplyJob />;
+    }
+    if (this.props.jobs.job.status === 'canceled') {
+      userAdmin = <p> This job is canceled </p>;
     }
 
     return (

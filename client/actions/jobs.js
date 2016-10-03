@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
 
-import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY, SET_JOBID, GET_LAT_LONG, GET_INFOBOX_JOB } from './actionTypes';
+import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY, SET_JOBID, GET_LAT_LONG, GET_INFOBOX_JOB, CANCEL_JOB } from './actionTypes';
 
 export function sendJob(jobDetails, latLong) {
   const jobDet = jobDetails;
@@ -289,4 +289,21 @@ export function filterCategory(searchCategory) {
         throw new SubmissionError({ _error: 'something terrible happened' });
       });
     }
+}
+
+export function cancelJob(jobID) {
+  const info = {
+    id: jobID,
+    status: 'canceled'
+  };
+  return (dispatch) => {
+    return axios.post('/db/jobs/updateStatus', info,
+    { headers: { 'x-access-token': Cookies.getJSON('token') } })
+    .then(response => {
+      dispatch({ type: CANCEL_JOB, payload: response.data });
+    })
+    .catch(error => {
+      throw error;
+    });
+  };
 }

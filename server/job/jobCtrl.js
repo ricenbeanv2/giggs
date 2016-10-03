@@ -18,6 +18,7 @@ module.exports = {
 			location_lat: req.body.location_lat,
 			location_lng: req.body.location_lng,
 			deadline: req.body.deadline,
+			status: 'active'
 		};
 
 		function jobCreation() {
@@ -49,4 +50,14 @@ module.exports = {
 		}).catch(error => res.status(500).send(`Sever Error ${error}`));
 	},
 
+	updateStatus: (req, res) => {
+		Job.update({ status: req.body.status },
+			{ where: { id: req.body.id } })
+		.then(result => {
+			res.status(200).send(result);
+		})
+		.catch(error => {
+			res.status(500).send(error);
+		});
+	}
 };

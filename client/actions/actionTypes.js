@@ -19,6 +19,8 @@ export const CANCEL_APP = 'cancel_app';
 export const UPDATE_BID = 'update_bid';
 export const GET_APPLICANTS = 'get_applicants';
 export const UPDATE_STATUS = 'update_status';
+export const REJECT_ALL = 'reject_all';
+export const CANCEL_JOB = 'cancel_job';
 
 export const GET_EMPLOYERS = 'get_employers';
 export const GET_EMPLOYEES = 'get_employees';

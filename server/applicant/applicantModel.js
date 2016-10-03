@@ -194,4 +194,17 @@ Applicant.queryEntry = params => {
 	});
 };
 
+Applicant.changeAllStatus = params => {
+	return new Promise((resolve, reject) => {
+		Applicant.update(
+			{ job_status: params.job_status },
+			{ where: { job_id: params.job_id } })
+			.then(affectedRows => {
+				resolve(affectedRows);
+			})
+			.catch(err => {
+				reject(err);
+			});
+	});
+};
 module.exports = Applicant;

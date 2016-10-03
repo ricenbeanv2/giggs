@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { APPLY_JOB, CANCEL_APP, UPDATE_BID, GET_APPLICANTS, UPDATE_STATUS, GET_EMPLOYERS, GET_EMPLOYEES, QUERY_APP } from './actionTypes';
+import { APPLY_JOB, CANCEL_APP, UPDATE_BID, GET_APPLICANTS, UPDATE_STATUS, GET_EMPLOYERS, GET_EMPLOYEES, QUERY_APP, REJECT_ALL } from './actionTypes';
 
 export function getApplicants(jobID) {
   return (dispatch) => {
@@ -147,6 +147,24 @@ export function queryApp(info) {
     })
     .then(response => {
       dispatch({ type: QUERY_APP, payload: response.data });
+    })
+    .catch(error => {
+      throw error;
+    });
+  };
+}
+
+export function rejectAll(jobID) {
+  return (dispatch) => {
+    return axios.get('/db/applicant/changeAllStatus', {
+      params: {
+        job_id: jobID,
+        job_status: 'rejected'
+      },
+      headers: { 'x-access-token': Cookies.getJSON('token') }
+    })
+    .then(response => {
+      dispatch({ type: REJECT_ALL, payload: response.data });
     })
     .catch(error => {
       throw error;

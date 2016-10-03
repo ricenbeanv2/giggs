@@ -80,7 +80,7 @@ class ManageApplicants extends Component {
                   Review
                 </button>);
             default:
-              return (<p>User Rejcted</p>);
+              return (<p>User Rejected</p>);
           }
         })()}
       </div>
