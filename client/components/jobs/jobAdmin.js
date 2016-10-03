@@ -50,14 +50,14 @@ class JobAdmin extends Component {
           <button
             className="btn btn-secondary"
             onClick={this.handleCancelJob}
-            disabled={!this.state.allPending}
+            disabled={!this.state.allPending || this.props.jobs.job.status === 'canceled'}
           >
             Cancel Job
           </button>
-          { !this.state.allPending ?
-            <p>
-              You cannot cancel this job, one or more applicants are accepted.
-            </p> : null }
+          {!this.state.allPending ?
+            <p> You cannot cancel this job, one or more applicants are accepted. </p> : null }
+          {(this.props.jobs.job.status === 'canceled') ?
+            <p> This job is canceled.</p> : null }
         </div>
         <ManageApplicants />
       </div>
