@@ -18,7 +18,8 @@ export const sendMessage = (roomName, message) => {
     return axios.post('/db/messages/create', {
       roomName,
       user_id: Cookies.getJSON('user').userid,
-      message
+      message,
+      username: Cookies.getJSON('user').username
     })
     .then(response => {
       console.log('response.data: ', response.data);

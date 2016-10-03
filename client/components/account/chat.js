@@ -66,22 +66,21 @@ class Chat extends Component {
   sendMessage(e) {
     if (this.state.message !== '' && (e.charCode === 13 || e.type === 'click')) {
       const message = {
-        body: this.state.message,
-        from: Cookies.getJSON('user').username,
+        message: this.state.message,
+        username: Cookies.getJSON('user').username,
         id: Cookies.getJSON('user').userid,
         roomName: this.state.room
       };
       this.setState({ messages: [message, ...this.state.messages] });
-      console.log('message: ', message);
       socket.emit('message', message);
-      this.props.sendMessage(this.state.room, message.body);
+      this.props.sendMessage(this.state.room, message.message);
       this.setState({ message: '' });
     }
   }
 
   render() {
     const messages = this.state.messages.map((message, index) => {
-      return <li key={index}><b>{message.from}: </b>{message.body}</li>;
+      return <li key={index}><b>{message.username}: </b>{message.message}</li>;
     });
 
     const options = this.state.users.map(user => {
