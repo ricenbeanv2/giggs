@@ -21,6 +21,8 @@ export const GET_APPLICANTS = 'get_applicants';
 export const UPDATE_STATUS = 'update_status';
 export const REJECT_ALL = 'reject_all';
 export const CANCEL_JOB = 'cancel_job';
+export const USER_APPS = 'user_apps';
+export const USER_POSTS = 'user_posts';
 
 export const GET_EMPLOYERS = 'get_employers';
 export const GET_EMPLOYEES = 'get_employees';

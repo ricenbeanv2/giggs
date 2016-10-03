@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import Moment from 'moment';
 import { getApplicants, changeStatus } from '../../actions/applicants';
+import { getJobDetail } from '../../actions/jobs';
 
 class ManageApplicants extends Component {
   constructor(props) {
@@ -13,7 +15,6 @@ class ManageApplicants extends Component {
 
   componentWillMount() {
     this.props.getApplicants(this.props.jobs.jobId);
-    console.log('this.props.jobs.job', this.props.jobs.jobId);
   }
 
   updateStatus(applicantID, status) {
@@ -24,6 +25,8 @@ class ManageApplicants extends Component {
     this.props.changeStatus(params)
     .then(() => {
       this.props.getApplicants(this.props.jobs.jobId);
+      //about to push
+      browserHistory.push('/jobAdmin');
     })
     .catch(error => {
       throw error;
@@ -102,7 +105,7 @@ function mapStateToProps({ apply, jobs }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getApplicants, changeStatus }, dispatch);
+  return bindActionCreators({ getApplicants, changeStatus, getJobDetail }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageApplicants);

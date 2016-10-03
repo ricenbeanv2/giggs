@@ -11,7 +11,7 @@ class JobAdmin extends Component {
     super(props);
     this.handleCancelJob = this.handleCancelJob.bind(this);
     this.state = {
-      allPending: true
+      allPending: false
     };
   }
 
