@@ -1,6 +1,7 @@
 var Sequelize = require('sequelize');
 
 var production = process.env.LOCAL_ENV;
+production = false;
 console.log(process.env.DB_NAME)
 if(!production) {
 	var connection = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {

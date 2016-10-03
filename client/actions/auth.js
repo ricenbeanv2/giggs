@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { browserHistory } from 'react-router';
 import { SubmissionError } from 'redux-form';
-import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT, USER_LIST } from './actionTypes';
+import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT, USER_LIST, USER_APPS, USER_POSTS } from './actionTypes';
 
 export function userSignUp(info) {
   return (dispatch) => {
@@ -107,5 +107,31 @@ export function updateUserInfo(info) {
         dispatch({ type: UPDATE_USER, payload: response.data });
         throw new SubmissionError({ _error: 'User Profile Updated!' });
       });
+  };
+}
+
+export function getUserApps() {
+  return dispatch => {
+    return axios.get('/db/applicant/getAll',
+    {
+      params: { key: Cookies.getJSON('user').userid, field: 'user_id' },
+      headers: { 'x-access-token': Cookies.getJSON('token') }
+    })
+    .then(response => {
+      dispatch({ type: USER_APPS, payload: response.data });
+    });
+  };
+}
+
+export function getUserPosts() {
+  return dispatch => {
+    return axios.get('/db/jobs/query',
+    {
+      params: { key: Cookies.getJSON('user').userid, field: 'user_id' },
+      headers: { 'x-access-token': Cookies.getJSON('token') }
+    })
+    .then(response => {
+      dispatch({ type: USER_POSTS, payload: response.data });
+    });
   };
 }
