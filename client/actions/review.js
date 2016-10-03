@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 import { CREATE_REVIEW, GET_REVIEWS } from './actionTypes';
 
 export function createReview (reviewProp) {
+  // using the end point axios.post('/db/')
   console.log("inside createReview:", reviewProp);
   return (dispatch) => {
     dispatch({type: CREATE_REVIEW, payload: []})
