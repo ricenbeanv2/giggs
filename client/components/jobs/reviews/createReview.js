@@ -11,11 +11,11 @@ class createReviews extends Component {
   constructor(props){
     super(props)
     this.state = {
-       type: "employer",
-       review_id: Cookies.getJSON('user').userid, //This will be changed!
-       job_id: 4, //This will also be changed!
-       employerReview: "",
-       numericalEmployerReview: ""
+       type: '', // Tiffany will send this over.
+       review_id: Cookies.getJSON('user').userid,
+       job_id: 4, // Tiffany should send this over.
+       employerReview: '',
+       numericalEmployerReview: ''
      }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
