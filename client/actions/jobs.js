@@ -110,10 +110,9 @@ export function getJobDetail(jobID) {
   };
 }
 
-export function onJobClick(job) {
-  console.log('job', job);
+export function onJobClick(job, show) {
   return dispatch => {
-    dispatch({type: GET_INFOBOX_JOB, job: job});
+    dispatch({type: GET_INFOBOX_JOB, job: job, show:show});
   }
 }
 
