@@ -8,12 +8,12 @@ module.exports = io => {
 
     socket.on('join', name => {
       console.log('Joined: ', name);
-      socket.join('calvin');
+      socket.join(name);
     });
-    
+
     socket.on('message', msg => {
       console.log('msg received: ', msg);
-      socket.broadcast.to('calvin').emit('message', msg);
+      socket.broadcast.to(msg.roomName).emit('message', msg);
     });
   });
 };
