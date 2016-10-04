@@ -14,7 +14,7 @@ import ManageApplication from './manageApplication';
 
 class SelectedJob extends Component {
   componentWillMount() {
-    if (Cookies.getJSON('user').userid === this.props.jobs.job.jobId) {
+    if (Cookies.getJSON('user').userid === this.props.jobs.job.user_id) {
       browserHistory.push('/jobAdmin');
     }
   }

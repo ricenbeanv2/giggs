@@ -18,7 +18,7 @@ class JobAdmin extends Component {
   }
 
   componentWillMount() {
-    if (Cookies.getJSON('user').userid !== this.props.jobs.job.jobId) {
+    if (Cookies.getJSON('user').userid !== this.props.jobs.job.user_id) {
       browserHistory.push('/selectedJob');
     }
     this.props.getApplicants(this.props.jobs.jobId).then(() => {
