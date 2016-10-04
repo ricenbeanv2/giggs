@@ -37,7 +37,9 @@ class Chat extends Component {
 
     socket.on('message', message => {
       console.log('message in mount:', message);
-      this.setState({ messages: [message, ...this.state.messages] });
+      const newMessages = this.state.messages;
+      newMessages.push(message);
+      this.setState({ newMessages });
     });
   }
 
