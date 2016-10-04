@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
+
 import { getJobDetail } from '../../actions/jobs';
 import { queryApp } from '../../actions/applicants';
 
@@ -11,8 +13,11 @@ import ApplyJob from './applyJob';
 import ManageApplication from './manageApplication';
 
 class SelectedJob extends Component {
-//disable apply button when job is cancel / deadline is passed
-
+  componentWillMount() {
+    if (Cookies.getJSON('user').userid === this.props.jobs.job.jobId) {
+      browserHistory.push('/jobAdmin');
+    }
+  }
   componentDidMount() {
     this.props.getJobDetail(this.props.jobs.jobId)
     .then(() => {
