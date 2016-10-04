@@ -12,6 +12,7 @@ import ManageApplication from './manageApplication';
 
 class SelectedJob extends Component {
 //disable apply button when job is cancel / deadline is passed
+
   componentDidMount() {
     this.props.getJobDetail(this.props.jobs.jobId)
     .then(() => {
