@@ -57,8 +57,6 @@ export function getReviews (userID) {
       })
     })
     .then((response) => {
-      console.log("Line 55", userIDrequest);
-
       dispatch({type: GET_REVIEWS, payload: response});
     })
     .catch((error) => {
