@@ -15,12 +15,14 @@ class JobMap extends Component {
 			userIcon: './user.png',
 			jobIcon: './work.png',
 			showInfo: true,
+			windowWidth: null,
 			lat: null,
 			lng: null
 		};
 
 		this.geoSuccess = this.geoSuccess.bind(this);
 		this.geoError = this.geoError.bind(this);
+		this.handleResize = this.handleResize.bind(this);
 	};
 
 	componentWillMount() {
@@ -30,11 +32,20 @@ class JobMap extends Component {
 		//get inital job list
 		this.props.getJobList();
 		//setInterval(this.props.getJobList, 10000);
+		window.addEventListener('resize', this.handleResize);
+	};
+
+	componentDidMount() {
+		this.setState({ windowWidth: window.innerWidth })
+	};
+
+	handleResize(e) {
+		this.setState({windowWidth: window.innerWidth});
 	};
 
 	toggle() {
 		this.state.showInfo ? this.setState({showInfo:false}) : this.setState({showInfo:true});
-	}
+	};
 
 	geoSuccess(position) {
 		this.setState({ lng: position.coords.longitude, lat: position.coords.latitude });
@@ -55,13 +66,15 @@ class JobMap extends Component {
 			marginTop: '15%'
 		};
 		const mapStyle = {
-			height: "100%",
-			width:'100%',
-			position:'absolute'
+			height: '80vh',
+			width: '95vw',
+			display: 'inline-block',
+			//position:'absolute'
 		};
 
 		return (
-			<div>
+			<div className="container-fluid col-xs-8">
+			<InfoBox />
 			<ScriptjsLoader
 				hostname={ 'maps.googleapis.com' }
 				pathname={ '/maps/api/js' }
@@ -73,20 +86,19 @@ class JobMap extends Component {
 				}
 				containerElement={ <div style={ mapStyle } /> }
 				googleMapElement={
-					<GoogleMap defaultZoom={ 15 } defaultCenter={{ lat: this.state.lat, lng:this.state.lng }} >
-						<Marker key={ 'UserGeo' } position={{ lat: this.state.lat, lng:this.state.lng }} icon={ this.state.userIcon } />
+					<GoogleMap defaultZoom={ 15 } defaultCenter={{ lat: this.state.lat, lng: this.state.lng }} >
+						<Marker key={ 'UserGeo' } position={{ lat: this.state.lat, lng: this.state.lng }} icon={ this.state.userIcon } />
 						{ this.props.jobs.jobList.map((job, i) => {
 							return (<Marker
 									key={ job.id }
 									position={{ lat: job.location_lat, lng: job.location_lng }}
 									icon={ this.state.jobIcon }
-									onClick={ (e) => { this.props.onJobClick(job, this.state.showInfo); this.toggle() }} />
+									onClick={ (e) => { this.props.onJobClick(job, this.state.showInfo); /*this.toggle()*/ }} />
 								)}) 
 						}
 					</GoogleMap>
 				}
 			/>
-			<InfoBox />
 			</div>
 		);
 	}
