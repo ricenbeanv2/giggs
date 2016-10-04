@@ -39,3 +39,6 @@ export const POST_MESSAGE = 'post_message';
 export const GET_INFOBOX_JOB = 'get_info_job';
 
 export const USER_LIST = 'user_list';
+
+export const GET_REVIEWS = 'get_reviews';
+export const CREATE_REVIEW = 'create_review';

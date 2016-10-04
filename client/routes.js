@@ -21,6 +21,7 @@ import SelectedJob from './components/jobs/selectedJob';
 import JobAdmin from './components/jobs/jobAdmin.js';
 import Profile from './components/account/profile';
 import Chat from './components/account/chat';
+import CreateReview from './components/jobs/reviews/createReview';
 
 //Basic routing, to add another route just do:
 //<Route path='/insertUrl' component={insertComponentName} />
@@ -50,6 +51,7 @@ render((
         <Route path='selectedjob' component={SelectedJob} />
         <Route path='jobadmin' component={JobAdmin} />
         <Route path='chat' component={Chat} />
+        <Route path='createreview' component={CreateReview} />
       </Route>
     </Router>
   </Provider>
