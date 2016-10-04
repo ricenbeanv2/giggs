@@ -27,17 +27,18 @@ class InfoBox extends Component {
 		}
 
 		const InfoBoxStyle = {
-			position: 'absolute',
+			position:'absolute',
+			zIndex: '1001',
 			backgroundColor: 'white',
-			zIndex: '1000',
-			width: '25em',
 			border: '2px solid black',
+			height: '80vh',
+			width: '15vw',
 			'overflowY': 'auto'
 		};
 
 		return (
-				<div style={InfoBoxStyle} className="modal-container">
-					<ul>
+				<div style={InfoBoxStyle} className="col-xs-6">
+					<ul style={{paddingLeft: '0'}}>
 						{
 						<li>
 						<strong><h1 style={{textAlign: 'center'}}><p>{this.props.job.jobName}</p></h1></strong>
@@ -49,7 +50,7 @@ class InfoBox extends Component {
 						</li>
 						}
 					</ul>
-					<button onClick={() => this.redirect(this.props.job.id)} style={{ marginBottom: '10px', marginLeft: '83%' }} >Apply</button>
+					<button onClick={() => this.redirect(this.props.job.id)} style={{ marginLeft: '40%' }} >Apply</button>
 				</div>
 			)	
 	}
