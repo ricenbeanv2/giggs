@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { getJobList, onJobClick } from '../../actions/jobs';
 import { GoogleMap, Marker } from 'react-google-maps';
 import ScriptjsLoader from 'react-google-maps/lib/async/ScriptjsLoader';
-import { GET_ALL_JOBS, GET_INFOBOX_JOB } from '../../actions/actionTypes';
 import InfoBox from './infoBox';
 
 
@@ -81,7 +80,7 @@ class JobMap extends Component {
 									key={ job.id }
 									position={{ lat: job.location_lat, lng: job.location_lng }}
 									icon={ this.state.jobIcon }
-									onClick={ (e) => {this.props.onJobClick(job, this.state.showInfo); this.toggle() }} />
+									onClick={ (e) => { this.props.onJobClick(job, this.state.showInfo); this.toggle() }} />
 								)}) 
 						}
 					</GoogleMap>
