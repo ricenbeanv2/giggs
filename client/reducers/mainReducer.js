@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   cats: CatReducer,
   apply: ApplyReducer,
   map: MapReducer,
-  chat: ChatReducer
+  chat: ChatReducer,
   reviews: ReviewReducer
 });
 
