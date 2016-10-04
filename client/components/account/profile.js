@@ -3,8 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getUser } from '../../actions/auth';
 import { getJobList } from '../../actions/jobs';
+import { getReviews } from '../../actions/review';
 import Cookies from 'js-cookie';
-
+import GetReviews from '../jobs/reviews/getReviews';
 
 class UserProfilePage extends Component {
 	constructor(props) {
@@ -15,8 +16,10 @@ class UserProfilePage extends Component {
 	}
 
 	componentDidMount() {
+		const userid = Cookies.getJSON('user').userid;
 		this.props.getUser(Cookies.getJSON('user').userid);
 		this.props.getJobList();
+		this.props.getReviews(userid); 
 	}
 
 	render() {
@@ -54,18 +57,20 @@ class UserProfilePage extends Component {
 						})
 					}
 				</ul>
+				<h3> Reviews </h3>
+				<GetReviews />
 			</div>
 		);
 	}
 
 }
 
-function mapStateToProps({ jobs, auth }) {
-	return { jobs, auth };
+function mapStateToProps({ jobs, auth, reviews }) {
+	return { jobs, auth, reviews };
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ getUser, getJobList }, dispatch);
+	return bindActionCreators({ getUser, getJobList, getReviews }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfilePage);

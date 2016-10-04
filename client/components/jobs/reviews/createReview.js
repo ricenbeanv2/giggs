@@ -9,13 +9,12 @@ class createReviews extends Component {
   constructor(props){
     super(props)
     this.state = {
-      numbericalEmployerReview: null,
-      employerReview: '',
-      job_id: 4,
-      review_id: 2,
-      type: 'employer'
-
-    }
+       type: "employer",
+       review_id: 2, //This will be changed!
+       job_id: 4, //This will also be changed!
+       employerReview: "",
+       numericalEmployerReview: ""
+     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleStarRate = this.handleStarRate.bind(this);
@@ -33,7 +32,7 @@ class createReviews extends Component {
   }
    handleStarRate(event){
      event.preventDefault();
-     this.setState({numbericalEmployerReview: event.target.value})
+     this.setState({numericalEmployerReview: event.target.value})
      console.log('Inside starReview:', event.target.value)
    }
 
