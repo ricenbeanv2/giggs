@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Cookies from 'js-cookie';
+import { browserHistory } from 'react-router';
 import { getJobDetail, cancelJob } from '../../actions/jobs';
 import { getApplicants, rejectAll } from '../../actions/applicants';
 import ManageApplicants from './manageApplicants';
@@ -16,6 +18,9 @@ class JobAdmin extends Component {
   }
 
   componentWillMount() {
+    if (Cookies.getJSON('user').userid !== this.props.jobs.job.user_id) {
+      browserHistory.push('/selectedJob');
+    }
     this.props.getApplicants(this.props.jobs.jobId).then(() => {
       const boo = this.props.apply.applicants
       .map(applicant => applicant.job_status)
