@@ -35,8 +35,6 @@ let CreateJobForm = props => {
     }
   });
 
-  console.log('parents', parents);
-  console.log('children', children);
   return (
     <form onSubmit={handleSubmit((data) => {
       props.sendJob(data, props.jobs.latLong);

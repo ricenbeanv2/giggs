@@ -28,7 +28,6 @@ class Chat extends Component {
       this.props.getEmployees(Cookies.getJSON('user').userid).then(() => {
         relationships.push(...this.props.apply.employees);
         this.props.getUserList(relationships).then(() => {
-          console.log('this.props inside getUserList', this.props.auth.userList);
           const usernames = this.props.auth.userList.map(user => user.username);
           this.setState({ users: usernames });
         });
@@ -36,7 +35,6 @@ class Chat extends Component {
     });
 
     socket.on('message', message => {
-      console.log('message in mount:', message);
       const newMessages = this.state.messages;
       newMessages.push(message);
       this.setState({ newMessages });
@@ -44,7 +42,6 @@ class Chat extends Component {
   }
 
   onChange(value) {
-    console.log('value inside onChange', value);
     this.setState({ selected: value.value });
     this.switchRoom(value.value);
   }
@@ -60,7 +57,6 @@ class Chat extends Component {
     this.setState({ room: chatRoom });
     socket.emit('join', chatRoom);
     this.props.getHistory(chatRoom).then(() => {
-      console.log('history: ', this.props.chat.history);
       this.setState({ messages: this.props.chat.history });
     });
   }
@@ -75,7 +71,6 @@ class Chat extends Component {
       };
       const newMessages = this.state.messages;
       newMessages.push(message);
-      console.log('newmsgs: ', newMessages);
       this.setState({ messages: newMessages });
       socket.emit('message', message);
       this.props.sendMessage(this.state.room, message.message);
@@ -91,7 +86,6 @@ class Chat extends Component {
     const options = this.state.users.map(user => {
       return { value: user, label: user };
     });
-    console.log('this.props inside chat.js: ', this.props);
     return (
       <div className='chat'>
         <Select onChange={this.onChange} options={options} value={this.state.selected} />

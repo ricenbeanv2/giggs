@@ -12,9 +12,9 @@ export function sendJob(jobDetails, latLong) {
   jobDet.location_lat = latLong.lat;
   jobDet.location_lng = latLong.lng;
 
-  return (dispatch) => {
+  return dispatch => {
     return axios.post('/db/jobs/create', jobDet, { headers: { 'x-access-token': Cookies.getJSON('token') } })
-      .then((response) => {
+      .then(response => {
         browserHistory.push('/joblistings');
         dispatch({ type: CREATE_JOB, payload: response.data });
       })
@@ -27,13 +27,13 @@ export function sendJob(jobDetails, latLong) {
 }
 
 export function getLatLong(address) {
-  return (dispatch) => {
+  return dispatch => {
     return axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
         address: address,
         key: 'AIzaSyAJu6SvKcz7H7fNJb-akc4PJ7BYhlbhqAw'
       }
-    }).then((response) => {
+    }).then(response => {
       dispatch({ type: GET_LAT_LONG, payload: response.data.results[0].geometry.location });
     });
   };
@@ -41,9 +41,9 @@ export function getLatLong(address) {
 
 export function getJobList() {
   let request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
-  return (dispatch) => {
+  return dispatch => {
     return request
-      .then((response) => {
+      .then(response => {
           return Promise.all(
             response.data.map((eachJob) => {
               return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
@@ -51,13 +51,13 @@ export function getJobList() {
                 eachJob.category_id = response.data[0].name
               return eachJob;
             })
-            .catch((error) => {
+            .catch(error => {
             throw error;
             })
           })
         )
       })
-    .then((response) => {
+    .then(response => {
       return response.map((eachJob) => {
         if (eachJob.deadline === null) {
           eachJob.deadline = 'TO BE ANNOUNCED'
@@ -67,7 +67,7 @@ export function getJobList() {
         return eachJob;
       })
     })
-    .then((response) => {
+    .then(response => {
       dispatch({type: GET_ALL_JOBS, payload:response})
     })
       .catch(() => {
@@ -79,7 +79,7 @@ export function getJobList() {
 export function getJobDetail(jobID) {
   console.log('jobs.js: inside start of getJobDetail actions');
   const field = 'id';
-  return (dispatch) => {
+  return dispatch => {
     dispatch({type: SET_JOBID, payload: jobID})
     return axios.get('/db/jobs/query', {
       params: {
@@ -119,9 +119,9 @@ export function onJobClick(job, show) {
 export function sortPriceChange() {
   var dataArray = [];
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
-  return (dispatch) => {
+  return dispatch => {
     return request
-      .then((response) => {
+      .then(response => {
           return Promise.all(
             response.data.map((eachJob) => {
               return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
@@ -129,13 +129,13 @@ export function sortPriceChange() {
                 eachJob.category_id = response.data[0].name
               return eachJob;
             })
-            .catch((error) => {
+            .catch(error => {
             throw error;
             })
           })
         )
       })
-    .then((response) => {
+    .then(response => {
       return response.map((eachJob) => {
         if (eachJob.deadline === null) {
           eachJob.deadline = 'TO BE ANNOUNCED'
@@ -145,15 +145,15 @@ export function sortPriceChange() {
         return eachJob;
       })
     })
-    .then((response) => {
+    .then(response => {
       return response.sort((cheapestJob, expensiveJob) => {
         return cheapestJob.max_price - expensiveJob.max_price
       })
     })
-    .then((response) => {
+    .then(response => {
       dispatch({type: SORT_PRICE, payload:response})
     })
-    .catch((error) => {
+    .catch(error => {
       console.log("Error: ", error);
     })
   }
@@ -161,23 +161,23 @@ export function sortPriceChange() {
 
 export function sortCategories() {
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
-  return (dispatch) => {
+  return dispatch => {
     return request
-      .then((response) => {
+      .then(response => {
           return Promise.all(
             response.data.map((eachJob) => {
               return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
-                .then((response) => {
+                .then(response => {
                 eachJob.category_id = response.data[0].name
               return eachJob;
             })
-            .catch((error) => {
+            .catch(error => {
             throw error;
             })
           })
         )
       })
-    .then((response) => {
+    .then(response => {
       return response.map((eachJob) => {
         if (eachJob.deadline === null) {
           eachJob.deadline = 'TO BE ANNOUNCED'
@@ -187,7 +187,7 @@ export function sortCategories() {
         return eachJob;
       })
     })
-    .then((response) => {
+    .then(response => {
       return response.sort(function(a, b){
         var nameA=a.category_id.toLowerCase(), nameB=b.category_id.toLowerCase()
         if (nameA < nameB)
@@ -197,10 +197,10 @@ export function sortCategories() {
         return 0
       })
     })
-    .then((response) => {
+    .then(response => {
       dispatch({type: SORT_CATEGORIES, payload: response})
     })
-    .catch((error) => {
+    .catch(error => {
       console.log('Error: ', error);
     })
   }
@@ -209,37 +209,37 @@ export function sortCategories() {
 export function sortDate() {
   var dataArray = [];
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
-  return (dispatch) => {
+  return dispatch => {
     return request
-      .then((response) => {
+      .then(response => {
           return Promise.all(
             response.data.map((eachJob) => {
               return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
-                .then((response) => {
+                .then(response => {
                 eachJob.category_id = response.data[0].name
               return eachJob;
             })
-            .catch((error) => {
+            .catch(error => {
             throw error;
             })
           })
         )
       })
-    .then((response) => {
+    .then(response => {
       return response.map((eachJob) => {
         eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
         return eachJob;
       })
     })
-    .then((response) =>{
+    .then(response =>{
       return response.sort((earliestDate, latestDate) => {
         return latestDate.deadline - earliestDate.deadline
       })
     })
-    .then((response) => {
+    .then(response => {
       dispatch({type: SORT_DATE, payload: response})
     })
-    .catch((error) =>{
+    .catch(error =>{
       throw error;
     })
   }
@@ -247,7 +247,7 @@ export function sortDate() {
 
 export function filterCategory(searchCategory) {
   const request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
-  return (dispatch) => {
+  return dispatch => {
     return request
       .then((response) => {
           return Promise.all(
@@ -264,7 +264,7 @@ export function filterCategory(searchCategory) {
             })
           )
         })
-        .then((response) => {
+        .then(response => {
           return response.map((eachJob) => {
             if (eachJob.deadline === null) {
               eachJob.deadline = 'TO BE ANNOUNCED'
@@ -274,14 +274,14 @@ export function filterCategory(searchCategory) {
             return eachJob;
           })
         })
-        .then((response) => {
+        .then(response => {
         return response.filter((eachJob) => {
           if(eachJob.category_id === searchCategory.replace(/ /g,'')){
             return eachJob;
           }
         })
       })
-      .then((response) => {
+      .then(response => {
         dispatch({type: FILTER_CATEGORY, payload: response})
       })
       .catch(() => {
@@ -295,7 +295,7 @@ export function cancelJob(jobID) {
     id: jobID,
     status: 'canceled'
   };
-  return (dispatch) => {
+  return dispatch => {
     return axios.post('/db/jobs/updateStatus', info,
     { headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then(response => {
