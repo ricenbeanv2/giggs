@@ -71,7 +71,6 @@ module.exports = (app, passport) => {
   );
 
   app.get('/logout', (req, res) => {
-    //logout first time why
     request
    .post({
       url: `https://graph.facebook.com/${fb.profile.id}/permissions`,
