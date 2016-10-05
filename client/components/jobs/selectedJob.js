@@ -33,7 +33,10 @@ class SelectedJob extends Component {
     let userAdmin;
     if (this.props.apply.entry) {
       userAdmin = <ManageApplication />;
-      if (this.props.apply.entry.job_status !== 'pending') {
+      if (this.props.apply.entry.job_status === 'accepted' || this.props.apply.entry.job_status === 'rejected') {
+        userAdmin = <p> Your current job status is: {this.props.apply.entry.job_status} </p>;
+      }
+      if (this.props.apply.entry.job_status === 'completed') {
         userAdmin = <p> Your current job status is: {this.props.apply.entry.job_status} </p>;
       }
     } else {
@@ -42,6 +45,7 @@ class SelectedJob extends Component {
     if (this.props.jobs.job.status === 'canceled') {
       userAdmin = <p> This job is canceled </p>;
     }
+
 
     return (
       <div>

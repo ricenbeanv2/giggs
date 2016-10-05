@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import Cookies from 'js-cookie';
 
 import renderField from '../renderField';
 import { updateUserInfo, getUserInfo } from '../../actions/auth';
 import UserApplications from './userApplications';
-import UserJobPosts from './UserJobPosts';
+import UserJobPosts from './userJobPosts';
 
 class UserProfile extends Component {
+  componentWillMount() {
+    this.props.getUserInfo(Cookies.getJSON('user').userid);
+  }
+
   render() {
     const { error, handleSubmit, submitting } = this.props;
     return (
@@ -58,9 +63,10 @@ class UserProfile extends Component {
 }
 
 UserProfile = reduxForm({
-  form: 'userProfileForm'
+  form: 'userProfileForm',
+  enableReinitialize: true
 })(UserProfile);
 
-export default UserProfile = connect((state) => ({
+export default UserProfile = connect(state => ({
     initialValues: state.auth.userData
   }), { updateUserInfo, getUserInfo })(UserProfile);

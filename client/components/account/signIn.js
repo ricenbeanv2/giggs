@@ -15,7 +15,6 @@ class SignIn extends Component {
         <form onSubmit={handleSubmit((data) => {
           return this.props.userSignIn(data)
           .then(() => {
-            console.log('inside userSignin');
             return this.props.getUserInfo(Cookies.getJSON('user').userid);
           });
         })}>
@@ -28,6 +27,9 @@ class SignIn extends Component {
           </div>
           <div>
             <button type="submit" disabled={submitting} className="btn btn-primary">Log In</button>
+            <a href="/auth/facebook">
+              <button type="button" className="btn btn-primary">Facebook Login</button>
+            </a>
           </div>
           {error && <strong>{error}</strong>}
         </form>
