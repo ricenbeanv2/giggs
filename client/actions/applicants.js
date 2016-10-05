@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { APPLY_JOB, CANCEL_APP, UPDATE_BID, GET_APPLICANTS, UPDATE_STATUS, GET_EMPLOYERS, GET_EMPLOYEES, QUERY_APP, REJECT_ALL } from './actionTypes';
 
 export function getApplicants(jobID) {
-  return (dispatch) => {
+  return dispatch => {
     return axios.get('/db/applicant/', { params: { job_id: jobID } }, {
       headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then(response => {
@@ -17,8 +17,7 @@ export function getApplicants(jobID) {
             })
           })
       )
-      .then((result) => {
-        console.log('application action: ', result)
+      .then(result => {
         dispatch({ type: GET_APPLICANTS, payload: result });
       })
     })
@@ -29,16 +28,13 @@ export function getApplicants(jobID) {
 }
 
 export function getEmployees(userId) {
-  console.log('userId: ', userId);
   const config = { params: { field: 'user_id', key: userId } };
   return dispatch => {
     return axios.get('/db/jobs/query', config)
       .then(response => {
-        console.log('response.data in getEmployees: ', response.data);
         const jobIds = response.data.map(job => {
           return job.id;
         });
-        console.log('array of job ids inside getemployees: ', jobIds);
         const configs = { params: { field: 'job_id', key: `[${jobIds.toString()}]` } };
         return axios.get('/db/applicant/getAll', configs)
           .then(res => {
@@ -64,7 +60,6 @@ export function getEmployers(userId) {
         const appliedJobs = response.data.map(applicant => {
           return applicant.job_id;
         });
-        console.log('appliedJobs: ', appliedJobs);
         const configs = { params: { field: 'id', key: `[${appliedJobs.toString()}]` }, headers: { 'x-access-token': Cookies.getJSON('token') } };
         return axios.get(`/db/jobs/query`, configs)
           .then(res => {
@@ -78,7 +73,7 @@ export function getEmployers(userId) {
 }
 
 export function updateBid(info) {
-  return (dispatch) => {
+  return dispatch => {
     return axios.post('/db/applicant/updateBid', info,
     { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then(response => {
@@ -92,7 +87,7 @@ export function updateBid(info) {
 
 export function applyJob(info) {
   console.log('info: ', info);
-  return (dispatch) => {
+  return dispatch => {
     return axios.post('/db/applicant/apply', info, {
       headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then(response => {
@@ -119,7 +114,7 @@ export function cancelApp(info) {
 }
 
 export function changeStatus(info) {
-  return (dispatch) => {
+  return dispatch => {
     return axios.get('/db/applicant/changeStatus', {
       params: {
         id: info.id,
@@ -137,7 +132,7 @@ export function changeStatus(info) {
 }
 
 export function queryApp(info) {
-  return (dispatch) => {
+  return dispatch => {
     return axios.get('/db/applicant/queryEntry', {
       params: {
         user_id: info.user_id,
@@ -155,7 +150,7 @@ export function queryApp(info) {
 }
 
 export function rejectAll(jobID) {
-  return (dispatch) => {
+  return dispatch => {
     return axios.get('/db/applicant/changeAllStatus', {
       params: {
         job_id: jobID,
