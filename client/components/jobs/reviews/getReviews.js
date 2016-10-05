@@ -1,12 +1,11 @@
 import React from 'react';
 
 let GetReviews = (props) => {
-  console.log('Line 4 inside GetReviews Component: ', props.data)
   return (
     <div>
         {
         props.data.map((eachReview, index) => {
-          if(eachReview === undefined) {
+          if(eachReview === undefined || eachReview === null) {
             return (
               <div key={index}>
                 There are no current reviews right now
@@ -15,8 +14,8 @@ let GetReviews = (props) => {
           } else {
             return (
               <div key={index} className='well'>
-               <h3>{eachReview.review_id} says:</h3>
-               <p>eachReview.employerReview</p>
+                <h4>{eachReview.review_id} says:</h4>
+                <p>{eachReview.employerReview}</p>
               </div>
             )
           }

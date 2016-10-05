@@ -39,7 +39,6 @@ export function userLogOut() {
 export function userSignIn(info) {
   const request = axios.get('/auth/signin', { params: info });
   return (dispatch) => {
-    console.log('dispatch inside auth.js', dispatch);
     return request
       .then((response) => {
         dispatch({ type: SIGN_IN, payload: response.data });

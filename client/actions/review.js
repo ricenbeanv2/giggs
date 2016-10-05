@@ -36,7 +36,6 @@ export function getReviews (userID) {
       })
     })
     .then((arrayData) => {
-      console.log('Inside line 39 actions file:', arrayData)
       return reviewRequest
       .then((response) => {
         return arrayData.map((eachReviewID) => {
