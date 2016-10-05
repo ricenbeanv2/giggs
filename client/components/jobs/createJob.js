@@ -4,13 +4,14 @@ import { Field, reduxForm } from 'redux-form';
 
 import SelectionComponent from '../selectionComponent';
 import { sendJob, getLatLong } from '../../actions/jobs';
-import { getParents } from '../../actions/categories';
+import { getParents, getChildren } from '../../actions/categories';
 import renderField from '../renderField';
 import GeoComponent from '../geoComponent';
 
 let CreateJobForm = props => {
   let loading = '';
   props.getParents();
+  props.getChildren();
   const { error, handleSubmit, submitting } = props;
   if (submitting) {
     loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
@@ -18,13 +19,12 @@ let CreateJobForm = props => {
 
   const categories = [];
   for (const parent of props.cats.parentCats) {
-    categories.push({ value: parent.name, label: parent.name.charAt(0).toUpperCase() + parent.name.slice(1) });
+    categories.push({ options: [], label: parent.name[0].toUpperCase() + parent.name.slice(1) });
   }
-
+    console.log('categories: ', categories);
+    console.log('props', props);
   return (
-    <form onSubmit={handleSubmit((data) => {
-      props.sendJob(data, props.jobs.latLong);
-    })}>
+    <form onSubmit={handleSubmit(data => props.sendJob(data, props.jobs.latLong))}>
       <h3>Create Job</h3>
       <div className="form-group">
         <label>Job Name</label>
@@ -40,7 +40,7 @@ let CreateJobForm = props => {
         <label>Category</label>
         <Field name="category_id" component={SelectionComponent} options={categories} />
       </div>
-      
+
       <div className="form-group">
         <label>Description</label>
         <Field name="description" component={renderField} type="textarea" className="form-control" />
@@ -76,4 +76,4 @@ CreateJobForm = reduxForm({
   form: 'CreateJobForm'
 })(CreateJobForm);
 
-export default connect(mapStateToProps, { sendJob, getLatLong, getParents })(CreateJobForm);
+export default connect(mapStateToProps, { sendJob, getLatLong, getParents, getChildren })(CreateJobForm);
