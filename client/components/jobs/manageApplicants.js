@@ -6,6 +6,8 @@ import Moment from 'moment';
 import { getApplicants, changeStatus } from '../../actions/applicants';
 import { getJobDetail } from '../../actions/jobs';
 
+import ReviewButton from './reviewButton';
+
 class ManageApplicants extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +27,6 @@ class ManageApplicants extends Component {
     this.props.changeStatus(params)
     .then(() => {
       this.props.getApplicants(this.props.jobs.jobId);
-      //about to push
       browserHistory.push('/jobAdmin');
     })
     .catch(error => {
@@ -79,9 +80,8 @@ class ManageApplicants extends Component {
               );
             case 'completed':
               return (
-                <button className="btn btn-secondary">
-                  Review
-                </button>);
+                <ReviewButton />
+              );
             default:
               return (<p>User Rejected</p>);
           }

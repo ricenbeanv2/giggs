@@ -22,7 +22,6 @@ class ApplyJob extends Component {
 
   handleApply(e) {
     e.preventDefault();
-    //bid_price = this.state.bid
     this.props.applyJob(this.state)
     .then(() => {
       this.props.getApplicants(this.props.jobs.jobId);

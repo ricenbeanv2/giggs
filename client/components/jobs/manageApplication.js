@@ -41,7 +41,6 @@ class ManageApplication extends Component {
         user_id: this.state.user_id
       });
     });
-    //redirect
     browserHistory.push('/selectedJob');
   }
 
