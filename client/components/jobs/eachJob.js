@@ -33,7 +33,7 @@ class EachJob extends Component {
                 <h4>Job</h4>
                 <p>{eachJob.jobName}</p>
                 <h4>Category</h4>
-                <p>{eachJob.category_id}</p>
+                <p>{eachJob.category_id[0].toUpperCase() + eachJob.category_id.slice(1)}</p>
                 <h4>Location</h4>
                 <p>{eachJob.address}</p>
                 <p>{eachJob.location_lat}</p>

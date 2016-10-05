@@ -44,7 +44,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "react-router-redux": "^4.0.6",
-    "react-select": "^1.0.0-rc.2",
+    "react-select-plus": "^1.0.0-beta14.patch1",
     "react-toastr": "^2.8.1",
     "redux": "^3.6.0",
     "redux-auth-wrapper": "^0.8.0",
