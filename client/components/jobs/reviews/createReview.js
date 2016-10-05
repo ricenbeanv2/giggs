@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createReview } from '../../../actions/review';
+import Cookies from 'js-cookie';
+
 
 import StarReview from './starReview';
 
@@ -9,11 +11,11 @@ class createReviews extends Component {
   constructor(props){
     super(props)
     this.state = {
-       type: "employer",
-       review_id: 2, //This will be changed!
-       job_id: 4, //This will also be changed!
-       employerReview: "",
-       numericalEmployerReview: ""
+       type: '', // Tiffany will send this over.
+       review_id: Cookies.getJSON('user').userid,
+       job_id: 4, // Tiffany should send this over.
+       employerReview: '',
+       numericalEmployerReview: ''
      }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -22,18 +24,16 @@ class createReviews extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    console.log('this.state.testing', this.state)
-    this.props.createReview(this.state)
+    this.props.createReview(this.state);
+    console.log("Line 28, Inside handleSubmit", this.state);
   }
   handleChange(event){
     event.preventDefault();
     this.setState({ employerReview : event.target.value})
-    console.log('this.state.employerReview', this.state.employerReview)
   }
    handleStarRate(event){
      event.preventDefault();
      this.setState({numericalEmployerReview: event.target.value})
-     console.log('Inside starReview:', event.target.value)
    }
 
   render() {

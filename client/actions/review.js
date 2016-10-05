@@ -6,7 +6,6 @@ import { browserHistory } from 'react-router';
 import { CREATE_REVIEW, GET_REVIEWS } from './actionTypes';
 
 export function createReview (reviewProp) {
-  console.log("inside createReview:", reviewProp);
   return (dispatch) => {
     return axios.post('/db/reviews/create', reviewProp, { headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then((response) => {
@@ -15,7 +14,6 @@ export function createReview (reviewProp) {
     .catch((error) => {
       throw error;
     })
-
   }
 };
 
@@ -23,12 +21,10 @@ export function createReview (reviewProp) {
 export function getReviews (userID) {
   let request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   let reviewRequest = axios.get('/db/reviews/getAll?type=employer', { headers: { 'x-access-token': Cookies.getJSON('token') } })
-  console.log('Line 24 - Inside getReviews actions');
+  let userIDrequest = axios.get('/db/users/query?id=3',{ headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
-  console.log('Line 27 - Inside dispatch');
     return request
     .then((response) => {
-      console.log('Inside 30 - response success and returned: ', response.data);
       return response.data.filter((eachJob) => {
         if(eachJob.user_id === userID){
           return eachJob;
@@ -36,13 +32,11 @@ export function getReviews (userID) {
       })
     })
     .then((response) => {
-      console.log('Line 38 after filtering:', response);
       return response.map((eachJob) => {
         return eachJob.id;
       })
     })
     .then((arrayData) => {
-      console.log('Line 44 after mapping the job_id', arrayData);
       return reviewRequest
       .then((response) => {
         return arrayData.map((eachReviewID) => {
@@ -58,7 +52,11 @@ export function getReviews (userID) {
       })
     })
     .then((response) => {
-      console.log("Line 55", response);
+      return response.map((eachReview) => {
+        return eachReview[0]
+      })
+    })
+    .then((response) => {
       dispatch({type: GET_REVIEWS, payload: response});
     })
     .catch((error) => {

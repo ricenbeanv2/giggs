@@ -51,8 +51,6 @@ class EachJob extends Component {
                 >
                   Go to Job >>
                 </button>
-                <h4>Reviews</h4>
-                <GetReviews />
               </div>
             );
           })

@@ -19,7 +19,7 @@ class UserProfilePage extends Component {
 		const userid = Cookies.getJSON('user').userid;
 		this.props.getUser(Cookies.getJSON('user').userid);
 		this.props.getJobList();
-		this.props.getReviews(userid); 
+		this.props.getReviews(userid);
 	}
 
 	render() {
@@ -58,7 +58,7 @@ class UserProfilePage extends Component {
 					}
 				</ul>
 				<h3> Reviews </h3>
-				<GetReviews />
+				<GetReviews data={this.props.reviews.get}/>
 			</div>
 		);
 	}
