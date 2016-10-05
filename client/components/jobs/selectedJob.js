@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 import { getJobDetail } from '../../actions/jobs';
+import { setReviewInfo } from '../../actions/review';
 import { queryApp } from '../../actions/applicants';
 
 import ApplicantList from './applicantList';
@@ -13,6 +14,10 @@ import ApplyJob from './applyJob';
 import ManageApplication from './manageApplication';
 
 class SelectedJob extends Component {
+  constructor(props) {
+    super(props);
+    this.redirectToReview = this.redirectToReview.bind(this);
+  }
   componentWillMount() {
     if (Cookies.getJSON('user').userid === this.props.jobs.job.user_id) {
       browserHistory.push('/jobAdmin');
@@ -28,24 +33,53 @@ class SelectedJob extends Component {
       this.props.queryApp(params);
     });
   }
+  redirectToReview(e) {
+    e.preventDefault();
+    const params = {
+      user_id: Cookies.getJSON('user').userid,
+      job_id: this.props.jobs.jobId,
+      type: 'employee'
+    };
+    this.props.setReviewInfo(params);
+    browserHistory.push('/createReview');
+  }
 
   render() {
     let userAdmin;
-    if (this.props.apply.entry) {
-      userAdmin = <ManageApplication />;
-      if (this.props.apply.entry.job_status === 'accepted' || this.props.apply.entry.job_status === 'rejected') {
-        userAdmin = <p> Your current job status is: {this.props.apply.entry.job_status} </p>;
-      }
-      if (this.props.apply.entry.job_status === 'completed') {
-        userAdmin = <p> Your current job status is: {this.props.apply.entry.job_status} </p>;
-      }
-    } else {
-      userAdmin = <ApplyJob />;
-    }
+    //case 1: job canceled, show job is canceled
     if (this.props.jobs.job.status === 'canceled') {
       userAdmin = <p> This job is canceled </p>;
+    } else {
+    //case 2: job active
+      //case 2a: user applied
+      if (this.props.apply.entry) {
+        //case 2a(i): status is  accepted / rejected, render current job status
+        if (this.props.apply.entry.job_status === 'accepted'
+        || this.props.apply.entry.job_status === 'rejected') {
+          userAdmin = <p> Your current job status is: {this.props.apply.entry.job_status} </p>;
+        }
+        //case 2a(ii): status is completed, render Review
+        if (this.props.apply.entry.job_status === 'completed') {
+          userAdmin = (
+            <div>
+              Your current job status is: {this.props.apply.entry.job_status}
+              <button
+                className="btn btn-secondary"
+                onClick={this.redirectToReview}
+              >
+                Review
+              </button>
+            </div>
+          );
+        } else {
+        //case 2a(iii): status is pending, render ManageApplication
+          userAdmin = <ManageApplication />;
+        }
+      } else {
+      //case 2b: user did not apply before, render ApplyJob
+        userAdmin = <ApplyJob />;
+      }
     }
-
 
     return (
       <div>
@@ -68,12 +102,12 @@ class SelectedJob extends Component {
   }
 }
 
-function mapStateToProps({ jobs, apply }) {
-  return { jobs, apply };
+function mapStateToProps({ jobs, apply, review }) {
+  return { jobs, apply, review };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getJobDetail, queryApp }, dispatch);
+  return bindActionCreators({ getJobDetail, queryApp, setReviewInfo }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectedJob);

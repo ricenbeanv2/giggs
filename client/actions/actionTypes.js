@@ -42,3 +42,4 @@ export const USER_LIST = 'user_list';
 
 export const GET_REVIEWS = 'get_reviews';
 export const CREATE_REVIEW = 'create_review';
+export const REVIEW_INFO = 'review_info';

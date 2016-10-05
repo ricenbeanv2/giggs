@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
 
-import { CREATE_REVIEW, GET_REVIEWS } from './actionTypes';
+import { CREATE_REVIEW, GET_REVIEWS, REVIEW_INFO } from './actionTypes';
 
 export function createReview (reviewProp) {
   return (dispatch) => {
@@ -64,3 +64,9 @@ export function getReviews (userID) {
     })
   }
 };
+
+export function setReviewInfo(info) {
+  return dispatch => {
+    dispatch({ type: REVIEW_INFO, payload: info });
+  };
+}
