@@ -17,14 +17,30 @@ let CreateJobForm = props => {
     loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
   }
 
-  const categories = [];
-  for (const parent of props.cats.parentCats) {
-    categories.push({ options: [], label: parent.name[0].toUpperCase() + parent.name.slice(1) });
-  }
-    console.log('categories: ', categories);
-    console.log('props', props);
+  const parents = props.cats.parentCats.map(cat => {
+    return { label: cat.name[0].toUpperCase() + cat.name.slice(1), options: [], id: cat.id };
+  });
+
+  const children = props.cats.childCats.map(cat => {
+    return { label: cat.name[0].toUpperCase() + cat.name.slice(1), value: cat.name, parent_id: cat.parent_id };
+  });
+
+  const map = { 7: 4, 9: 5, 10: 6 };
+
+  children.forEach(child => {
+    if (child.parent_id < 7) {
+      parents[child.parent_id - 1].options.push(child);
+    } else {
+      parents[map[child.parent_id]].options.push(child);
+    }
+  });
+
+  console.log('parents', parents);
+  console.log('children', children);
   return (
-    <form onSubmit={handleSubmit(data => props.sendJob(data, props.jobs.latLong))}>
+    <form onSubmit={handleSubmit((data) => {
+      props.sendJob(data, props.jobs.latLong);
+    })}>
       <h3>Create Job</h3>
       <div className="form-group">
         <label>Job Name</label>
@@ -38,7 +54,7 @@ let CreateJobForm = props => {
 
       <div className="form-group">
         <label>Category</label>
-        <Field name="category_id" component={SelectionComponent} options={categories} />
+        <Field name="category_id" component={SelectionComponent} options={parents} />
       </div>
 
       <div className="form-group">
