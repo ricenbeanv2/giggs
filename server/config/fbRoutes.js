@@ -33,17 +33,15 @@ module.exports = (app, passport) => {
       })
       .then(user => {
         if (user) {
-          console.log('user found');
           return cb(null, user);
         }
-        console.log('peeking the profile', profile);
         const newUser = {
           fb_id: profile.id,
           fb_token: accessToken,
           name: profile.displayName,
           email: profile.emails[0].value,
           password: null,
-          username: null,
+          username: profile.emails[0].value,
           phone: null
         };
         User.build(newUser).save()
@@ -67,7 +65,6 @@ module.exports = (app, passport) => {
         username: req.user.username,
         userid: req.user.id
       };
-      console.log("userobj user", userObj);
       res.status(200).cookie('user', JSON.stringify(userObj));
       res.redirect('/userProfile');
     }
