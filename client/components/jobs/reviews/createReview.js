@@ -5,6 +5,7 @@ import { createReview } from '../../../actions/review';
 import Cookies from 'js-cookie';
 
 
+
 import StarReview from './starReview';
 
 class createReviews extends Component {
@@ -25,6 +26,7 @@ class createReviews extends Component {
   handleSubmit(event){
     event.preventDefault();
     this.props.createReview(this.state);
+    this.setState({employerReview: ''})
     console.log("Line 28, Inside handleSubmit", this.state);
   }
   handleChange(event){
@@ -39,17 +41,22 @@ class createReviews extends Component {
   render() {
     return(
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <h4> Write a review! </h4>
-          <p> Its always great to hear from you!</p>
-          <StarReview star={this.handleStarRate}/>
-          <input type="text"
-            placeholder="Write a review..."
-            value={this.state.employerReview}
-            onChange={this.handleChange}
-            ></input>
-          <button>Submit</button>
-        </form>
+        <center>
+          <form onSubmit={this.handleSubmit}>
+            <h4> Write a review! </h4>
+            <p> Its always great to hear from you!</p>
+            <StarReview star={this.handleStarRate}/>
+            <textarea type="text"
+              placeholder="Write a review..."
+              value={this.state.employerReview}
+              className='reviewInput'
+              onChange={this.handleChange}
+              ></textarea>
+            <div>
+              <button>Submit</button>
+            </div>
+          </form>
+        </center>
       </div>
     )
   }

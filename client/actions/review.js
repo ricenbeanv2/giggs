@@ -10,6 +10,7 @@ export function createReview (reviewProp) {
     return axios.post('/db/reviews/create', reviewProp, { headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then((response) => {
       dispatch({type: CREATE_REVIEW, payload: response.data})
+      browserHistory.push('/profile')
     })
     .catch((error) => {
       throw error;
