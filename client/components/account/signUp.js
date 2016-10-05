@@ -22,10 +22,12 @@ let SignUpForm = props => {
     passCheck = <div />;
   }
   console.log(props.jobs)
+
   return (
     <form onSubmit={handleSubmit((data) => {
       return props.userSignUp(data).then(() => {
         console.log('test');
+        console.log('Cookie: ', Cookies.getJSON('user'));
         props.getUserInfo(Cookies.getJSON('user').userid);
       });
     })}>
@@ -55,7 +57,10 @@ let SignUpForm = props => {
       </div>
       <div>
         <button type="submit" disabled={submitting} className="btn btn-primary">Sign Up</button>
-        <button type="button" className="btn btn-primary" onClick={facebookSignUp}>Facebook Sign Up</button>
+        <a href="/auth/facebook">
+          <button type="button" className="btn btn-primary">Facebook Sign Up</button>
+        </a>
+
       </div>
       {error && <strong>{error}</strong>}
       <img src={loading} />

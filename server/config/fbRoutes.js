@@ -2,6 +2,8 @@ const Strategy = require('passport-facebook').Strategy;
 const request = require('request');
 const configAuth = require('./auth');
 const User = require('../user/userModel');
+const jwt = require('jwt-simple');
+const moment = require('moment');
 
 var fb = {};
 
@@ -16,7 +18,7 @@ module.exports = (app, passport) => {
     clientID: configAuth.facebookAuth.clientID,
     clientSecret: configAuth.facebookAuth.clientSecret,
     callbackURL: configAuth.facebookAuth.callbackURL,
-    profileFields: ['emails', 'displayName']
+    profileFields: ['emails', 'displayName', 'picture']
   },
     (accessToken, refreshToken, profile, cb) => {
       fb = {
@@ -31,7 +33,7 @@ module.exports = (app, passport) => {
       })
       .then(user => {
         if (user) {
-          console.log("user found?");
+          console.log('user found');
           return cb(null, user);
         }
         console.log('peeking the profile', profile);
@@ -54,7 +56,22 @@ module.exports = (app, passport) => {
 
   app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
   app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' }));
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+    (req, res) => {
+      const token = jwt.encode({
+        iss: req.user.id,
+        exp: moment().add(7, 'd').valueOf()
+      }, 'appsecrethere');
+      res.cookie('token', token);
+      const userObj = {
+        username: req.user.username,
+        userid: req.user.id
+      };
+      console.log("userobj user", userObj);
+      res.status(200).cookie('user', JSON.stringify(userObj));
+      res.redirect('/userProfile');
+    }
+  );
 
   app.get('/logout', (req, res) => {
     //logout first time why
