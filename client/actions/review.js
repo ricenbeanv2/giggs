@@ -41,7 +41,6 @@ export function getReviews (userID) {
       .then((response) => {
         return arrayData.map((eachReviewID) => {
           return response.data.filter((eachReview) => {
-            console.log('Inside review actions file on line 44:', eachReviewID, eachReviewID.review_id)
             if(eachReviewID === eachReview.review_id){
               return eachReview;
             }

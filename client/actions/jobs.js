@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
 
-import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY, SET_JOBID, GET_LAT_LONG, GET_INFOBOX_JOB, CANCEL_JOB, GET_PROFILE_JOBS } from './actionTypes';
+import { GET_ALL_JOBS, CREATE_JOB, GET_JOBS, SORT_PRICE, SORT_CATEGORIES, SORT_DATE, FILTER_CATEGORY, SET_JOBID, GET_LAT_LONG, GET_INFOBOX_JOB, CANCEL_JOB } from './actionTypes';
 
 export function sendJob(jobDetails, latLong) {
   const jobDet = jobDetails;
