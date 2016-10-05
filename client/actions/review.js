@@ -21,7 +21,6 @@ export function createReview (reviewProp) {
 export function getReviews (userID) {
   let request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   let reviewRequest = axios.get('/db/reviews/getAll?type=employer', { headers: { 'x-access-token': Cookies.getJSON('token') } })
-  let userIDrequest = axios.get('/db/users/query?id=3',{ headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
     return request
     .then((response) => {
@@ -37,10 +36,12 @@ export function getReviews (userID) {
       })
     })
     .then((arrayData) => {
+      console.log('Inside line 39 actions file:', arrayData)
       return reviewRequest
       .then((response) => {
         return arrayData.map((eachReviewID) => {
           return response.data.filter((eachReview) => {
+            console.log('Inside review actions file on line 44:', eachReviewID, eachReviewID.review_id)
             if(eachReviewID === eachReview.review_id){
               return eachReview;
             }

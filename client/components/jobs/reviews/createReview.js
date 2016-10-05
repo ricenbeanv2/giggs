@@ -57,8 +57,8 @@ class createReviews extends Component {
 
 
 
-function mapStateToProps({ reviews }) {
-  return { reviews };
+function mapStateToProps({ reviews, auth }) {
+  return { reviews, auth };
 }
 
 function mapDispatchToProps(dispatch) {
