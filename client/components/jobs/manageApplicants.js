@@ -6,8 +6,6 @@ import Moment from 'moment';
 import { getApplicants, changeStatus } from '../../actions/applicants';
 import { getJobDetail } from '../../actions/jobs';
 import { setReviewInfo } from '../../actions/review';
-
-import ReviewButton from './reviewButton';
 import Cookies from 'js-cookie';
 
 class ManageApplicants extends Component {
@@ -39,7 +37,6 @@ class ManageApplicants extends Component {
     this.props.changeStatus(params)
     .then(() => {
       this.props.getApplicants(this.props.jobs.jobId);
-      //about to push
       browserHistory.push('/jobAdmin');
     })
     .catch(error => {

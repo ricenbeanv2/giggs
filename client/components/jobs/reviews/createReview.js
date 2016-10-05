@@ -13,7 +13,7 @@ class createReviews extends Component {
        review_id: Cookies.getJSON('user').userid,
        job_id: this.props.reviews.info.job_id,
        employerReview: '',
-       numericalEmployerReview: 5
+       numericalEmployerReview: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
