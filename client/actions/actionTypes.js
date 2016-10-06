@@ -47,3 +47,5 @@ export const CREATE_REVIEW = 'create_review';
 export const GET_CHILDREN_CATS = 'get_children_cats';
 export const REVIEW_INFO = 'review_info';
 export const IS_REVIEWED = 'is_reviewed';
+
+export const SUBMIT_PAYMENT = 'submit_payment';

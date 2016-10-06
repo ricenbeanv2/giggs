@@ -14,7 +14,8 @@ const NavBar = () => {
           <li><Link to="/map">Map</Link></li>
           <li><Link to="/createjob">Create Job </Link></li>
           <li><Link to="/userprofile">User Profile </Link></li>
-          <li><Link to="/profile">PROFILE </Link></li>
+          <li><Link to="/profile">Public Profile</Link></li>
+          <li><Link to="/payment">Payment</Link></li>
           <li><Link to="/chat">Chat </Link></li>
           <li><LogOut /></li>
         </ul>

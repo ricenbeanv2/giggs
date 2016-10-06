@@ -24,6 +24,7 @@ class UserPosts extends Component {
   }
 
   renderEachPost(postData, key) {
+    console.log("INSIDE USERJOB POSTS: ", postData)
     return (
       <tr key={key}>
         <td>

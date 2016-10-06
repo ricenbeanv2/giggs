@@ -5,6 +5,7 @@ const jobController = require('../job/jobCtrl');
 const userController = require('../user/userCtrl');
 const reviewsController = require('../review/reviewCtrl');
 const messageController = require('../messages/messageCtrl');
+const paymentController = require('../payment/paymentCtrl');
 const checkEmail = require('../config/middleware').checkEmail;
 const checkUsername = require('../config/middleware').checkUsername;
 const helper = require('../config/helpers');
@@ -42,5 +43,8 @@ router.post('/users/update', helper, checkEmail, checkUsername, userController.u
 
 router.post('/messages/create', messageController.createMessage);
 router.get('/messages/history', messageController.retrieveHistory);
+
+router.get('/payments/generateToken', paymentController.generateToken);
+router.post('/payments/checkout', paymentController.checkout);
 
 module.exports = router;
