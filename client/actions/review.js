@@ -10,6 +10,7 @@ export function createReview (reviewProp) {
     return axios.post('/db/reviews/create', reviewProp, { headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then((response) => {
       dispatch({type: CREATE_REVIEW, payload: response.data})
+      browserHistory.push('/profile')
     })
     .catch((error) => {
       throw error;
@@ -21,7 +22,6 @@ export function createReview (reviewProp) {
 export function getReviews (userID) {
   let request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   let reviewRequest = axios.get('/db/reviews/getAll?type=employer', { headers: { 'x-access-token': Cookies.getJSON('token') } })
-  let userIDrequest = axios.get('/db/users/query?id=3',{ headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
     return request
     .then((response) => {

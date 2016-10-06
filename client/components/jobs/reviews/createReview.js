@@ -5,6 +5,7 @@ import { createReview } from '../../../actions/review';
 import Cookies from 'js-cookie';
 
 
+
 import StarReview from './starReview';
 
 class createReviews extends Component {
@@ -25,31 +26,36 @@ class createReviews extends Component {
   handleSubmit(event){
     event.preventDefault();
     this.props.createReview(this.state);
+    this.setState({employerReview: ''})
     console.log("Line 28, Inside handleSubmit", this.state);
   }
   handleChange(event){
     event.preventDefault();
     this.setState({ employerReview : event.target.value})
   }
-   handleStarRate(event){
-     event.preventDefault();
-     this.setState({numericalEmployerReview: event.target.value})
+   handleStarRate(val){
+     this.setState({numericalEmployerReview: val.toString()})
    }
 
   render() {
     return(
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <h4> Write a review! </h4>
-          <p> Its always great to hear from you!</p>
-          <StarReview star={this.handleStarRate}/>
-          <input type="text"
-            placeholder="Write a review..."
-            value={this.state.employerReview}
-            onChange={this.handleChange}
-            ></input>
-          <button>Submit</button>
-        </form>
+        <center>
+          <form onSubmit={this.handleSubmit}>
+            <h4> Write a review! </h4>
+            <p> Its always great to hear from you!</p>
+            <StarReview star={this.handleStarRate} setStar={parseInt(this.state.numericalEmployerReview)}/>
+            <textarea type="text"
+              placeholder="Write a review..."
+              value={this.state.employerReview}
+              className='reviewInput'
+              onChange={this.handleChange}
+              ></textarea>
+            <div>
+              <button>Submit</button>
+            </div>
+          </form>
+        </center>
       </div>
     )
   }
@@ -57,7 +63,7 @@ class createReviews extends Component {
 
 
 
-function mapStateToProps({ reviews }) {
+function mapStateToProps({ reviews, auth }) {
   return { reviews };
 }
 
