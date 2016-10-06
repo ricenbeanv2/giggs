@@ -1,12 +1,9 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { SubmissionError } from 'redux-form';
-import { browserHistory } from 'react-router';
 
 import { CREATE_REVIEW, GET_REVIEWS, REVIEW_INFO, IS_REVIEWED, GET_EMPLOYEE_REVIEWS, GET_EMPLOYER_REVIEWS, GET_STAR_RATING } from './actionTypes';
 
 export function createReview(reviewProp) {
-  console.log("in axios create review", reviewProp);
   return (dispatch) => {
     return axios.post('/db/reviews/create', reviewProp, {
       headers: { 'x-access-token': Cookies.getJSON('token') } })
@@ -93,6 +90,20 @@ export function getEmployeeReviews(userID) {
 };
 
 export function setReviewInfo(info) {
+  if (!info.rated_user) {
+    return dispatch => {
+      return axios.get('/db/jobs/query', {
+        params: { field: 'id', key: info.job_id },
+      })
+      .then(response => {
+        info.rated_user = response.data[0].user_id;
+        dispatch({ type: REVIEW_INFO, payload: info });
+      })
+      .catch(error => {
+        throw error;
+      });
+    };
+  }
   return dispatch => {
     dispatch({ type: REVIEW_INFO, payload: info });
   };
@@ -103,8 +114,9 @@ export function isReviewed(params) {
     return axios.get('/db/reviews/singleReview', {
        params: {
          type: params.type,
-         review_id: params.review_id,
-         job_id: params.job_id
+         user_id: params.review_id,
+         job_id: params.job_id,
+         rated_user: params.rated_user
        },
        headers: { 'x-access-token': Cookies.getJSON('token') }
      })

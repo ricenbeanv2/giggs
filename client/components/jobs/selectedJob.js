@@ -38,6 +38,7 @@ class SelectedJob extends Component {
     const params = {
       user_id: Cookies.getJSON('user').userid,
       job_id: this.props.jobs.jobId,
+      rated_user: this.props.jobs.job.user_id,
       type: 'employee'
     };
     this.props.setReviewInfo(params);
@@ -88,7 +89,9 @@ class SelectedJob extends Component {
           <h4> Username: </h4> {this.props.jobs.job.username} <br />
           <h4> Openings: </h4> {this.props.jobs.job.openings} <br />
           <h4> Address: </h4> {this.props.jobs.job.address} <br />
-          <h4> Category: </h4> {this.props.jobs.job.category[0].toUpperCase() + this.props.jobs.job.category.slice(1)} <br />
+          <h4> Category: </h4>
+          {this.props.jobs.job.category[0].toUpperCase() + this.props.jobs.job.category.slice(1)}
+          <br />
           <h4> Description: </h4>{this.props.jobs.job.description} <br />
           <h4> Max Price: </h4> ${this.props.jobs.job.max_price} <br />
           <h4> Job Created: </h4>{Moment(this.props.jobs.job.createdAt).format('LLL')} <br />
