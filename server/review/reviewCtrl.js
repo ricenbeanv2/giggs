@@ -13,6 +13,7 @@ module.exports = {
 		};
 
 		function reviewCreation(type, review) {
+			//check if entry already exists
 			type.findOne({ where:
 				{
 					user_id: review.user_id,
@@ -21,6 +22,7 @@ module.exports = {
 				}
 			})
 			.then(entry => {
+				//add only when there are no existing review
 				if (!entry) {
 					type.create(review)
 					.then(rev => {
@@ -35,7 +37,7 @@ module.exports = {
 			})
 			.catch(error => {
 				res.status(500).send(error);
-			})
+			});
 		}
 
 		if (req.body.type === 'employee') {
@@ -69,8 +71,9 @@ module.exports = {
 	singleReview: (req, res) => {
 		if (req.query.type === 'employee') {
 			EmployeeReviews.findOne({ where: {
-					job_id: req.query.job_id,
-					user_id: req.query.user_id
+				job_id: req.query.job_id,
+				rated_user: req.query.rated_user,
+				user_id: req.query.user_id
 				}
 			})
 			.then(entry => {
@@ -101,7 +104,7 @@ module.exports = {
 
 	getReviews: (req, res) => {
 		if (req.query.type === 'employee') {
-			EmployeeReviews.findAll()
+			EmployeeReviews.findAll({ where: { rated_user: req.query.rated_user } })
 			.then(reviews => {
 				res.status(200).send(reviews);
 			})
@@ -110,7 +113,7 @@ module.exports = {
 			});
 		}
 		if (req.query.type === 'employer') {
-			EmployerReviews.findAll()
+			EmployerReviews.findAll({ where: { rated_user: req.query.rated_user } })
 			.then(reviews => {
 				res.status(200).send(reviews);
 			})
