@@ -22,7 +22,7 @@ const EmployeeReviews = connection.define('EmployeeReviews', {
 			key: 'id',
 		},
 	},
-	
+
 	job_id: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
@@ -41,8 +41,8 @@ const EmployeeReviews = connection.define('EmployeeReviews', {
 	numericalEmployeeReview: {
 		type: Sequelize.STRING,
 		len: [0, 1],
-		isBetweenZeroAndFive: function(value) {
-			if(parseInt(value) % 2 != 0 && value <= 5 && value >= 0) {
+		isBetweenZeroAndFive: value => {
+			if (parseInt(value, 10) % 2 !== 0 && value <= 5 && value >= 0) {
 				throw new Error('Only values Between 0-5 are allowed!');
 			}
 		},
