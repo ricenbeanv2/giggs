@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 const connection = require('../db/connection');
 const Jobs = require('../job/jobModel');
 const Users = require('../user/userModel');
-const Employee = require('./employeeReviewsModel');
 
 const EmployerReviews = connection.define('EmployerReviews', {
 

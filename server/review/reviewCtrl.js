@@ -11,9 +11,14 @@ module.exports = {
 			review: req.body.review,
 			rating: req.body.rating
 		};
-
+		if (req.body.type === 'employer') {
+			reviewCreation(EmployerReviews, newReview);
+		}
+		if (req.body.type === 'employee') {
+			reviewCreation(EmployeeReviews, newReview);
+		}
 		function reviewCreation(type, review) {
-			//check if entry already exists
+			// check if review already exists
 			type.findOne({ where:
 				{
 					user_id: review.user_id,
@@ -22,29 +27,22 @@ module.exports = {
 				}
 			})
 			.then(entry => {
-				//add only when there are no existing review
+				// add only when there are no existing review
 				if (!entry) {
 					type.create(review)
 					.then(rev => {
-						res.status(201).send(rev);
+						res.status(200).send(rev);
 					})
 					.catch(error => {
 						res.status(500).send(`Server Error Review Not Created ${error}`);
 					});
-				} else {
+				}	else {
 					res.status(200).send('Review already exists');
 				}
 			})
 			.catch(error => {
 				res.status(500).send(error);
 			});
-		}
-
-		if (req.body.type === 'employee') {
-			reviewCreation(EmployeeReviews, newReview);
-		}
-		if (req.body.type === 'employer') {
-			reviewCreation(EmployerReviews, newReview);
 		}
 	},
 

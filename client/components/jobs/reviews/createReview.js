@@ -11,7 +11,7 @@ class createReviews extends Component {
     super(props);
     this.state = {
        review: '',
-       numericalReview: ''
+       rating: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -20,8 +20,9 @@ class createReviews extends Component {
   componentWillMount() {
     const params = {
       type: this.props.reviews.info.type,
-      review_id: Cookies.getJSON('user').userid,
+      user_id: Cookies.getJSON('user').userid,
       job_id: this.props.reviews.info.job_id,
+      rated_user: 'sth'
     };
     this.props.isReviewed(params).then(() => {
       if (this.props.reviews.isReviewed) {
@@ -32,36 +33,25 @@ class createReviews extends Component {
   }
 
   handleSubmit(event) {
-      event.preventDefault();
-      let params = {};
-      if (this.props.reviews.info.type === 'employer') {
-        params = {
-          type: this.props.reviews.info.type,
-          review_id: Cookies.getJSON('user').userid,
-          job_id: this.props.reviews.info.job_id,
-          employerReview: this.state.review,
-          numericalEmployerReview: this.state.numericalReview
-        };
-        this.props.createReview(params);
-      }
-      else {
-        params = {
-          type: this.props.reviews.info.type,
-          review_id: Cookies.getJSON('user').userid,
-          job_id: this.props.reviews.info.job_id,
-          employeeReview: this.state.review,
-          numericalEmployeeReview: this.state.numericalReview
-        };
-        this.props.createReview(params);
-      }
+    event.preventDefault();
+    const params = {
+      type: this.props.reviews.info.type,
+      user_id: Cookies.getJSON('user').userid,
+      job_id: this.props.reviews.info.job_id,
+      review: this.state.review,
+      rating: this.state.rating
+    };
+      this.props.createReview(params);
   }
+
   handleChange(event) {
       event.preventDefault();
       this.setState({ review: event.target.value });
   }
-   handleStarRate(val) {
-     this.setState({ numericalReview: val.toString() });
-   }
+
+  handleStarRate(val) {
+     this.setState({ rating: val.toString() });
+  }
 
   render() {
     return (
@@ -70,14 +60,17 @@ class createReviews extends Component {
           <form onSubmit={this.handleSubmit}>
             <h4> Write a review! </h4>
             <p> Its always great to hear from you!</p>
-            <StarReview star={this.handleStarRate} setStar={parseInt(this.state.numericalReview)} />
+            <StarReview
+              star={this.handleStarRate}
+              setStar={parseInt(this.state.rating, 10)}
+            />
             <textarea
               type="text"
               placeholder="Write a review..."
               value={this.state.review}
               className='reviewInput'
               onChange={this.handleChange}
-            ></textarea>
+            />
             <div>
               <button>Submit</button>
             </div>
