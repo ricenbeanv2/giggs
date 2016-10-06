@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getUser } from '../../actions/auth';
 import { getJobList } from '../../actions/jobs';
-import { getReviews } from '../../actions/review';
+import { getEmployerReviews, getEmployeeReviews } from '../../actions/review';
 import Cookies from 'js-cookie';
 import GetReviews from '../jobs/reviews/getReviews';
 
@@ -12,15 +12,16 @@ class UserProfilePage extends Component {
 		super(props);
 
 		this.state = {};
-
 	}
 
 	componentDidMount() {
 		const userid = Cookies.getJSON('user').userid;
 		this.props.getUser(Cookies.getJSON('user').userid);
 		this.props.getJobList();
-		this.props.getReviews(userid);
+		this.props.getEmployerReviews(userid);
+		this.props.getEmployeeReviews(userid);
 	}
+
 
 	render() {
 		const user = this.props.auth.userData;
@@ -58,7 +59,10 @@ class UserProfilePage extends Component {
 					}
 				</ul>
 				<h3> Reviews </h3>
-				<GetReviews data={this.props.reviews.get}/>
+				<h2> Jobs Applied: </h2>
+				<GetReviews data={this.props.reviews.getEmployer}/>
+				<h2> Jobs Created: </h2>
+				<GetReviews data={this.props.reviews.getEmployee}/>
 			</div>
 		);
 	}
@@ -70,7 +74,7 @@ function mapStateToProps({ jobs, auth, reviews }) {
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ getUser, getJobList, getReviews }, dispatch);
+	return bindActionCreators({ getUser, getJobList, getEmployerReviews, getEmployeeReviews }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfilePage);

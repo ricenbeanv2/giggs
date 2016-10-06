@@ -42,6 +42,8 @@ class createReviews extends Component {
           numericalEmployerReview: this.state.numericalReview
         };
         this.props.createReview(params);
+        browserHistory.push('/profile');
+        this.setState({employerReview: ''});
       }
       else {
         params = {
@@ -52,6 +54,8 @@ class createReviews extends Component {
           numericalEmployeeReview: this.state.numericalReview
         };
         this.props.createReview(params);
+        browserHistory.push('/profile');
+        this.setState({employerReview: ''});
       }
   }
   handleChange(event) {

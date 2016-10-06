@@ -40,7 +40,8 @@ export const GET_INFOBOX_JOB = 'get_info_job';
 
 export const USER_LIST = 'user_list';
 
-export const GET_REVIEWS = 'get_reviews';
+export const GET_EMPLOYEE_REVIEWS = 'get_employee_reviews';
+export const GET_EMPLOYER_REVIEWS = 'get_employer_reviews';
 export const CREATE_REVIEW = 'create_review';
 export const GET_CHILDREN_CATS = 'get_children_cats';
 export const REVIEW_INFO = 'review_info';
