@@ -59,6 +59,8 @@ module.exports = {
 			.then((data) => {
 				res.status(200).send(data);
 			}).catch(error => res.status(500).send(`Sever Error ${error}`));
+		} else {
+			res.status(500).send('Query type not specified');
 		}
 
 	},

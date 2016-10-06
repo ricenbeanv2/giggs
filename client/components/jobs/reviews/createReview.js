@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createReview } from '../../../actions/review';
+import { browserHistory } from 'react-router';
+import { createReview, isReviewed } from '../../../actions/review';
 import Cookies from 'js-cookie';
 import StarReview from './starReview';
 
@@ -15,6 +16,16 @@ class createReviews extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleStarRate = this.handleStarRate.bind(this);
+  }
+  componentWillMount() {
+    const params = {
+      type: this.props.reviews.info.type
+      review_id: Cookies.getJSON('user').userid,
+      job_id: this.props.reviews.info.job_id,
+    };
+    this.props.isReviewed(params).then(() => {
+      console.log("this.props.reviews.isReviewd", this.props.reviews.isReviewd);
+    });
   }
 
   handleSubmit(event) {
@@ -74,7 +85,7 @@ function mapStateToProps({ reviews }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ createReview }, dispatch);
+  return bindActionCreators({ createReview, isReviewed }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(createReviews);

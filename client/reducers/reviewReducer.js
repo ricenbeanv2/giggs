@@ -1,6 +1,6 @@
-import { GET_REVIEWS, CREATE_REVIEW, REVIEW_INFO } from '../actions/actionTypes';
+import { GET_REVIEWS, CREATE_REVIEW, REVIEW_INFO, IS_REVIEWED } from '../actions/actionTypes';
 
-const INITIAL_STATE = { get: [], create: [], info: '' };
+const INITIAL_STATE = { get: [], create: [], info: '', isReviewed: '' };
 
 export default function (state = INITIAL_STATE, { type, payload }) {
 	switch (type) {
@@ -10,6 +10,8 @@ export default function (state = INITIAL_STATE, { type, payload }) {
       return { ...state, create: payload };
 		case REVIEW_INFO:
 			return { ...state, info: payload };
+		case IS_REVIEWED:
+			return { ...state, isReviewed: payload };
 		default:
 			return state;
 	}
