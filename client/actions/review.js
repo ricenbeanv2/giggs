@@ -68,6 +68,20 @@ export function getReviews(userID) {
 };
 
 export function setReviewInfo(info) {
+  if (!info.rated_user) {
+    return dispatch => {
+      return axios.get('/db/jobs/query', {
+        params: { field: 'id', key: info.job_id },
+      })
+      .then(response => {
+        info.rated_user = response.data[0].user_id;
+        dispatch({ type: REVIEW_INFO, payload: info });
+      })
+      .catch(error => {
+        throw error;
+      });
+    };
+  }
   return dispatch => {
     dispatch({ type: REVIEW_INFO, payload: info });
   };
