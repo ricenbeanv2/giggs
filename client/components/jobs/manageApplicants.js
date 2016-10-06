@@ -19,11 +19,11 @@ class ManageApplicants extends Component {
   componentWillMount() {
     this.props.getApplicants(this.props.jobs.jobId);
   }
-  redirectToReview(e) {
-    e.preventDefault();
+  redirectToReview(userID) {
     const params = {
       user_id: Cookies.getJSON('user').userid,
       job_id: this.props.jobs.jobId,
+      rated_user: userID,
       type: 'employer'
     };
     this.props.setReviewInfo(params);
@@ -90,7 +90,7 @@ class ManageApplicants extends Component {
               return (
                 <button
                   className="btn btn-secondary"
-                  onClick={this.redirectToReview}
+                  onClick={() => this.redirectToReview(applicantData.user_id)}
                 >
                   Review
                 </button>

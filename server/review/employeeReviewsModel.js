@@ -5,7 +5,16 @@ const Users = require('../user/userModel');
 
 const EmployeeReviews = connection.define('EmployeeReviews', {
 
-	review_id: {
+	user_id: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+		references: {
+			model: Users,
+			key: 'id',
+		},
+	},
+
+	rated_user: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
 		references: {
@@ -23,17 +32,17 @@ const EmployeeReviews = connection.define('EmployeeReviews', {
 		},
 	},
 
-	employeeReview: {
+	review: {
 		type: Sequelize.STRING,
 		len: [0, 255],
 		msg: 'Review must be between 0 & 255 characters.',
 	},
 
-	numericalEmployeeReview: {
+	rating: {
 		type: Sequelize.STRING,
 		len: [0, 1],
-		isBetweenZeroAndFive: function(value) {
-			if(parseInt(value) % 2 != 0 && value <= 5 && value >= 0) {
+		isBetweenZeroAndFive: value => {
+			if (parseInt(value, 10) % 2 !== 0 && value <= 5 && value >= 0) {
 				throw new Error('Only values Between 0-5 are allowed!');
 			}
 		},
