@@ -41,7 +41,9 @@ class createReviews extends Component {
       review: this.state.review,
       rating: this.state.rating
     };
-    this.props.createReview(params);
+    this.props.createReview(params).then(() => {
+      browserHistory.push('/completedreview');
+    });
   }
 
   handleChange(event) {
