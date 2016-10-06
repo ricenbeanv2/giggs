@@ -1,10 +1,6 @@
 const braintree = require("braintree");
 const request = require('request');
 
-//Sandbox_REST_PayPal_giggs_client_id
-//Sandbox_REST_PayPal_giggs_secret
-
-//needs proper payment amounts and client recepient
 function payout(recipient, payment, res) {
 	console.log("INSIDE PAYOUT");
 	const tokenReqOptions = {
@@ -28,7 +24,7 @@ function payout(recipient, payment, res) {
 
 		const payoutOptions = {
 			headers: {
-				authorization: 'Bearer '+ tokenPayload.access_token,
+				authorization: 'Bearer ' + tokenPayload.access_token,
 			},
 			json: { 
 				sender_batch_header: { 
@@ -39,20 +35,20 @@ function payout(recipient, payment, res) {
 					amount: {
 						value: payment,
 						currency: 'USD'
-					}, //add the correct amount
+					},
 					receiver: recipient,
 					note: 'Payment for work',
 					sender_item_id: 'A123' 
 				}],
 			},
 		};
+
 		request.post('https://api.sandbox.paypal.com/v1/payments/payouts?sync_mode=true', payoutOptions, (error, response, body) => {
 			console.log("INSIDE SECOND REQUEST");
 			if (error) {
-				console.log(error);
 				res.send(error);
 			}
-			console.log(body);
+			//console.log("batch_status: ", body.batch_header.batch_status);
 			res.send(body);
 		});
 	});
@@ -74,10 +70,10 @@ module.exports = {
 	},
 
 	checkout: (req, res) => {
-		
-		const nonce = req.body.params.nonce;
-		const payoutEmail = 'alberto.m.esquivias-buyer@gmail.com';
-		const amountPaid = 10.00
+		//console.log("REQ PARAMS -=-=-=-=-=-=-=> ", req.body.params)
+		const nonce = req.body.params.tokenizationPayload.nonce;
+		const payoutEmail = req.body.params.payoutEmail;
+		const amountPaid = req.body.params.payment;
 		const saleRequest = {
 			amount: amountPaid,
 			paymentMethodNonce: nonce,
@@ -90,10 +86,9 @@ module.exports = {
 			if (error) {
 				res.send(error);
 			} else if (result.success) {
-				console.log("results", result)
 				console.log("result.success ", result.success)
 				payout(payoutEmail, amountPaid, res);
-				console.log("AFTer PAYOUT =============>")
+				console.log("INSIDE PAYOUT call res is passed and ended")
 			} else {
 				res.send("Error: " + result.message);
 			}
