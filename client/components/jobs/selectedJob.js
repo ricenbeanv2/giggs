@@ -11,6 +11,7 @@ import { queryApp } from '../../actions/applicants';
 import ApplicantList from './applicantList';
 import ApplyJob from './applyJob';
 import ManageApplication from './manageApplication';
+import JobMap from '../map/jobMap';
 
 class SelectedJob extends Component {
   componentWillMount() {
@@ -60,7 +61,7 @@ class SelectedJob extends Component {
           <h4> Job Created: </h4>{Moment(this.props.jobs.job.createdAt).format('LLL')} <br />
           <h4> Deadline: </h4>{Moment(this.props.jobs.job.deadline).format('LLL')} <br />
         </div>
-
+        <JobMap />
         <ApplicantList />
         {userAdmin}
       </div>
