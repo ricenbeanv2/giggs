@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import StarRating from 'star-rating-react';
+import Cookies from 'js-cookie';
 import { getUser } from '../../actions/auth';
 import { getJobList } from '../../actions/jobs';
-import { getEmployeeReviews } from '../../actions/review';
-import Cookies from 'js-cookie';
-import GetEmployeeReviews from '../jobs/reviews/getReviews';
+import { getEmployeeReviews, getEmployerReviews } from '../../actions/review';
+import ReviewList from '../jobs/reviews/getReviews';
 
 
 class UserProfilePage extends Component {
 	constructor(props) {
 		super(props);
-
 		this.state = {};
 	}
 
@@ -21,8 +20,10 @@ class UserProfilePage extends Component {
 		this.props.getUser(Cookies.getJSON('user').userid);
 		this.props.getJobList();
 		this.props.getEmployeeReviews(userid);
+		this.props.getEmployerReviews(userid).then(() => {
+			console.log("this.props.reviews", this.props.reviews);
+		});
 	}
-
 
 	render() {
 		const user = this.props.auth.userData;
@@ -60,8 +61,10 @@ class UserProfilePage extends Component {
 				<h3> Reviews </h3>
 				<h4>Overall rating:</h4>
 				<StarRating size={5} value={parseInt(this.props.reviews.starRating, 10)} />
-				<h4> Employee Review: </h4>
-				<GetEmployeeReviews data={this.props.reviews.getEmployee} />
+				<h4> Review from employers: </h4>
+				<ReviewList data={this.props.reviews.getEmployer} />
+				<h4> Reviews from employees: </h4>
+				<ReviewList data={this.props.reviews.getEmployee} />
 			</div>
 		);
 	}
@@ -73,7 +76,7 @@ function mapStateToProps({ jobs, auth, reviews }) {
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ getUser, getJobList, getEmployeeReviews }, dispatch);
+	return bindActionCreators({ getUser, getJobList, getEmployeeReviews, getEmployerReviews }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfilePage);
