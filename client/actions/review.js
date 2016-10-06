@@ -75,7 +75,7 @@ export function setReviewInfo(info) {
 
 export function isReviewed(params) {
   return dispatch => {
-    return axios.get('/db/reviews/query', {
+    return axios.get('/db/reviews/singleReview', {
        params: {
          type: params.type,
          review_id: params.review_id,

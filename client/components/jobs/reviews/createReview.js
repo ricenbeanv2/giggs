@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
-import { createReview, isReviewed } from '../../../actions/review';
 import Cookies from 'js-cookie';
+import { createReview, isReviewed } from '../../../actions/review';
 import StarReview from './starReview';
 
 class createReviews extends Component {
@@ -19,12 +19,15 @@ class createReviews extends Component {
   }
   componentWillMount() {
     const params = {
-      type: this.props.reviews.info.type
+      type: this.props.reviews.info.type,
       review_id: Cookies.getJSON('user').userid,
       job_id: this.props.reviews.info.job_id,
     };
     this.props.isReviewed(params).then(() => {
-      console.log("this.props.reviews.isReviewd", this.props.reviews.isReviewd);
+      if (typeof this.props.reviews.isReviewed !== Object) {
+        //should redirect to get review 
+        browserHistory.push('/');
+      }
     });
   }
 
