@@ -1,6 +1,6 @@
 import React from 'react';
 
-let GetReviews = (props) => {
+let getEmployeeReviews = (props) => {
   return (
     <div>
         {
@@ -15,7 +15,7 @@ let GetReviews = (props) => {
             return (
               <div key={index} className='well'>
                 <h4>{eachReview.review_id} says:</h4>
-                <p>{eachReview.employerReview}</p>
+                <p>{eachReview.employeeReview}</p>
               </div>
             )
           }
@@ -26,4 +26,4 @@ let GetReviews = (props) => {
 }
 
 
-export default GetReviews;
+export default getEmployeeReviews;
