@@ -8,6 +8,7 @@ import ApplyReducer from './applyReducer';
 import MapReducer from './mapReducer';
 import ChatReducer from './chatReducer';
 import ReviewReducer from './reviewReducer';
+import PaymentReducer from './paymentReducer';
 
 const rootReducer = combineReducers({
   routing: routerReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   apply: ApplyReducer,
   map: MapReducer,
   chat: ChatReducer,
-  reviews: ReviewReducer
+  reviews: ReviewReducer,
+  payment: PaymentReducer
 });
 
 export default rootReducer;

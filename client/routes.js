@@ -23,6 +23,7 @@ import Profile from './components/account/profile';
 import Chat from './components/account/chat';
 import CreateReview from './components/jobs/reviews/createReview';
 import CompleteReview from './components/jobs/reviews/completedReview';
+import Payment from './components/account/payment.js';
 
 //Basic routing, to add another route just do:
 //<Route path='/insertUrl' component={insertComponentName} />
@@ -47,6 +48,7 @@ render((
         <Route path='createjob' component={UserIsAuthenticated(CreateJob)} />
         <Route path='userprofile' component={UserIsAuthenticated(UserProfile)} />
         <Route path='profile' component={UserIsAuthenticated(Profile)} />
+        <Route path='payment' component={UserIsAuthenticated(Payment)} />
         <Route path='joblistings' component={JobListings} />
         <Route path='map' component={JobMap} />
         <Route path='selectedjob' component={SelectedJob} />
