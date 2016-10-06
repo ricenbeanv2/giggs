@@ -5,18 +5,20 @@ import { browserHistory } from 'react-router';
 
 import { CREATE_REVIEW, GET_REVIEWS, REVIEW_INFO } from './actionTypes';
 
-export function createReview (reviewProp) {
+export function createReview(reviewProp) {
   return (dispatch) => {
-    return axios.post('/db/reviews/create', reviewProp, { headers: { 'x-access-token': Cookies.getJSON('token') } })
+    return axios.post('/db/reviews/create', reviewProp, {
+      headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then((response) => {
-      dispatch({type: CREATE_REVIEW, payload: response.data})
+      if (typeof response.data !== 'string') {
+        dispatch({ type: CREATE_REVIEW, payload: response.data });
+      }
     })
     .catch((error) => {
       throw error;
-    })
-  }
-};
-
+    });
+  };
+}
 
 export function getReviews (userID) {
   let request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
