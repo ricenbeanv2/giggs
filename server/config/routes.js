@@ -34,6 +34,7 @@ router.post('/jobs/updateStatus', jobController.updateStatus);
 router.post('/reviews/create', reviewsController.createReview);
 router.get('/reviews/getAll', reviewsController.getReviews);
 router.get('/reviews/query', reviewsController.queryReview);
+router.get('/reviews/singleReview', reviewsController.singleReview);
 
 router.get('/users/query', helper, userController.getUsers);
 router.get('/users/:id', helper, userController.getUserInfo);

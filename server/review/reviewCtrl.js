@@ -48,7 +48,7 @@ module.exports = {
 	},
 
 	queryReview: (req, res) => {
-		if (req.query.type == 'employee') {
+		if (req.query.type === 'employee') {
 			EmployeeReviews.findAll({ where: { [req.query.field]: req.query.key } })
 			.then((data) => {
 				res.status(200).send(data);
@@ -59,10 +59,42 @@ module.exports = {
 			.then((data) => {
 				res.status(200).send(data);
 			}).catch(error => res.status(500).send(`Sever Error ${error}`));
-		} else {
+		}
+		if (!req.query.type) {
 			res.status(500).send('Query type not specified');
 		}
+	},
 
+	singleReview: (req, res) => {
+		if (req.query.type === 'employee') {
+			EmployeeReviews.findOne({ where: {
+					job_id: req.query.job_id,
+					review_id: req.query.review_id
+				}
+			})
+			.then(entry => {
+				res.status(200).send(entry);
+			})
+			.catch(error => {
+				res.status(500).send(error);
+			});
+		}
+		if (req.query.type === 'employer') {
+			EmployerReviews.findOne({ where: {
+					job_id: req.query.job_id,
+					review_id: req.query.review_id
+				}
+			})
+			.then(entry => {
+				res.status(200).send(entry);
+			})
+			.catch(error => {
+				res.status(500).send(error);
+			});
+		}
+		if (!req.query.type) {
+			res.status(500).send('Query type not specified');
+		}
 	},
 
 	getReviews: (req, res) => {
