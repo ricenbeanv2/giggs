@@ -25,7 +25,7 @@ class createReviews extends Component {
     };
     this.props.isReviewed(params).then(() => {
       if (typeof this.props.reviews.isReviewed !== Object) {
-        //should redirect to get review 
+        //should redirect to get review
         browserHistory.push('/');
       }
     });
