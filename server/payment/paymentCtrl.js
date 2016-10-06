@@ -11,7 +11,6 @@ module.exports = {
 			if (error) {
 				res.end(error);
 			}
-			//console.log(response.clientToken)
 			res.send(response.clientToken);
 		});
 	},
@@ -20,14 +19,19 @@ module.exports = {
 		
 		const nonce = req.body.params.nonce;
 		const saleRequest = {
-			amount: 10.00,
+			amount: 99.00,
 			paymentMethodNonce: nonce,
+			options: {
+				submitForSettlement: true,
+			},
 		};
 
 		gateway.transaction.sale(saleRequest, (error, result) => {
 			if (error) {
 				res.send(error);
 			} else if (result.success) {
+				console.log("results", result)
+				console.log("result.success ", result.success)
 				res.send("Transaction ID: " + result.transaction.id);
 			} else {
 				res.send("Error: " + result.message);

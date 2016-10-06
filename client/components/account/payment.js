@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 
 import renderField from '../renderField';
 import { submitPayment } from '../../actions/payment';
@@ -20,7 +20,6 @@ class UserPayment extends Component {
 					<div>
 						<button type="submit" disabled={submitting} className="btn btn-primary" >Pay With PayPal</button>
 					</div>
-					{error && <strong>{error}</strong>}
 				</form>
 			</div>
 		);
