@@ -33,9 +33,8 @@ class createReviews extends Component {
     event.preventDefault();
     this.setState({ employerReview : event.target.value})
   }
-   handleStarRate(event){
-     event.preventDefault();
-     this.setState({numericalEmployerReview: event.target.value})
+   handleStarRate(val){
+     this.setState({numericalEmployerReview: val.toString()})
    }
 
   render() {
@@ -45,7 +44,7 @@ class createReviews extends Component {
           <form onSubmit={this.handleSubmit}>
             <h4> Write a review! </h4>
             <p> Its always great to hear from you!</p>
-            <StarReview star={this.handleStarRate}/>
+            <StarReview star={this.handleStarRate} setStar={parseInt(this.state.numericalEmployerReview)}/>
             <textarea type="text"
               placeholder="Write a review..."
               value={this.state.employerReview}

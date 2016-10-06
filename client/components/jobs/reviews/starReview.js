@@ -1,11 +1,15 @@
 import React from 'react';
-import StarRating from 'react-star-rating';
+import StarRating from 'star-rating-react';
 
 const starReview = (props) => {
   return (
-    <div>
-      <StarRating name="handler" totalStars={5} onRatingClick={props.star} />
-    </div>
+    <div className="stars">
+      <StarRating
+      size={5}
+      value={props.setStar}
+      onChange={props.star}
+      />
+     </div>
   )
 }
 
