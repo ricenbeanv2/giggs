@@ -4,30 +4,29 @@ const EmployerReviews = require('./employerReviewsModel');
 
 module.exports = {
 	createReview: (req, res) => {
-		let review = req.body.type + 'Review';
-		let numReview = 'numerical' + req.body.type[0].toUpperCase() + req.body.type.substring(1) + 'Review';
-
 		const newReview = {
-			review_id: req.body.review_id,
+			user_id: req.body.user_id,
+			rated_user: req.body.rated_user,
 			job_id: req.body.job_id,
-			[review]: req.body[review],
-			[numReview]: req.body[numReview]
+			review: req.body.review,
+			rating: req.body.rating
 		};
 
 		function reviewCreation(type, review) {
 			type.findOne({ where:
 				{
-					review_id: review.review_id,
+					user_id: review.user_id,
+					rated_user: review.rated_user,
 					job_id: review.job_id
 				}
 			})
 			.then(entry => {
 				if (!entry) {
 					type.create(review)
-					.then((rev) => {
+					.then(rev => {
 						res.status(201).send(rev);
 					})
-					.catch((error) => {
+					.catch(error => {
 						res.status(500).send(`Server Error Review Not Created ${error}`);
 					});
 				} else {
@@ -39,10 +38,10 @@ module.exports = {
 			})
 		}
 
-		if (req.body.type == 'employee') {
+		if (req.body.type === 'employee') {
 			reviewCreation(EmployeeReviews, newReview);
 		}
-		if (req.body.type == 'employer') {
+		if (req.body.type === 'employer') {
 			reviewCreation(EmployerReviews, newReview);
 		}
 	},
@@ -50,15 +49,17 @@ module.exports = {
 	queryReview: (req, res) => {
 		if (req.query.type === 'employee') {
 			EmployeeReviews.findAll({ where: { [req.query.field]: req.query.key } })
-			.then((data) => {
+			.then(data => {
 				res.status(200).send(data);
-			}).catch(error => res.status(500).send(`Sever Error ${error}`));
+			})
+			.catch(error => res.status(500).send(`Sever Error ${error}`));
 		}
-		if (req.query.type == 'employer') {
+		if (req.query.type === 'employer') {
 			EmployerReviews.findAll({ where: { [req.query.field]: req.query.key } })
-			.then((data) => {
+			.then(data => {
 				res.status(200).send(data);
-			}).catch(error => res.status(500).send(`Sever Error ${error}`));
+			})
+			.catch(error => res.status(500).send(`Sever Error ${error}`));
 		}
 		if (!req.query.type) {
 			res.status(500).send('Query type not specified');
@@ -69,7 +70,7 @@ module.exports = {
 		if (req.query.type === 'employee') {
 			EmployeeReviews.findOne({ where: {
 					job_id: req.query.job_id,
-					review_id: req.query.review_id
+					user_id: req.query.user_id
 				}
 			})
 			.then(entry => {
@@ -82,7 +83,8 @@ module.exports = {
 		if (req.query.type === 'employer') {
 			EmployerReviews.findOne({ where: {
 					job_id: req.query.job_id,
-					review_id: req.query.review_id
+					rated_user: req.query.rated_user,
+					user_id: req.query.user_id
 				}
 			})
 			.then(entry => {
@@ -98,16 +100,23 @@ module.exports = {
 	},
 
 	getReviews: (req, res) => {
-		console.log(req.query)
-		if (req.query.type == 'employee') {
-			EmployeeReviews.findAll().then((reviews) => {
+		if (req.query.type === 'employee') {
+			EmployeeReviews.findAll()
+			.then(reviews => {
 				res.status(200).send(reviews);
-			}).catch(error => res.status(500).send(`Sever Error ${error}`));
+			})
+			.catch(error => {
+				res.status(500).send(`Sever Error ${error}`);
+			});
 		}
-		if (req.query.type == 'employer') {
-			EmployerReviews.findAll().then((reviews) => {
+		if (req.query.type === 'employer') {
+			EmployerReviews.findAll()
+			.then(reviews => {
 				res.status(200).send(reviews);
-			}).catch(error => res.status(500).send(`Sever Error ${error}`));
+			})
+			.catch(error => {
+				res.status(500).send(`Sever Error ${error}`);
+			});
 		}
 	},
 

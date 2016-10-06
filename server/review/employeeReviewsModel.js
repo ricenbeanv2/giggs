@@ -32,13 +32,13 @@ const EmployeeReviews = connection.define('EmployeeReviews', {
 		},
 	},
 
-	employeeReview: {
+	review: {
 		type: Sequelize.STRING,
 		len: [0, 255],
 		msg: 'Review must be between 0 & 255 characters.',
 	},
 
-	numericalEmployeeReview: {
+	rating: {
 		type: Sequelize.STRING,
 		len: [0, 1],
 		isBetweenZeroAndFive: value => {
