@@ -6,7 +6,6 @@ import { browserHistory } from 'react-router';
 import { CREATE_REVIEW, GET_REVIEWS, REVIEW_INFO, IS_REVIEWED } from './actionTypes';
 
 export function createReview(reviewProp) {
-  console.log("in axios create review", reviewProp);
   return (dispatch) => {
     return axios.post('/db/reviews/create', reviewProp, {
       headers: { 'x-access-token': Cookies.getJSON('token') } })

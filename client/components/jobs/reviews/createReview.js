@@ -22,7 +22,7 @@ class createReviews extends Component {
       type: this.props.reviews.info.type,
       user_id: Cookies.getJSON('user').userid,
       job_id: this.props.reviews.info.job_id,
-      rated_user: 'sth'
+      rated_user: this.props.reviews.info.rated_user
     };
     this.props.isReviewed(params).then(() => {
       if (this.props.reviews.isReviewed) {
@@ -38,19 +38,20 @@ class createReviews extends Component {
       type: this.props.reviews.info.type,
       user_id: Cookies.getJSON('user').userid,
       job_id: this.props.reviews.info.job_id,
+      rated_user: this.props.reviews.info.rated_user,
       review: this.state.review,
       rating: this.state.rating
     };
-      this.props.createReview(params);
+    this.props.createReview(params);
   }
 
   handleChange(event) {
-      event.preventDefault();
-      this.setState({ review: event.target.value });
+    event.preventDefault();
+    this.setState({ review: event.target.value });
   }
 
   handleStarRate(val) {
-     this.setState({ rating: val.toString() });
+    this.setState({ rating: val.toString() });
   }
 
   render() {
