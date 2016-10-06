@@ -17,11 +17,11 @@ export function submitPayment(jobDetails) {
 					braintree.paypal.create({ client: clientInstance }, function(error, paypalInstance) {
 						paypalInstance.tokenize({
 							flow: 'checkout', //required
-							amount: 99.00, //required
+							amount: 6.00, //required
 							currency: 'USD', //required
 							locale: 'en_US',
 						}, function(error, tokenizationPayload) {
-							console.log(tokenizationPayload)
+							//console.log(tokenizationPayload)
 							return axios.post('/db/payments/checkout', { params: tokenizationPayload }, { headers: { 'x-access-token': Cookies.getJSON('token')} })
 								.then(function(response) {
 									console.log("final response ", response);
