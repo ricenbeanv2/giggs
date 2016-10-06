@@ -78,8 +78,9 @@ export function isReviewed(params) {
     return axios.get('/db/reviews/singleReview', {
        params: {
          type: params.type,
-         review_id: params.review_id,
-         job_id: params.job_id
+         user_id: params.review_id,
+         job_id: params.job_id,
+         rated_user: params.rated_user
        },
        headers: { 'x-access-token': Cookies.getJSON('token') }
      })
