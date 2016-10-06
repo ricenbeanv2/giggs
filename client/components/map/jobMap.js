@@ -72,29 +72,30 @@ class JobMap extends Component {
 			//position:'absolute'
 		};
 
+		console.log('this.props inside jobMap ', this.props);
 		return (
 			<div className="container-fluid col-xs-8">
-			<InfoBox />
-			<ScriptjsLoader
-				hostname={ 'maps.googleapis.com' }
-				pathname={ '/maps/api/js' }
-				query={{ key: 'AIzaSyAJu6SvKcz7H7fNJb-akc4PJ7BYhlbhqAw', libraries: 'geometry,drawing,places' }}
-				loadingElement={
-					<div>
-						<img style={ spinnerStyle } src={ loading } />
-					</div>
-				}
-				containerElement={ <div style={ mapStyle } /> }
-				googleMapElement={
-					<GoogleMap defaultZoom={ 15 } defaultCenter={{ lat: this.state.lat, lng: this.state.lng }} >
-						<Marker key={ 'UserGeo' } position={{ lat: this.state.lat, lng: this.state.lng }} icon={ this.state.userIcon } />
-						{ this.props.jobs.jobList.map((job, i) => {
-							return (<Marker
+				<InfoBox />
+				<ScriptjsLoader
+					hostname={ 'maps.googleapis.com' }
+					pathname={ '/maps/api/js' }
+					query={{ key: 'AIzaSyAJu6SvKcz7H7fNJb-akc4PJ7BYhlbhqAw', libraries: 'geometry,drawing,places' }}
+					loadingElement={
+						<div>
+							<img style={ spinnerStyle } src={ loading } />
+						</div>
+					}
+					containerElement={ <div style={ mapStyle } /> }
+					googleMapElement={
+						<GoogleMap defaultZoom={ 15 } defaultCenter={{ lat: this.state.lat, lng: this.state.lng }} >
+							<Marker key={ 'UserGeo' } position={{ lat: this.state.lat, lng: this.state.lng }} icon={ this.state.userIcon } />
+							{ this.props.jobs.jobList.map((job, i) => {
+								return (<Marker
 									key={ job.id }
 									position={{ lat: job.location_lat, lng: job.location_lng }}
 									icon={ this.state.jobIcon }
 									onClick={ (e) => { this.props.onJobClick(job, this.state.showInfo); /*this.toggle()*/ }} />
-								)}) 
+								)})
 						}
 					</GoogleMap>
 				}
