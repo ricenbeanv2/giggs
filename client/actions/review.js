@@ -1,7 +1,5 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { SubmissionError } from 'redux-form';
-import { browserHistory } from 'react-router';
 
 import { CREATE_REVIEW, GET_REVIEWS, REVIEW_INFO, IS_REVIEWED } from './actionTypes';
 
