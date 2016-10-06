@@ -5,11 +5,11 @@ const starReview = (props) => {
   return (
     <div className="stars">
       <StarRating
-      size={5}
-      value={props.setStar}
-      onChange={props.star}
+        size={5}
+        value={props.setStar}
+        onChange={props.star}
       />
-     </div>
+    </div>
   )
 }
 

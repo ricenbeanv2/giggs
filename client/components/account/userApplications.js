@@ -3,14 +3,18 @@ import Moment from 'moment';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
+import Cookies from 'js-cookie';
+
 import { getUserApps } from '../../actions/auth.js';
 import { getJobDetail } from '../../actions/jobs.js';
+import { setReviewInfo } from '../../actions/review.js';
 
 class UserApplications extends Component {
   constructor(props) {
     super(props);
     this.renderEachApp = this.renderEachApp.bind(this);
     this.redirectToJob = this.redirectToJob.bind(this);
+    this.redirectToReview = this.redirectToReview.bind(this);
   }
   componentWillMount() {
     this.props.getUserApps();
@@ -20,8 +24,38 @@ class UserApplications extends Component {
       browserHistory.push('/selectedJob');
     });
   }
-
+  redirectToReview(jobID) {
+    const params = {
+      user_id: Cookies.getJSON('user').userid,
+      job_id: jobID,
+      type: 'employee'
+    };
+    this.props.setReviewInfo(params);
+    browserHistory.push('/createReview');
+  }
   renderEachApp(applicationData, key) {
+    let actionButton = '';
+    if (applicationData.job_status === 'completed') {
+      actionButton =
+      (
+        <button
+          className="btn btn-secondary"
+          onClick={() => this.redirectToReview(applicationData.job_id)}
+        >
+          Review
+        </button>
+      );
+    } else {
+      actionButton =
+        (
+          <button
+            className="btn btn-secondary"
+            onClick={() => this.redirectToJob(applicationData.job_id)}
+          >
+            Go to Job
+          </button>
+        );
+    }
     return (
       <tr key={key}>
         <td>
@@ -37,12 +71,7 @@ class UserApplications extends Component {
           {Moment(applicationData.createdAt).format('LLL')}
         </td>
         <td>
-          <button
-            className="btn btn-secondary"
-            onClick={() => this.redirectToJob(applicationData.job_id)}
-          >
-            Go to Job
-          </button>
+          {actionButton}
         </td>
       </tr>
     );
@@ -75,7 +104,7 @@ function mapStateToProps({ auth }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getUserApps, getJobDetail }, dispatch);
+  return bindActionCreators({ getUserApps, getJobDetail, setReviewInfo }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserApplications);

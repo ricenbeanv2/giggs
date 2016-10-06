@@ -5,18 +5,30 @@ import { browserHistory } from 'react-router';
 import Moment from 'moment';
 import { getApplicants, changeStatus } from '../../actions/applicants';
 import { getJobDetail } from '../../actions/jobs';
+import { setReviewInfo } from '../../actions/review';
+import Cookies from 'js-cookie';
 
 class ManageApplicants extends Component {
   constructor(props) {
     super(props);
     this.updateStatus = this.updateStatus.bind(this);
     this.renderApplicants = this.renderApplicants.bind(this);
+    this.redirectToReview = this.redirectToReview.bind(this);
   }
 
   componentWillMount() {
     this.props.getApplicants(this.props.jobs.jobId);
   }
-
+  redirectToReview(e) {
+    e.preventDefault();
+    const params = {
+      user_id: Cookies.getJSON('user').userid,
+      job_id: this.props.jobs.jobId,
+      type: 'employer'
+    };
+    this.props.setReviewInfo(params);
+    browserHistory.push('/createReview');
+  }
   updateStatus(applicantID, status) {
     const params = {
       id: applicantID,
@@ -25,13 +37,11 @@ class ManageApplicants extends Component {
     this.props.changeStatus(params)
     .then(() => {
       this.props.getApplicants(this.props.jobs.jobId);
-      //about to push
       browserHistory.push('/jobAdmin');
     })
     .catch(error => {
       throw error;
-    })
-    ;
+    });
   }
   renderApplicants(applicantData) {
     return (
@@ -48,7 +58,6 @@ class ManageApplicants extends Component {
         <p>
           Status: {applicantData.job_status}
         </p>
-        {}
         {(() => {
           switch (applicantData.job_status) {
             case 'pending':
@@ -79,9 +88,13 @@ class ManageApplicants extends Component {
               );
             case 'completed':
               return (
-                <button className="btn btn-secondary">
+                <button
+                  className="btn btn-secondary"
+                  onClick={this.redirectToReview}
+                >
                   Review
-                </button>);
+                </button>
+              );
             default:
               return (<p>User Rejected</p>);
           }
@@ -100,12 +113,12 @@ class ManageApplicants extends Component {
   }
 }
 
-function mapStateToProps({ apply, jobs }) {
-  return { apply, jobs };
+function mapStateToProps({ apply, jobs, review }) {
+  return { apply, jobs, review };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getApplicants, changeStatus, getJobDetail }, dispatch);
+  return bindActionCreators({ getApplicants, changeStatus, getJobDetail, setReviewInfo }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageApplicants);
