@@ -114,7 +114,7 @@ export function isReviewed(params) {
     return axios.get('/db/reviews/singleReview', {
        params: {
          type: params.type,
-         user_id: params.review_id,
+         user_id: params.user_id,
          job_id: params.job_id,
          rated_user: params.rated_user
        },

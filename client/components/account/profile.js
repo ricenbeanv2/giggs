@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import StarRating from 'star-rating-react';
 import { getUser } from '../../actions/auth';
 import { getJobList } from '../../actions/jobs';
 import { getEmployeeReviews } from '../../actions/review';
 import Cookies from 'js-cookie';
 import GetEmployeeReviews from '../jobs/reviews/getReviews';
-import StarRating from 'star-rating-react';
 
 
 class UserProfilePage extends Component {
@@ -26,14 +26,12 @@ class UserProfilePage extends Component {
 
 	render() {
 		const user = this.props.auth.userData;
-		console.log("===========>", user)
 		const userid = Cookies.getJSON('user').userid;
 		if (!this.props.jobs.jobList || !this.props.auth.userData) {
 			return <div>loading</div>
 		}
 
 		return (
-			//<pre><code>{JSON.stringify(this.props.jobs.jobList, null, 4)}</code></pre>
 			<div>
 				<h3>User Info</h3>
 				<ul>
@@ -50,7 +48,7 @@ class UserProfilePage extends Component {
 				<h3>User Jobs</h3>
 				<ul>
 					{
-						this.props.jobs.jobList.filter(job => job.user_id == userid).map(job => {
+						this.props.jobs.jobList.filter(job => job.user_id === userid).map(job => {
 							return (
 								<li key={job.id}>
 									<pre><code>{JSON.stringify(job, null, 4)}</code></pre>
@@ -61,9 +59,9 @@ class UserProfilePage extends Component {
 				</ul>
 				<h3> Reviews </h3>
 				<h4>Overall rating:</h4>
-				<StarRating size={5} value={parseInt(this.props.reviews.starRating)}/>
+				<StarRating size={5} value={parseInt(this.props.reviews.starRating, 10)} />
 				<h4> Employee Review: </h4>
-				<GetEmployeeReviews data={this.props.reviews.getEmployee}/>
+				<GetEmployeeReviews data={this.props.reviews.getEmployee} />
 			</div>
 		);
 	}
