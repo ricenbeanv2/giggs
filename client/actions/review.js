@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { SubmissionError } from 'redux-form';
 import { browserHistory } from 'react-router';
 
-import { CREATE_REVIEW, GET_REVIEWS, REVIEW_INFO, IS_REVIEWED } from './actionTypes';
+import { CREATE_REVIEW, GET_REVIEWS, REVIEW_INFO, IS_REVIEWED, GET_EMPLOYEE_REVIEWS, GET_EMPLOYER_REVIEWS, GET_STAR_RATING } from './actionTypes';
 
 export function createReview(reviewProp) {
   console.log("in axios create review", reviewProp);
@@ -21,14 +21,14 @@ export function createReview(reviewProp) {
   };
 }
 
-export function getReviews(userID) {
+export function getEmployeeReviews(userID) {
   let request = axios.get('/db/jobs/getAll', { headers: { 'x-access-token': Cookies.getJSON('token') } })
-  let reviewRequest = axios.get('/db/reviews/getAll?type=employer', { headers: { 'x-access-token': Cookies.getJSON('token') } })
+  let reviewRequest = axios.get('/db/reviews/getAll?type=employee', { headers: { 'x-access-token': Cookies.getJSON('token') } })
   return (dispatch) => {
     return request
     .then((response) => {
       return response.data.filter((eachJob) => {
-        if(eachJob.user_id === userID){
+        if(eachJob.user_id === userID) {
           return eachJob;
         }
       })
@@ -37,31 +37,56 @@ export function getReviews(userID) {
       return response.map((eachJob) => {
         return eachJob.id;
       })
+
     })
-    .then((arrayData) => {
-      return reviewRequest
-      .then((response) => {
-        return arrayData.map((eachReviewID) => {
-          return response.data.filter((eachReview) => {
-            if(eachReviewID === eachReview.review_id){
-              return eachReview;
-            }
+    .then((response) => {
+      let arrayData = [];
+         reviewRequest
+        .then((eachReview) => {
+          return eachReview.data.forEach((review) => {
+            return response.filter((eachJobID) => {
+              if(eachJobID === review.job_id) {
+                arrayData.push(review);
+              }
+            })
           })
         })
-      })
-      .catch((error) => {
-        throw error;
-      })
+        .catch((error) => {
+          throw error;
+        })
+        return arrayData;
     })
     .then((response) => {
-      return response.map((eachReview) => {
-        return eachReview[0]
+      let dataArray = []
+        response.map((eachReview) => {
+        axios.get('/db/users/' + eachReview.review_id, { headers: { 'x-access-token': Cookies.getJSON('token') } })
+        .then((userInfo) => {
+          eachReview.review_id = userInfo.data.username;
+        })
+        .catch((error) => {
+          throw error;
+        })
+        dataArray.push(eachReview)
       })
+      return dataArray
     })
     .then((response) => {
-      dispatch({type: GET_REVIEWS, payload: response});
+      let starRating;
+        if(response.length === 1) {
+          starRating = response[0].numericalEmployeeReview
+        } else {
+          starRating = response.reduce((currentReview, nextReview)=> {
+            return parseInt(currentReview.numericalEmployeeReview) + parseInt(nextReview.numericalEmployeeReview)
+          }, 0);
+        }
+      dispatch({type: GET_STAR_RATING, payload: starRating})
+      return response;
     })
-    .catch((error) => {
+    .then((response) => {
+      console.log('Line 82:', response);
+      dispatch({type: GET_EMPLOYEE_REVIEWS, payload: response})
+    })
+    .catch(error => {
       throw error;
     })
   }

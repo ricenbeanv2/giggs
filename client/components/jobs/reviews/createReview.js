@@ -25,8 +25,7 @@ class createReviews extends Component {
     };
     this.props.isReviewed(params).then(() => {
       if (this.props.reviews.isReviewed) {
-        //should redirect to get review
-        browserHistory.push('/');
+        browserHistory.push('/completedreview');
       }
     });
   }
@@ -43,6 +42,8 @@ class createReviews extends Component {
           numericalEmployerReview: this.state.numericalReview
         };
         this.props.createReview(params);
+        browserHistory.push('/profile');
+        this.setState({employerReview: ''});
       }
       else {
         params = {
@@ -53,6 +54,8 @@ class createReviews extends Component {
           numericalEmployeeReview: this.state.numericalReview
         };
         this.props.createReview(params);
+        browserHistory.push('/profile');
+        this.setState({employerReview: ''});
       }
   }
   handleChange(event) {
