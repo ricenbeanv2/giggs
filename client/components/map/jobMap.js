@@ -23,7 +23,8 @@ class JobMap extends Component {
 		this.geoSuccess = this.geoSuccess.bind(this);
 		this.geoError = this.geoError.bind(this);
 		this.handleResize = this.handleResize.bind(this);
-	};
+		this.populateMarkers = this.populateMarkers.bind(this);
+	}
 
 	componentWillMount() {
 		if (navigator.geolocation) {
@@ -33,27 +34,49 @@ class JobMap extends Component {
 		this.props.getJobList();
 		//setInterval(this.props.getJobList, 10000);
 		window.addEventListener('resize', this.handleResize);
-	};
+	}
 
 	componentDidMount() {
 		this.setState({ windowWidth: window.innerWidth })
-	};
+	}
 
 	handleResize(e) {
 		this.setState({windowWidth: window.innerWidth});
-	};
+	}
 
 	toggle() {
-		this.state.showInfo ? this.setState({showInfo:false}) : this.setState({showInfo:true});
-	};
+		this.state.showInfo ? this.setState({ showInfo: false }) : this.setState({ showInfo: true });
+	}
 
 	geoSuccess(position) {
 		this.setState({ lng: position.coords.longitude, lat: position.coords.latitude });
-	};
+	}
 
 	geoError(error) {
 		console.error(`ERROR ${error.code} : ${error.message}`);
-	};
+	}
+
+	populateMarkers() {
+		if (this.props.location) {
+			console.log('this.props inside populateMarkers', this.props);
+			return this.props.jobs.jobList.map((job, i) => {
+				return (<Marker
+					key={ job.id }
+					position={{ lat: job.location_lat, lng: job.location_lng }}
+					icon={ this.state.jobIcon }
+					onClick={ (e) => { this.props.onJobClick(job, this.state.showInfo); /*this.toggle()*/ }} />
+			)})
+		}
+
+		//make action call to set original info
+		return ([<Marker
+			key={10}
+			position={{ lat: this.props.jobs.job.location_lat, lng: this.props.jobs.job.location_lng }}
+			icon={ this.state.jobIcon }
+			onClick={ (e) => { this.props.onJobClick(this.props.jobs.job, this.state.showInfo); /*this.toggle()*/ }} />]
+		);
+
+	}
 
 	render() {
 		if (this.state.lat == null && this.state.lng == null) {
@@ -72,7 +95,7 @@ class JobMap extends Component {
 			//position:'absolute'
 		};
 
-		console.log('this.props inside jobMap ', this.props);
+		console.log('this.props: ', this.props);
 		return (
 			<div className="container-fluid col-xs-8">
 				<InfoBox />
@@ -89,14 +112,7 @@ class JobMap extends Component {
 					googleMapElement={
 						<GoogleMap defaultZoom={ 15 } defaultCenter={{ lat: this.state.lat, lng: this.state.lng }} >
 							<Marker key={ 'UserGeo' } position={{ lat: this.state.lat, lng: this.state.lng }} icon={ this.state.userIcon } />
-							{ this.props.jobs.jobList.map((job, i) => {
-								return (<Marker
-									key={ job.id }
-									position={{ lat: job.location_lat, lng: job.location_lng }}
-									icon={ this.state.jobIcon }
-									onClick={ (e) => { this.props.onJobClick(job, this.state.showInfo); /*this.toggle()*/ }} />
-								)})
-						}
+							{this.populateMarkers()}
 					</GoogleMap>
 				}
 			/>
