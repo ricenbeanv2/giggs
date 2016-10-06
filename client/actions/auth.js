@@ -2,7 +2,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { browserHistory } from 'react-router';
 import { SubmissionError } from 'redux-form';
-import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT, USER_LIST, USER_APPS, USER_POSTS } from './actionTypes';
+import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT,
+        USER_LIST, USER_APPS, USER_POSTS } from './actionTypes';
 
 export function userSignUp(info) {
   return (dispatch) => {

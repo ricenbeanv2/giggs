@@ -112,8 +112,8 @@ export function getJobDetail(jobID) {
 
 export function onJobClick(job, show) {
   return dispatch => {
-    dispatch({type: GET_INFOBOX_JOB, job: job, show:show});
-  }
+    dispatch({ type: GET_INFOBOX_JOB, job, show });
+  };
 }
 
 export function sortPriceChange() {

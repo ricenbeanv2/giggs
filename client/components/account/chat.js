@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
-import Select from 'react-select';
+import Select from 'react-select-plus';
 import { connect } from 'react-redux';
 import { getUserList } from '../../actions/auth';
 import { getHistory, sendMessage } from '../../actions/chat';
