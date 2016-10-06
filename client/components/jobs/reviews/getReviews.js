@@ -14,7 +14,7 @@ const getEmployeeReviews = (props) => {
           }
           return (
             <div key={index} className='well'>
-              <h4>{eachReview.user_id} says:</h4>
+              <h4>{eachReview.username} says:</h4>
               <p>{eachReview.review}</p>
             </div>
           );

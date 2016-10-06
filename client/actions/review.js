@@ -28,13 +28,26 @@ export function getEmployeeReviews(userID) {
        headers: { 'x-access-token': Cookies.getJSON('token') }
      })
     .then(response => {
-      dispatch({ type: GET_EMPLOYEE_REVIEWS, payload: response.data });
+      return Promise.all(
+        response.data.map(review => {
+          return axios.get(`/db/users/${review.user_id}`,
+          { headers: { 'x-access-token': Cookies.getJSON('token') } })
+          .then(res => {
+            review.username = res.data.username;
+            return review;
+          });
+        })
+      )
+      .then(result => {
+        dispatch({ type: GET_EMPLOYEE_REVIEWS, payload: result });
+      });
     })
     .catch(error => {
       throw error;
     });
   };
 }
+
 
 export function getEmployerReviews(userID) {
   return dispatch => {
@@ -46,7 +59,19 @@ export function getEmployerReviews(userID) {
        headers: { 'x-access-token': Cookies.getJSON('token') }
      })
     .then(response => {
-      dispatch({ type: GET_EMPLOYER_REVIEWS, payload: response.data });
+      return Promise.all(
+        response.data.map(review => {
+          return axios.get(`/db/users/${review.user_id}`,
+          { headers: { 'x-access-token': Cookies.getJSON('token') } })
+          .then(res => {
+            review.username = res.data.username;
+            return review;
+          });
+        })
+      )
+      .then(result => {
+        dispatch({ type: GET_EMPLOYER_REVIEWS, payload: result });
+      });
     })
     .catch(error => {
       throw error;
