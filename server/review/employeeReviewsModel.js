@@ -5,7 +5,7 @@ const Users = require('../user/userModel');
 
 const EmployeeReviews = connection.define('EmployeeReviews', {
 
-	review_id: {
+	user_id: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
 		references: {
@@ -14,6 +14,15 @@ const EmployeeReviews = connection.define('EmployeeReviews', {
 		},
 	},
 
+	rated_user: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+		references: {
+			model: Users,
+			key: 'id',
+		},
+	},
+	
 	job_id: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
