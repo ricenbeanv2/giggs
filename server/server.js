@@ -5,6 +5,7 @@ const path = require('path');
 const connection = require('./db/connection');
 const passport = require('passport');
 const moment = require('moment');
+const fs = require('fs');
 
 const router = require('./config/routes');
 const middleware = require('./config/middleware');
@@ -12,9 +13,14 @@ const userController = require('./user/userCtrl');
 const EmployeeReviews = require('./review/employeeReviewsModel');
 
 const app = express();
+let https = require('https');
 
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+https = https.createServer({
+      key: fs.readFileSync('key.pem'),
+      cert: fs.readFileSync('cert.pem')
+    }, app);
+
+const io = require('socket.io')(https);
 require('./config/sockets')(io);
 
 //set up port
@@ -50,7 +56,7 @@ connection.sync().then(() => {
 	console.log('tables synced');
 });
 
-http.listen(app.get('PORT'), () => {
+https.listen(app.get('PORT'), () => {
 	console.log(`[${moment().format('hh:mm:ss')}]Express Server listening on port`, app.get('PORT'));
 });
 

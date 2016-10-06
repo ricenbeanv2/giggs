@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import Cookies from 'js-cookie';
 import GetReviews from './reviews/getReviews';
-import { getJobDetail } from '../../actions/jobs';
+import { getJobDetail, onJobClick } from '../../actions/jobs';
 
 class EachJob extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class EachJob extends Component {
                 <p>{eachJob.deadline.toString()}</p>
                 <button
                   className="btn btn-secondary"
-                  onClick={() => this.redirectToJobPage(eachJob.id, eachJob.user_id)}
+                  onClick={() => {this.redirectToJobPage(eachJob.id, eachJob.user_id)}}
                 >
                   Go to Job >>
                 </button>
@@ -63,8 +63,5 @@ class EachJob extends Component {
 function mapStateToProps({ jobs }) {
   return { jobs };
 }
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getJobDetail }, dispatch);
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(EachJob);
+export default connect(mapStateToProps, { getJobDetail, onJobClick })(EachJob);
