@@ -17,29 +17,8 @@ class UserPayment extends Component {
 				<form onSubmit={ handleSubmit(data => {
 					return this.props.submitPayment(data)
 				}) }>
-					<h3>information</h3>
-					<div className="form-group">
-						<label>Name</label>
-						<Field name="name" component={renderField} type="text" className="form-control" />
-					</div>
-
-					<div className="form-group">
-						<label>Credit Card Number</label>
-						<Field name="creditCardNumber" component={renderField} type="number" className="form-control" />
-					</div>
-
-					<div className="form-group">
-						<label>Expiration Date</label>
-						<Field name="expirationDate" component={renderField} type="date" className="form-control" />
-					</div>
-
-					<div className="form-group">
-						<label>Security Code</label>
-						<Field name="securityCode" component={renderField} type="number" className="form-control" />
-					</div>
-
 					<div>
-						<button type="submit" disabled={submitting} className="btn btn-primary" >Submit Payment</button>
+						<button type="submit" disabled={submitting} className="btn btn-primary" >Pay With PayPal</button>
 					</div>
 					{error && <strong>{error}</strong>}
 				</form>
