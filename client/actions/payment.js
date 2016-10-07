@@ -18,7 +18,6 @@ export function submitPayment(paymentDetails) {
 							flow: 'checkout', //required
 							amount: payment, //required
 							currency: 'USD', //required
-							locale: 'en_US',
 						}, function(error, tokenizationPayload) {
 							return axios.post('/db/payments/checkout', { params: { tokenizationPayload, payoutEmail, payment } }, { headers: { 'x-access-token': Cookies.getJSON('token')} })
 								.then(function(response) {

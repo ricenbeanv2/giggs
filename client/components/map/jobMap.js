@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getJobList, onJobClick } from '../../actions/jobs';
 import { GoogleMap, Marker } from 'react-google-maps';
 import ScriptjsLoader from 'react-google-maps/lib/async/ScriptjsLoader';
+import MarkerCluster from "react-google-maps/lib/addons/MarkerClusterer";
 import InfoBox from './infoBox';
 
 
@@ -111,7 +112,9 @@ class JobMap extends Component {
 					googleMapElement={
 						<GoogleMap defaultZoom={ 15 } defaultCenter={{ lat: this.state.lat, lng: this.state.lng }} >
 							<Marker key={ 'UserGeo' } position={{ lat: this.state.lat, lng: this.state.lng }} icon={ this.state.userIcon } />
-							{this.populateMarkers()}
+							<MarkerCluster>
+								{this.populateMarkers()}
+							</MarkerCluster>
 						</GoogleMap>
 					}
 				/>
