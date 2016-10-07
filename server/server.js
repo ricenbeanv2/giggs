@@ -10,7 +10,6 @@ const fs = require('fs');
 const router = require('./config/routes');
 const middleware = require('./config/middleware');
 const userController = require('./user/userCtrl');
-const EmployeeReviews = require('./review/employeeReviewsModel');
 
 const app = express();
 let https = require('https');
@@ -30,7 +29,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use(require('express-session')({
-	secret: 'giggsthebest',
+	secret: process.env.GIGGS_SECRET,
 	resave: true,
 	saveUninitalized: true
 }));
