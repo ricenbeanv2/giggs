@@ -17,10 +17,9 @@ class UserProfilePage extends Component {
 
 	componentDidMount() {
 		const userid = Cookies.getJSON('user').userid;
-		this.props.getUser(Cookies.getJSON('user').userid);
+		this.props.getUser(userid);
 		this.props.getJobList();
 		this.props.getEmployeeReviews(userid);
-		this.props.getEmployerReviews(userid)
 	}
 
 	render() {
