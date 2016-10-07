@@ -45,7 +45,7 @@ User.create = userObj => {
 			const token = jwt.encode({
 				iss: user.id,
 				exp: moment().add(7, 'd').valueOf()
-			}, 'appsecrethere');
+			}, process.env.APP_SECRET);
 			bcrypt.hash(userObj.password, 10, (err, hash) => {
 				user.update({ password: hash })
 				.then(() => {
@@ -81,7 +81,7 @@ User.auth = userInput => {
 					const token = jwt.encode({
 						iss: user.id,
 						exp: moment().add(7, 'd').valueOf()
-					}, 'appsecrethere');
+					}, process.env.APP_SECRET);
 					resolve({
 						token,
 						expires: moment().add(7, 'd').valueOf(),

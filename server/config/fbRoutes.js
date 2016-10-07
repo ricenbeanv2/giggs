@@ -5,7 +5,7 @@ const User = require('../user/userModel');
 const jwt = require('jwt-simple');
 const moment = require('moment');
 
-var fb = {};
+let fb = {};
 
 module.exports = (app, passport) => {
   passport.serializeUser((user, cb) => {
@@ -59,7 +59,7 @@ module.exports = (app, passport) => {
       const token = jwt.encode({
         iss: req.user.id,
         exp: moment().add(7, 'd').valueOf()
-      }, 'appsecrethere');
+      }, process.env.APP_SECRET);
       res.cookie('token', token);
       const userObj = {
         username: req.user.username,
