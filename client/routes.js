@@ -27,6 +27,7 @@ import Payment from './components/account/payment.js';
 
 //Basic routing, to add another route just do:
 //<Route path='/insertUrl' component={insertComponentName} />
+const styles = require('./styles/main.scss');
 const routingMiddleware = routerMiddleware(browserHistory);
 const createStoreWithMiddleWare = applyMiddleware(thunk, routingMiddleware)(createStore);
 const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f, autoRehydrate());

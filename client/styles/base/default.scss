@@ -1,0 +1,21 @@
+$form-element-height: 35px;
+$form-element-font-size: 15px;
+
+body {
+  background-color: #FFFFFF;
+  font-family: $primary-font-family;
+}
+
+a {
+  color: $primary-dim-gray;
+  text-decoration: none;
+}
+
+button {
+  display: inline-block;
+  margin: auto;
+}
+
+input {
+  border: none;
+}
