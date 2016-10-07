@@ -16,18 +16,18 @@ class UserProfilePage extends Component {
 	}
 
 	componentWillMount() {
+		console.log('this.props :', this.props);
 		const userid = Cookies.getJSON('user').userid;
-		this.props.getUser(Cookies.getJSON('user').userid);
+		this.props.getUser(this.props.jobs.job.user_id);
 		this.props.getJobList();
 		this.props.getEmployeeReviews(userid);
 		this.props.getEmployerReviews(userid);
-		}
-
+	}
+	
 	render() {
 		const user = this.props.auth.userData;
-		const userid = Cookies.getJSON('user').userid;
 		if (!this.props.jobs.jobList || !this.props.auth.userData) {
-			return <div>loading</div>
+			return <div>loading</div>;
 		}
 
 		return (
@@ -36,23 +36,30 @@ class UserProfilePage extends Component {
 				<ul>
 					{
 						Object.keys(user).map((info, i) => {
-							return (
-								<li key={i}>
-									<pre>{user[info]}</pre>
-								</li>
-							)
+							if (user[info] !== null) {
+								return (
+									<li key={i}>
+										{info}: {user[info]}
+									</li>
+								);
+							}
 						})
 					}
 				</ul>
 				<h3>User Jobs</h3>
 				<ul>
 					{
-						this.props.jobs.jobList.filter(job => job.user_id === userid).map(job => {
+						this.props.jobs.jobList.filter(job => job.user_id === this.props.jobs.job.user_id).map(job => {
+							console.log('job: ', job);
 							return (
 								<li key={job.id}>
-									<pre><code>{JSON.stringify(job, null, 4)}</code></pre>
+									<h3 onClick={this.redirectToJob}>{job.jobName}</h3>
+									<div>Openings: {job.openings}</div>
+									<div>Category: {job.category_id}</div>
+									<div>Deadline: {job.deadline}</div>
+									<div>Status: {job.status}</div>
 								</li>
-							)
+							);
 						})
 					}
 				</ul>
@@ -75,8 +82,4 @@ function mapStateToProps({ jobs, auth, reviews }) {
 	return { jobs, auth, reviews };
 }
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ getUser, getJobList, getEmployeeReviews, getEmployerReviews }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfilePage);
+export default connect(mapStateToProps, { getUser, getJobList, getEmployeeReviews, getEmployerReviews })(UserProfilePage);
