@@ -17,11 +17,11 @@ class UserProfilePage extends Component {
 
 	componentWillMount() {
 		const userid = Cookies.getJSON('user').userid;
-		this.props.getUser(Cookies.getJSON('user').userid);
+		this.props.getUser(userid);
 		this.props.getJobList();
 		this.props.getEmployeeReviews(userid);
-		this.props.getEmployerReviews(userid);
 		}
+	}
 
 	render() {
 		const user = this.props.auth.userData;
