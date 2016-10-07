@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   facebookAuth: {
     clientID: '977591632351488',
@@ -7,6 +5,6 @@ module.exports = {
     callbackURL: '/auth/facebook/callback'
   },
   jwt: {
-    secret: 'appsecrethere'
+    secret: process.env.APP_SECRET
   }
 };
