@@ -20,7 +20,6 @@ class UserProfilePage extends Component {
 		this.props.getUser(userid);
 		this.props.getJobList();
 		this.props.getEmployeeReviews(userid);
-		}
 	}
 
 	render() {
