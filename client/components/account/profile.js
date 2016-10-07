@@ -15,13 +15,13 @@ class UserProfilePage extends Component {
 		this.state = {};
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		const userid = Cookies.getJSON('user').userid;
 		this.props.getUser(Cookies.getJSON('user').userid);
 		this.props.getJobList();
 		this.props.getEmployeeReviews(userid);
-		this.props.getEmployerReviews(userid)
-	}
+		this.props.getEmployerReviews(userid);
+		}
 
 	render() {
 		const user = this.props.auth.userData;
@@ -57,11 +57,13 @@ class UserProfilePage extends Component {
 					}
 				</ul>
 				<h3> Reviews </h3>
-				<h4>Overall rating:</h4>
-				<StarRating size={5} value={parseInt(this.props.reviews.starRating, 10)} />
 				<h4> Review from employers: </h4>
+				<h5> Over all ratings: </h5>
+				<StarRating size={5} value={this.props.reviews.ErStarRating} />
 				<ReviewList data={this.props.reviews.getEmployer} />
 				<h4> Reviews from employees: </h4>
+				<h5> Over all ratings: </h5>
+				<StarRating size={5} value={this.props.reviews.EeStarRating} />
 				<ReviewList data={this.props.reviews.getEmployee} />
 			</div>
 		);

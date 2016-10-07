@@ -1,7 +1,8 @@
+
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-import { CREATE_REVIEW, GET_REVIEWS, REVIEW_INFO, IS_REVIEWED, GET_EMPLOYEE_REVIEWS, GET_EMPLOYER_REVIEWS, GET_STAR_RATING } from './actionTypes';
+import { CREATE_REVIEW, GET_REVIEWS, REVIEW_INFO, IS_REVIEWED, GET_EMPLOYEE_REVIEWS, GET_EMPLOYER_REVIEWS, GET_STAR_RATING, GET_EMPLOYEE_STAR_RATING, GET_EMPLOYER_STAR_RATING } from './actionTypes';
 
 export function createReview(reviewProp) {
   return (dispatch) => {
@@ -38,6 +39,19 @@ export function getEmployeeReviews(userID) {
           });
         })
       )
+      .then(response => {
+        var starRatings = response.map((eachReview) => {
+          return parseInt(eachReview.rating);
+        }).reduce((currentRating, nextRating) => {
+          if(response.length === 1){
+            return parseInt(response[0].rating);
+          } else {
+            return parseInt(currentRating) + parseInt(nextRating)/response.length;
+          }
+        }, 0);
+        dispatch({type: GET_EMPLOYEE_STAR_RATING, payload: starRatings})
+        return response;
+      })
       .then(result => {
         dispatch({ type: GET_EMPLOYEE_REVIEWS, payload: result });
       });
@@ -69,6 +83,19 @@ export function getEmployerReviews(userID) {
           });
         })
       )
+      .then(response => {
+        var starRatings = response.map((eachReview) => {
+          return parseInt(eachReview.rating);
+        }).reduce((currentRating, nextRating) => {
+          if(response.length === 1){
+            return parseInt(response[0].rating);
+          } else {
+            return (parseInt(currentRating) + parseInt(nextRating))/response.length;
+          }
+        }, 0);
+        dispatch({type: GET_EMPLOYER_STAR_RATING, payload: starRatings})
+        return response;
+      })
       .then(result => {
         dispatch({ type: GET_EMPLOYER_REVIEWS, payload: result });
       });
