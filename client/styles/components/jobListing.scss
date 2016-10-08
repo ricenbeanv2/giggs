@@ -11,6 +11,9 @@
         height: 25px;
         text-align: center;
         outline: none;
+        border: 1px solid #e6e6e6;
+        border-radius: 5px;
+        margin-bottom: 10px;
       }
     }
 
@@ -22,7 +25,7 @@
   }
 
   .dropDownCenter {
-    padding: 30px;
+    padding: 15px;
 
     .dropDownBar {
       background-color: $primary-dim-gray;
@@ -40,6 +43,7 @@
   .eachJob {
     display: -webkit-flex;
     display: flex;
+    justify-content: center;
     font-family: $primary-font-family;
     border-bottom: 1px solid #e6e6e6;
     border-top: 1px solid #e6e6e6;

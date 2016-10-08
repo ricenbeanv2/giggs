@@ -33,16 +33,16 @@ class EachJob extends Component {
                 <div>
                   <h4>Job</h4>
                   <p>{eachJob.jobName}</p>
-                  <h4>Max Price</h4>
-                  <p>{eachJob.max_price}</p>
+                  <h4> Description</h4>
+                  <p>{eachJob.description}</p>
                 </div>
                 <div>
                   <h4>Category</h4>
                   <p>{eachJob.category_id[0].toUpperCase() + eachJob.category_id.slice(1)}</p>
                 </div>
                 <div>
-                  <h4>Description</h4>
-                  <p>{eachJob.description}</p>
+                  <h4>Max Wage</h4>
+                  <p>{eachJob.max_price}</p>
                   <h4>Openings</h4>
                   <p>{eachJob.openings}</p>
                 </div>
