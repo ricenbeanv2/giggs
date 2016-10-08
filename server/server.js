@@ -23,7 +23,7 @@ const io = require('socket.io')(https);
 require('./config/sockets')(io);
 
 //set up port
-app.set('PORT', process.env.PORT || 80);
+app.set('PORT', process.env.PORT || 3000);
 app.use(cors());
 
 app.use(bodyParser.json());
