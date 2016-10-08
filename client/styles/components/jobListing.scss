@@ -12,10 +12,22 @@
         text-align: center;
         outline: none;
       }
-      .inputButton {
-        padding-top: 25px;
-        background-color: $primary-dark-liver
-      }
+    }
+
+    .btn {
+      background-color: $primary-dim-gray;
+      color: $primary-pure-white;
+      outline: none;
+    }
+  }
+
+  .dropDownCenter {
+    padding: 30px;
+
+    .dropDownBar {
+      background-color: $primary-dim-gray;
+      color: $primary-pure-white;
+      border: none;
     }
   }
 
@@ -36,7 +48,8 @@
     div {
       padding-left: 25px;
       height: 100px auto;
-      width: 100px
+      width: 250px;
+
       h4 {
         -webkit-flex: 2 0 0;
         flex: 2 0 0;
@@ -47,9 +60,14 @@
         -webkit-flex: 1 0 0;
         flex: 1 0 0;
         padding: 10px;
-        width:inherit;
-        height: inherit;
       }
+
+      .btn {
+        background-color: $primary-dim-gray;
+        color: $primary-pure-white;
+        outline: none;
+      }
+
     }
 
   }
