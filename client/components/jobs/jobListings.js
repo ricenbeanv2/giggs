@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -32,16 +33,18 @@ class JobListings extends Component {
 
   render() {
     return (
-      <div>
+      <div className='jobListings'>
         <DropdownButton title="Dropdown" id="bg-vertical-dropdown-1">
           <MenuItem eventKey="1" onClick={this.props.sortPriceChange}>Price</MenuItem>
           <MenuItem eventKey="2" onClick={this.props.sortCategories}>Category</MenuItem>
           <MenuItem eventKey="2" onClick={this.props.sortDate}>Recent Post</MenuItem>
         </DropdownButton>
-        <form>
-          <input type='text' placeholder='Search category' value={this.state.changes} onChange={this.handleChanges}/>
-        </form>
-        <button onClick={this.handleSubmit}>Submit</button>
+        <center className='searchBar'>
+          <form className='inputForm'>
+            <input className='inputBar' type='text' placeholder='Search category' value={this.state.changes} onChange={this.handleChanges}/>
+          </form>
+          <button className='inputButton' onClick={this.handleSubmit}>Submit</button>
+        </center>
         <EachJob data={this.props.jobs.jobList} />
       </div>
     )

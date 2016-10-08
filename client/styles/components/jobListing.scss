@@ -1,0 +1,57 @@
+.jobListings {
+
+  .searchBar {
+
+    .inputForm {
+
+      .inputBar {
+        padding: 25px;
+      	background: url(http://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+        width: 300px;
+        height: 25px;
+        text-align: center;
+        outline: none;
+      }
+      .inputButton {
+        padding-top: 25px;
+        background-color: $primary-dark-liver
+      }
+    }
+  }
+
+}
+
+
+.eachJobDiv {
+  padding: 25px 100px;
+
+  .eachJob {
+    display: -webkit-flex;
+    display: flex;
+    font-family: $primary-font-family;
+    border-bottom: 1px solid #e6e6e6;
+    border-top: 1px solid #e6e6e6;
+    padding: 18px 0;
+    padding-bottom: 25px;
+    div {
+      padding-left: 25px;
+      height: 100px auto;
+      width: 100px
+      h4 {
+        -webkit-flex: 2 0 0;
+        flex: 2 0 0;
+        padding: 10px;
+
+      }
+      p {
+        -webkit-flex: 1 0 0;
+        flex: 1 0 0;
+        padding: 10px;
+        width:inherit;
+        height: inherit;
+      }
+    }
+
+  }
+
+}
