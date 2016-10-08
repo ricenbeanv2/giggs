@@ -30,32 +30,39 @@ class EachJob extends Component {
           this.props.jobs.jobList.map((eachJob, index) => {
             return (
               <div key={index} className='eachJob'>
-                <div>
-                  <h4>Job</h4>
-                  <p>{eachJob.jobName}</p>
-                  <h4> Description</h4>
-                  <p>{eachJob.description}</p>
-                </div>
-                <div>
-                  <h4>Category</h4>
-                  <p>{eachJob.category_id[0].toUpperCase() + eachJob.category_id.slice(1)}</p>
-                </div>
-                <div>
-                  <h4>Max Wage</h4>
-                  <p>{eachJob.max_price}</p>
-                  <h4>Openings</h4>
-                  <p>{eachJob.openings}</p>
-                </div>
-                <div>
-                  <h4>Deadline</h4>
-                  <p>{eachJob.deadline.toString()}</p>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => {this.redirectToJobPage(eachJob.id, eachJob.user_id)}}
-                    >
-                    Go to Job >>
-                  </button>
-                </div>
+                  <div>
+                    <h4>Job</h4>
+                    <p>{eachJob.jobName}</p>
+                  </div>
+                  <div>
+                    <h4> Openings</h4>
+                    <p>{eachJob.openings}</p>
+                  </div>
+                  <div>
+                    <h4>Category</h4>
+                    <p>{eachJob.category_id[0].toUpperCase() + eachJob.category_id.slice(1)}</p>
+                  </div>
+                  <div>
+                    <h4>Max Wage</h4>
+                    <p>{eachJob.max_price}</p>
+                  </div>
+                  <div className='description'>
+                    <h4>description</h4>
+                    <p>{eachJob.description}</p>
+                  </div>
+                  <div>
+                    <h4>Deadline</h4>
+                    <p>{eachJob.deadline.toString()}</p>
+                  </div>
+                  <div>
+                    <h4>More information</h4>
+                        <button
+                        className="btn btn-secondary"
+                        onClick={() => {this.redirectToJobPage(eachJob.id, eachJob.user_id)}}
+                        >
+                        Go to Job >>
+                      </button>
+                  </div>
               </div>
             );
           })
