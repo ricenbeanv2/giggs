@@ -6,9 +6,7 @@ import { SIGN_UP, SIGN_IN, PW_NOT_SAME, UPDATE_USER, GET_USER, LOGGED_OUT,
         USER_LIST, USER_APPS, USER_POSTS } from './actionTypes';
 
 export function userSignUp(info) {
-  console.log('info ', info.phone);
   info.phone = parseInt(info.phone.split(' ').join(''));
-  console.log('info', info);
   return (dispatch) => {
     if (info.password !== info.passconfirm) {
       dispatch({ type: PW_NOT_SAME, payload: 'Passwords not same' });
@@ -20,7 +18,6 @@ export function userSignUp(info) {
             Cookies.set('user', response.data.user);
             Cookies.set('token', response.data.token);
           } else {
-            console.log('response.data: ', response.data);
             if (response.data.includes('username')) {
               throw new SubmissionError({ username: 'username already exists', _error: 'Please try again' });
             }
@@ -52,27 +49,17 @@ export function userSignIn(info) {
 
       })
       .catch(err => {
-        console.log('username or pw invalid', err);
         // dispatch({ type: PW_NOT_SAME, payload: 'Passwords not same' });
         throw new SubmissionError({ _error: 'Invalid username or password' });
       });
   };
 }
 
-export function facebookSignUp() {
-  axios.get('/auth/facebook')
-    .then(response => {
-      console.log('response', response);
-    });
-}
-
 export function getUserInfo(id) {
-  console.log('id inside getuserinfo', id);
   return dispatch => {
   return axios.get('/db/users/' + id, { headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then(response => {
       dispatch({ type: GET_USER, payload: response.data });
-      console.log('response.data inside getuserinfo', response.data);
       browserHistory.push('/userprofile');
     });
   };
@@ -102,11 +89,9 @@ export function getUserList(ids) {
 
 export function updateUserInfo(info) {
   info.phone = parseInt(info.phone.split(' ').join(''));
-  console.log('info ', info);
   return dispatch => {
     return axios.post('/db/users/update', { id: Cookies.getJSON('user').userid, fields: info }, { headers: { 'x-access-token': Cookies.getJSON('token') } })
       .then(response => {
-        console.log('response.data: ', response.data)
         dispatch({ type: UPDATE_USER, payload: response.data });
         throw new SubmissionError({ _error: 'User Profile Updated!' });
       });

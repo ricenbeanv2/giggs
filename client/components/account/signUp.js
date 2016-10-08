@@ -11,7 +11,6 @@ let SignUpForm = props => {
   let passCheck = <div />;
   let loading = '';
   const { error, handleSubmit, submitting } = props;
-  console.log('props: ', props);
   if (submitting) {
     console.log('loading changed');
     loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
@@ -26,8 +25,6 @@ let SignUpForm = props => {
   return (
     <form className="contact" onSubmit={handleSubmit((data) => {
       return props.userSignUp(data).then(() => {
-        console.log('test');
-        console.log('Cookie: ', Cookies.getJSON('user'));
         props.getUserInfo(Cookies.getJSON('user').userid);
       });
     })}>
