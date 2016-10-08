@@ -7,6 +7,7 @@ import renderField from '../renderField';
 import { updateUserInfo, getUserInfo } from '../../actions/auth';
 import UserApplications from './userApplications';
 import UserJobPosts from './userJobPosts';
+import Phone from '../phone';
 
 class UserProfile extends Component {
   componentWillMount() {
@@ -36,7 +37,7 @@ class UserProfile extends Component {
 
           <div className="form-group">
             <label>Phone Number</label>
-            <Field name="phone" component={renderField} type="number" className="form-control" />
+            <Field name="phone" component={Phone} type="number" className="form-control" />
           </div>
 
           <div className="form-group">
