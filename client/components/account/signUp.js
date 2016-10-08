@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import Cookies from 'js-cookie';
-import { userSignUp, facebookSignUp, getUserInfo } from '../../actions/auth';
+import { userSignUp, getUserInfo } from '../../actions/auth';
+import Phone from '../phone';
 
 import renderField from '../renderField';
 
@@ -15,56 +16,40 @@ let SignUpForm = props => {
     loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
     passCheck = <div />;
   }
-  console.log('props.auth:', props.auth);
   if (typeof props.auth.confirm === 'string' && props.auth.confirm.includes('Passwords')) {
     passCheck = <div>{props.auth.confirm}</div>;
   } else {
     passCheck = <div />;
   }
-  console.log(props.jobs)
 
   return (
-    <form onSubmit={handleSubmit((data) => {
+    <form className="contact" onSubmit={handleSubmit((data) => {
       return props.userSignUp(data).then(() => {
-        console.log('test');
-        console.log('Cookie: ', Cookies.getJSON('user'));
         props.getUserInfo(Cookies.getJSON('user').userid);
       });
     })}>
       <h3>Sign Up</h3>
-      <div className="form-group">
-        <Field name="username" component={renderField} type="text" className="form-control" placeholder="Username" />
-      </div>
+      <Field name="username" component={renderField} type="text" className="contact__field" placeholder="Username" />
 
-      <div className="form-group">
-        <Field name="name" component={renderField} type="text" className="form-control" placeholder="Name" />
-      </div>
+      <Field name="name" component={renderField} type="text" className="contact__field" placeholder="Name" />
 
-      <div className="form-group">
-        <Field name="email" component={renderField} type="text" className="form-control" placeholder="E-mail" />
-      </div>
+      <Field name="email" component={renderField} type="text" className="contact__field" placeholder="E-mail" /> <br />
 
-      <div className="form-group">
-        <Field name="phone" component={renderField} type="number" className="form-control" placeholder="Phone Number" />
-      </div>
+      <Field name="phone" component={Phone} className="contact__field" placeholder="Phone Number" />
 
-      <div className="form-group">
-        <Field name="password" component={renderField} type="password" className="form-control" placeholder="Password" />
-      </div>
+      <Field name="password" component={renderField} type="password" className="contact__field" placeholder="Password" />
 
-      <div className="form-group">
-        <Field name="passconfirm" component={renderField} type="password" className="form-control" placeholder="Confirm Password" />
-      </div>
+      <Field name="passconfirm" component={renderField} type="password" className="contact__field" placeholder="Confirm Password" />
       <div>
         <button type="submit" disabled={submitting} className="btn btn-primary">Sign Up</button>
-        <a href="/auth/facebook">
-          <button type="button" className="btn btn-primary">Facebook Sign Up</button>
+        <a className="btn btn--decorated btn--facebook" href="/auth/facebook">
+          <i className="fa fa-facebook"></i>Facebook Sign Up
         </a>
 
       </div>
       {error && <strong>{error}</strong>}
       <img src={loading} />
-      {/* {passCheck} */}
+      {passCheck}
     </form>
   );
 };

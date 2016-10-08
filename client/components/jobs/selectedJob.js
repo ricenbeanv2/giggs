@@ -18,12 +18,15 @@ class SelectedJob extends Component {
   constructor(props) {
     super(props);
     this.redirectToReview = this.redirectToReview.bind(this);
+    this.redirectToProfile = this.redirectToProfile.bind(this);
   }
+
   componentWillMount() {
     if (Cookies.getJSON('user').userid === this.props.jobs.job.user_id) {
       browserHistory.push('/jobAdmin');
     }
   }
+
   componentDidMount() {
     this.props.getJobDetail(this.props.jobs.jobId)
     .then(() => {
@@ -34,6 +37,7 @@ class SelectedJob extends Component {
       this.props.queryApp(params);
     });
   }
+
   redirectToReview(e) {
     e.preventDefault();
     const params = {
@@ -44,6 +48,11 @@ class SelectedJob extends Component {
     };
     this.props.setReviewInfo(params);
     browserHistory.push('/createReview');
+  }
+
+  redirectToProfile(user) {
+    console.log('this.props.jobs ', this.props.jobs);
+    browserHistory.push('/profile');
   }
 
   render() {
@@ -87,7 +96,7 @@ class SelectedJob extends Component {
       <div>
         <div>
           <h4> Job Name: </h4> {this.props.jobs.job.jobName} <br />
-          <h4> Username: </h4> {this.props.jobs.job.username} <br />
+          <h4> Username: </h4> <a onClick={this.redirectToProfile}> {this.props.jobs.job.username} </a>
           <h4> Openings: </h4> {this.props.jobs.job.openings} <br />
           <h4> Address: </h4> {this.props.jobs.job.address} <br />
           <h4> Category: </h4>

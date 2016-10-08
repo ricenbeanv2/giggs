@@ -80,25 +80,50 @@ class Chat extends Component {
 
   render() {
     const messages = this.state.messages.map((message, index) => {
-      return <li key={index}><b>{message.username}: </b>{message.message}</li>;
+      return (
+        <div class="chat__message-wrap">
+          <div class="message user clearfix">
+            <div class="avatar-wrap">
+              <div class="avatar">
+                <img src="img/user.jpg" alt="" />
+              </div>
+            </div>
+            <div class="text-wrap">
+              <div class="autor">{message.username}</div>
+              {/* <div class="time">13:47 am</div> */}
+              <div class="text">
+                {message.message}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+          {/* // return <li key={index}><b>{message.username}: </b>{message.message}</li>; */}
     });
 
     const options = this.state.users.map(user => {
       return { value: user, label: user };
     });
     return (
-      <div className='chat'>
-        <Select onChange={this.onChange} options={options} value={this.state.selected} />
-        <form onSubmit={this.sendMessage}>
-          <div className='message-box'>
-            {messages}
-          </div>
-          <div className='text-box'>
-            <textarea type='text' rows='1' cols='30' style={{ resize: 'none' }} placeholder='Enter a message...' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} onKeyPress={this.sendMessage} />
-            <input type='button' value='send' onClick={this.sendMessage} />
-          </div>
-        </form>
-      </div>
+        <div className='chat__content'>
+          <button className="chat-button chat-button--fixed">
+            <i className="zmdi zmdi-comments"></i>
+            <i className="zmdi zmdi-close"></i>
+          </button>
+          <Select onChange={this.onChange} options={options} value={this.state.selected} />
+          <form onSubmit={this.sendMessage}>
+            <div className='chat__text-wrap'>
+              {messages}
+            </div>
+            <div className='chat__message-wrap'>
+              <form class="chat__write">
+                <input type='text' rows='1' cols='30' style={{ resize: 'none' }} placeholder='Enter a message...' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} onKeyPress={this.sendMessage} />
+                <input type='button' value='send' className="default-button" onClick={this.sendMessage} />
+              </form>
+            </div>
+          </form>
+        </div>
+
     );
   }
 }

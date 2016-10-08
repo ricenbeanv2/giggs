@@ -1,0 +1,49 @@
+.contact{
+	margin-bottom: 20px;
+	text-align: center;
+
+	.contact__field{
+		width: 30%;
+		padding: 9px 30px;
+		margin-bottom: 10px;
+		font-size: 14px;
+		line-height: 26px;
+		color: $primary-dark-liver;
+		background: none;
+		border:none;
+		border: solid 1px #dfe6e7;
+		// border-radius: 20px;
+		box-shadow: none;
+		border-color: 300ms ease-out;
+
+		&:focus{
+			border-color: $primary-light-gray;
+		}
+	}
+
+	.contact__area{
+		min-height: 200px;
+	}
+
+	.btn-submit{
+		padding-left: 24px;
+		padding-right: 24px;
+	}
+}
+
+.btn--facebook {
+    min-width: 200px;
+    margin: 0 5px;
+    background-color: #3b5998;
+    color: $primary-diamond;
+}
+
+.btn--facebook .fa {
+    margin-right: 20px;
+}
+
+.btn--facebook:hover,
+.btn--facebook:focus {
+    background-color: #2f487e;
+    color: #ffffff;
+}

@@ -1,0 +1,191 @@
+.chat-button--fixed {
+	position: fixed;
+	height: 50px;
+	width: 50px;
+	line-height: 50px;
+	border-radius: 50%;
+	font-size: 24px;
+	z-index: 8;
+	bottom: 20px;
+	right: 20px;
+	will-change: box-shadow;
+	transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	-webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+}
+.chat-button--fixed i {
+	line-height: 50px;
+}
+.chat-button--fixed:hover {
+	-webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2);
+	box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2);
+}
+.chat-button--fixed .zmdi-close {
+	display: none;
+}
+.chat-button--fixed.active .zmdi-comments {
+	display: none;
+}
+.chat-button--fixed.active .zmdi-close {
+	display: block;
+}
+.chat {
+	position: fixed;
+	top: 0;
+	display: block;
+	height: 100%;
+	right: 0;
+	bottom: 0;
+	width: 380px;
+	overflow-y: auto;
+	z-index: 7;
+	-webkit-box-shadow: -2px 0 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+	box-shadow: -2px 0 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+	-webkit-transition: all 0.36s;
+	-moz-transition: all 0.36s;
+	transition: all 0.36s;
+	-webkit-transform: translate3d(385px, 0, 0);
+	-ms-transform: translate3d(385px, 0, 0);
+	transform: translate3d(385px, 0, 0);
+}
+.chat.active {
+	-webkit-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+.chat__content {
+	position: absolute;
+	bottom: 0;
+	top: 220px;
+	right: 0;
+	left: 0;
+}
+.chat__text-wrap {
+	background-color: #fff;
+	position: absolute;
+	bottom: 100%;
+	z-index: 2;
+	display: block;
+	padding: 0 20px;
+}
+.chat__title {
+	font-size: 24px;
+	font-weight: 500;
+	display: block;
+	margin-bottom: 5px;
+	letter-spacing: 0.4px;
+}
+.chat__message-wrap {
+	display: block;
+	position: absolute;
+	overflow-y: auto;
+	height: auto;
+	top: 0;
+	bottom: 147px;
+	padding: 0 10px;
+	border-top: 1px solid transparent;
+	border-bottom: 1px solid transparent;
+	resize: none;
+	z-index: 1;
+}
+.chat__message-wrap .message {
+	position: relative;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.chat__message-wrap .avatar-wrap {
+	position: absolute;
+}
+.chat__message-wrap .avatar-wrap .avatar {
+	margin: 0 10px;
+	width: 40px;
+	height: 40px;
+}
+.chat__message-wrap .avatar-wrap img {
+	width: 100%;
+	height: auto;
+	border-radius: 50%;
+}
+.chat__message-wrap .text-wrap {
+	display: block;
+	width: 100%;
+	padding-left: 60px;
+	padding-right: 10px;
+	position: relative;
+}
+.chat__message-wrap .text {
+	display: block;
+	position: relative;
+	border-radius: 0 4px 4px 4px;
+	padding: 30px 55px 10px 15px;
+	min-height: 42px;
+	font-size: 14px;
+	line-height: 21px;
+	font-family: 'Open Sans', sans-serif;
+	z-index: 1;
+}
+.chat__message-wrap .text a {
+	text-decoration: underline;
+}
+.chat__message-wrap .text a:hover {
+	text-decoration: none;
+}
+.chat__message-wrap .text:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -8px;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 8px 8px 0;
+}
+.chat__message-wrap .text:before {
+	content: '';
+	position: absolute;
+	top: -1px;
+	left: -10px;
+	width: 10px;
+	height: 10px;
+	z-index: 2;
+	border-radius: 0 80% 0 0;
+}
+.chat__message-wrap .autor {
+	position: absolute;
+	top: 0;
+	left: 75px;
+	z-index: 2;
+	line-height: 30px;
+	font-size: 16px;
+	font-weight: 500;
+}
+.chat__message-wrap .time {
+	position: absolute;
+	right: 20px;
+	top: 0;
+	font-weight: 300;
+	font-size: 11px;
+	text-align: center;
+	z-index: 2;
+	line-height: 30px;
+}
+.chat__write {
+	position: absolute;
+	width: 100%;
+	padding: 0 20px;
+	bottom: 85px;
+}
+.chat__write input {
+	padding: 0 10px;
+	width: 270px;
+}
+.chat__write button {
+	position: absolute;
+	top: 0;
+	right: 20px;
+	font-size: 24px;
+	padding: 0;
+	width: 56px;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
