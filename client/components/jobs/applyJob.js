@@ -35,7 +35,7 @@ class ApplyJob extends Component {
 
   render() {
     return (
-      <div className="col-md-4">
+      <div>
         <form onSubmit={this.handleApply} className="input-group">
           <div className="input-group-addon">$</div>
           <input

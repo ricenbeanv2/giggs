@@ -22,10 +22,10 @@ class JobAdmin extends Component {
       browserHistory.push('/selectedJob');
     }
     this.props.getApplicants(this.props.jobs.jobId).then(() => {
-      const boo = this.props.apply.applicants
+      const isAllPending = this.props.apply.applicants
       .map(applicant => applicant.job_status)
       .every(elem => elem === 'pending' || elem === 'rejected');
-      this.setState({ allPending: boo });
+      this.setState({ allPending: isAllPending });
     });
   }
 
@@ -39,32 +39,38 @@ class JobAdmin extends Component {
   }
 
   render() {
+    let errorMessage = '';
+    if (!this.state.allPending) {
+      errorMessage = <p> You cannot cancel this job, one or more applicants are accepted. </p>;
+    }
+    if (this.props.jobs.job.status === 'canceled') {
+      errorMessage = <p> This job is canceled.</p>;
+    }
     return (
       <div>
-        <h3> Manage Job </h3>
-        <div>
-          <h4> Job Name: </h4> {this.props.jobs.job.jobName} <br />
-          <h4> Username: </h4> {this.props.jobs.job.username} <br />
-          <h4> Openings: </h4> {this.props.jobs.job.openings} <br />
-          <h4> Address: </h4> {this.props.jobs.job.address} <br />
-          <h4> Category: </h4> {this.props.jobs.job.category[0].toUpperCase() + this.props.jobs.job.category.slice(1)} <br />
-          <h4> Description: </h4>{this.props.jobs.job.description} <br />
-          <h4> Max Price: </h4> ${this.props.jobs.job.max_price} <br />
-          <h4> Job Created: </h4>{Moment(this.props.jobs.job.createdAt).format('LLL')} <br />
-          <h4> Deadline: </h4>{Moment(this.props.jobs.job.deadline).format('LLL')} <br />
-          <button
-            className="btn btn-secondary"
-            onClick={this.handleCancelJob}
-            disabled={!this.state.allPending || this.props.jobs.job.status === 'canceled'}
-          >
-            Cancel Job
-          </button>
-          {!this.state.allPending ?
-            <p> You cannot cancel this job, one or more applicants are accepted. </p> : null }
-          {(this.props.jobs.job.status === 'canceled') ?
-            <p> This job is canceled.</p> : null }
+        <div className="container center">
+          <h3> Manage Job </h3>
+          <div>
+            <h4> Job Name: </h4> {this.props.jobs.job.jobName} <br />
+            <h4> Username: </h4> {this.props.jobs.job.username} <br />
+            <h4> Openings: </h4> {this.props.jobs.job.openings} <br />
+            <h4> Address: </h4> {this.props.jobs.job.address} <br />
+            <h4> Category: </h4> {this.props.jobs.job.category[0].toUpperCase() + this.props.jobs.job.category.slice(1)} <br />
+            <h4> Description: </h4>{this.props.jobs.job.description} <br />
+            <h4> Max Price: </h4> ${this.props.jobs.job.max_price} <br />
+            <h4> Job Created: </h4>{Moment(this.props.jobs.job.createdAt).format('LLL')} <br />
+            <h4> Deadline: </h4>{Moment(this.props.jobs.job.deadline).format('LLL')} <br />
+            <button
+              className="btn btn-secondary"
+              onClick={this.handleCancelJob}
+              disabled={!this.state.allPending || this.props.jobs.job.status === 'canceled'}
+            >
+              Cancel Job
+            </button>
+            {errorMessage}
+          </div>
+          <ManageApplicants />
         </div>
-        <ManageApplicants />
       </div>
     );
   }

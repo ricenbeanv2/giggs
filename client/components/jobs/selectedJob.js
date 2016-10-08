@@ -1,4 +1,4 @@
-import Moment from 'moment';
+import moment from 'moment';
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import { bindActionCreators } from 'redux';
@@ -18,21 +18,29 @@ class SelectedJob extends Component {
   constructor(props) {
     super(props);
     this.redirectToReview = this.redirectToReview.bind(this);
+    this.countdownTimer = this.countdownTimer.bind(this);
   }
   componentWillMount() {
-    if (Cookies.getJSON('user').userid === this.props.jobs.job.user_id) {
-      browserHistory.push('/jobAdmin');
-    }
-  }
-  componentDidMount() {
     this.props.getJobDetail(this.props.jobs.jobId)
     .then(() => {
+      if (Cookies.getJSON('user').userid === this.props.jobs.job.user_id) {
+        browserHistory.push('/jobAdmin');
+      }
       const params = {
         job_id: this.props.jobs.jobId,
         user_id: Cookies.getJSON('user').userid
       };
       this.props.queryApp(params);
     });
+  }
+
+  countdownTimer(deadline) {
+    const t = Date.parse(deadline) - Date.parse(new Date());
+    const seconds = Math.floor((t / 1000) % 60);
+    const minutes = Math.floor((t / 1000 / 60) % 60);
+    const hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(t / (1000 * 60 * 60 * 24));
+    return (`${days} days ${hours}:${minutes}:${seconds}`);
   }
   redirectToReview(e) {
     e.preventDefault();
@@ -85,22 +93,28 @@ class SelectedJob extends Component {
 
     return (
       <div>
-        <div>
-          <h4> Job Name: </h4> {this.props.jobs.job.jobName} <br />
-          <h4> Username: </h4> {this.props.jobs.job.username} <br />
-          <h4> Openings: </h4> {this.props.jobs.job.openings} <br />
-          <h4> Address: </h4> {this.props.jobs.job.address} <br />
-          <h4> Category: </h4>
-          {this.props.jobs.job.category[0].toUpperCase() + this.props.jobs.job.category.slice(1)}
-          <br />
-          <h4> Description: </h4>{this.props.jobs.job.description} <br />
-          <h4> Max Price: </h4> ${this.props.jobs.job.max_price} <br />
-          <h4> Job Created: </h4>{Moment(this.props.jobs.job.createdAt).format('LLL')} <br />
-          <h4> Deadline: </h4>{Moment(this.props.jobs.job.deadline).format('LLL')} <br />
+        {/* <JobMap /> */}
+        <div className="container center">
+          <h3> {this.props.jobs.job.jobName} </h3> <br />
+          <p>
+            <i className="fa fa-clock-o fa-2x" aria-hidden="true"></i>
+            {this.countdownTimer(this.props.jobs.job.deadline)}
+          </p>
+          <p> Job Owner: {this.props.jobs.job.username} </p>
+          <p>
+            Category:
+            {this.props.jobs.job.category[0].toUpperCase() + this.props.jobs.job.category.slice(1)}
+          </p>
+          <p> Openings: {this.props.jobs.job.openings} </p>
+          <p> Address: {this.props.jobs.job.address} </p>
+          <p> Description: {this.props.jobs.job.description} </p>
+          <p> Max price:  ${this.props.jobs.job.max_price} </p>
+          <p> Job Created: {moment(this.props.jobs.job.createdAt).format('LLL')} </p>
+          <p> Deadline: {moment(this.props.jobs.job.deadline).format('LLL')} </p>
+          {userAdmin}
+          <ApplicantList />
+
         </div>
-        <JobMap />
-        <ApplicantList />
-        {userAdmin}
       </div>
     );
   }
