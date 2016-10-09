@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import StarRating from 'star-rating-react';
 import Cookies from 'js-cookie';
+import { browserHistory } from 'react-router';
 import { getUser } from '../../actions/auth';
-import { getJobList } from '../../actions/jobs';
+import { getJobList, getJobDetail } from '../../actions/jobs';
 import { getEmployeeReviews, getEmployerReviews } from '../../actions/review';
 import ReviewList from '../jobs/reviews/getReviews';
 
@@ -17,18 +17,23 @@ class UserProfilePage extends Component {
 
 	componentWillMount() {
 		const userid = Cookies.getJSON('user').userid;
-		this.props.getUser(userid);
+		this.props.getUser(this.props.jobs.job.user_id);
 		this.props.getJobList();
 		this.props.getEmployeeReviews(userid);
+		this.props.getEmployerReviews(userid);
+	}
+
+	redirectToJob(jobId) {
+		this.props.getJobDetail(jobId).then(() => {
+			browserHistory.push('/selectedjob');
+		});
 	}
 
 	render() {
 		const user = this.props.auth.userData;
-		const userid = Cookies.getJSON('user').userid;
 		if (!this.props.jobs.jobList || !this.props.auth.userData) {
-			return <div>loading</div>
+			return <div>loading</div>;
 		}
-		const userJobs = this.props.jobs.jobList.filter(job => job.user_id === userid);
 
 		return (
 			<div>
@@ -36,38 +41,33 @@ class UserProfilePage extends Component {
 				<ul>
 					{
 						Object.keys(user).map((info, i) => {
-							return (
-								<li key={i}>
-									<pre>{user[info]}</pre>
-								</li>
-							)
+							if (user[info] !== null) {
+								return (
+									<li key={i}>
+										{info}: {user[info]}
+									</li>
+								);
+							}
 						})
 					}
 				</ul>
 				<h3>User Jobs</h3>
-				<div>
+				<ul>
 					{
-						userJobs.map((job, j)=> {
+						this.props.jobs.jobList.filter(job => job.user_id === this.props.jobs.job.user_id).map(job => {
+							console.log('job: ', job);
 							return (
-								<ul key={ job.id }>
-									{
-									<li key={ j }>
-										<pre><strong>Job : </strong> { job.jobName } </pre>
-										<pre><strong>category : </strong> { job.category_id } </pre>
-										<pre><strong>description : </strong> { job.description } </pre>
-										<pre><strong>openings : </strong> { job.openings } </pre>
-										<pre><strong>payment : </strong> { job.max_price } </pre>
-										<pre><strong>address : </strong> { job.address } </pre>
-										<pre><strong>deadline : </strong> { job.deadline } </pre>
-										<pre><strong>Job status :  </strong> { job.status } </pre>
-										<br />
-									</li>
-									}
-								</ul>
-							)
+								<li key={job.id}>
+									<h3 onClick={() => this.redirectToJob(job.id)}>{job.jobName}</h3>
+									<div>Openings: {job.openings}</div>
+									<div>Category: {job.category_id}</div>
+									<div>Deadline: {job.deadline}</div>
+									<div>Status: {job.status}</div>
+								</li>
+							);
 						})
 					}
-				</div>
+				</ul>
 				<h3> Reviews </h3>
 				<h4> Review from employers: </h4>
 				<h5> Over all ratings: </h5>
@@ -87,9 +87,4 @@ function mapStateToProps({ jobs, auth, reviews }) {
 	return { jobs, auth, reviews };
 }
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ getUser, getJobList, getEmployeeReviews, getEmployerReviews }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfilePage);
-//<pre><code>{JSON.stringify(job, null, 4)}</code></pre>
+export default connect(mapStateToProps, { getUser, getJobList, getJobDetail, getEmployeeReviews, getEmployerReviews })(UserProfilePage);
