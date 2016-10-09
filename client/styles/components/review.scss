@@ -1,0 +1,50 @@
+// profile.js review section
+
+.profileReviewDiv {
+  margin-left: 10px;
+  margin-right: 10px;
+
+  h3 {
+    font-style: bold;
+   }
+
+  h4 {
+    font-style: normal;
+  }
+
+  h5 {
+    font-style: italic;
+  }
+
+
+}
+
+
+
+
+// getReview.js child componenet
+.getReviewDiv {
+
+  .noReviewDiv {
+    font-family: $primary-font-family;
+    font-style: italic;
+  }
+  .eachReviewDiv {
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-top: 25px;
+    padding-bottom: 35px;
+    border-bottom: 1px solid $primary-light-gray;
+    border-top: 1px solid $primary-light-gray;
+
+
+    .reviewHeader {
+      font-style: italic;
+      }
+
+    .reviewParagraph {
+      font-style: normal;
+    }
+  }
+
+}

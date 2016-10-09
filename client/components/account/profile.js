@@ -56,15 +56,17 @@ class UserProfilePage extends Component {
 						})
 					}
 				</ul>
-				<h3> Reviews </h3>
-				<h4> Review from employers: </h4>
-				<h5> Over all ratings: </h5>
-				<StarRating size={5} value={this.props.reviews.ErStarRating} />
-				<ReviewList data={this.props.reviews.getEmployer} />
-				<h4> Reviews from employees: </h4>
-				<h5> Over all ratings: </h5>
-				<StarRating size={5} value={this.props.reviews.EeStarRating} />
-				<ReviewList data={this.props.reviews.getEmployee} />
+				<div className='profileReviewDiv'>
+					<h3> Reviews </h3>
+					<h4> Review from employers: </h4>
+					<h5> Over all ratings: </h5>
+					<StarRating size={5} value={this.props.reviews.ErStarRating} />
+					<ReviewList data={this.props.reviews.getEmployer} />
+					<h4> Reviews from employees: </h4>
+					<h5> Over all ratings: </h5>
+					<StarRating size={5} value={this.props.reviews.EeStarRating} />
+					<ReviewList data={this.props.reviews.getEmployee} />
+				</div>
 			</div>
 		);
 	}
