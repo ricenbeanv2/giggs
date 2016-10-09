@@ -25,28 +25,28 @@ class EachJob extends Component {
 
   render() {
     return (
-      <div className='eachJobDiv'>
+      <div className='container eachJobDiv'>
         {
           this.props.jobs.jobList.map((eachJob, index) => {
             return (
               <div key={index} className='eachJob'>
-                  <div>
+                  <div className='col-md-4'>
                     <h4>Job</h4>
                     <p>{eachJob.jobName}</p>
                   </div>
-                  <div>
+                  <div className='col-md-4'>
                     <h4> Openings</h4>
                     <p>{eachJob.openings}</p>
                   </div>
-                  <div>
+                  <div className='col-md-4'>
                     <h4>Category</h4>
                     <p>{eachJob.category_id[0].toUpperCase() + eachJob.category_id.slice(1)}</p>
                   </div>
-                  <div>
+                  <div className='col-md-4'>
                     <h4>Max Wage</h4>
                     <p>{eachJob.max_price}</p>
                   </div>
-                  <div className='description'>
+                  <div className='col-md-8'>
                     <h4>description</h4>
                     <p>{eachJob.description}</p>
                   </div>
