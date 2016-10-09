@@ -3,10 +3,10 @@ import { bindActionCreators, Store } from 'redux';
 import { connect } from 'react-redux';
 import { getJobList, onJobClick } from '../../actions/jobs';
 import { GoogleMap, Marker } from 'react-google-maps';
+import { MapStyle } from './mainMapStyle';
 import ScriptjsLoader from 'react-google-maps/lib/async/ScriptjsLoader';
 import MarkerCluster from "react-google-maps/lib/addons/MarkerClusterer";
 import InfoBox from './infoBox';
-
 
 class JobMap extends Component {
 	constructor(props) {
@@ -84,36 +84,26 @@ class JobMap extends Component {
 			return <div>Geolocation Not Found</div>
 		}
 
-		const loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
-		const spinnerStyle = {
-			marginLeft: '40%',
-			marginTop: '15%'
-		};
-		const mapStyle = {
-			height: '80vh',
-			width: '95vw',
-			display: 'inline-block',
-			//position:'absolute'
-		};
-
+		const loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/ligt_blue_material_design_loading.gif';
+		
 		return (
-			<div className="container-fluid col-xs-8">
-				<InfoBox />
+			<div className="main-container border__shadow">
 				<ScriptjsLoader
 					hostname={ 'maps.googleapis.com' }
 					pathname={ '/maps/api/js' }
 					query={{ key: 'AIzaSyAJu6SvKcz7H7fNJb-akc4PJ7BYhlbhqAw', libraries: 'geometry,drawing,places' }}
 					loadingElement={
 						<div>
-							<img style={ spinnerStyle } src={ loading } />
+							<img src={ loading } />
 						</div>
 					}
-					containerElement={ <div style={ mapStyle } /> }
+					containerElement={ <div className="map-container" /> }
 					googleMapElement={
-						<GoogleMap defaultZoom={ 15 } defaultCenter={{ lat: this.state.lat, lng: this.state.lng }} >
+						<GoogleMap defaultOptions={{ styles: MapStyle }} defaultZoom={ 12 } defaultCenter={{ lat: this.state.lat, lng: this.state.lng }} >
+							<InfoBox />
 							<Marker key={ 'UserGeo' } position={{ lat: this.state.lat, lng: this.state.lng }} icon={ this.state.userIcon } />
 							<MarkerCluster>
-								{this.populateMarkers()}
+								{ this.populateMarkers() }
 							</MarkerCluster>
 						</GoogleMap>
 					}

@@ -21,37 +21,28 @@ class InfoBox extends Component {
 	}
 
 	render() {
-		console.log(this.props)
 		if (!this.props.show) {
 			return <div></div>
 		}
 
-		const InfoBoxStyle = {
-			position:'absolute',
-			zIndex: '1001',
-			backgroundColor: 'white',
-			border: '2px solid black',
-			height: '80vh',
-			width: '15vw',
-			'overflowY': 'auto'
-		};
-
 		return (
-				<div style={InfoBoxStyle} className="col-xs-6">
-					<ul style={{paddingLeft: '0'}}>
+			<div className="main-info-container">
+				<div className="info">
+					<h1 className="info-title"><p>{this.props.job.jobName}</p></h1>
+					<p className="info-price"><span>$ </span>{this.props.job.max_price}</p>
+					<ul className="info-features">
 						{
 						<li>
-						<strong><h1 style={{textAlign: 'center'}}><p>{this.props.job.jobName}</p></h1></strong>
 						<strong>Openings</strong><p>{this.props.job.openings}</p>
 						<strong>Description</strong><p>{this.props.job.description}</p>
-						<strong>Payment</strong><p>{"$ " + this.props.job.max_price}</p>
 						<strong>Address</strong><p>{this.props.job.address}</p>
 						<strong>Deadline</strong><p>{this.props.job.deadline}</p>
 						</li>
 						}
 					</ul>
-					<button onClick={() => this.redirect(this.props.job.id)} style={{ marginLeft: '40%' }} >Apply</button>
+					<button onClick={() => this.redirect(this.props.job.id)} className="info-button" >Apply Now</button>
 				</div>
+			</div>
 			)	
 	}
 }
