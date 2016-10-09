@@ -11,11 +11,25 @@ class ApplicantList extends Component {
   }
 
   renderApplicants(applicantData, key) {
+    const statusTextClass = `job-status__${applicantData.job_status}`;
+    const backgroundColor = `app-item__head app-item__head-${applicantData.job_status}`;
     return (
-      <div key={key}>
-        <p>Username: {applicantData.username}</p>
-        <p>Bid Price: ${applicantData.bid_price}</p>
-        <p>Applied at: {Moment(applicantData.createdAt).format('LLL')}</p>
+      <div className="applicant-list">
+        <div key={key} className="app-item">
+          <div className={backgroundColor}>
+            <div className="app-item__photo">
+              <img src="../../styles/assets/userIcon.png" alt="" />
+            </div>
+            <h4 className="app-item__author">{applicantData.username}</h4>
+            <p className="app-item__time">
+              Applied at: {Moment(applicantData.createdAt).format('LLL')}
+            </p>
+            <div className="app-item__about">
+              <span className={statusTextClass}>Status: {applicantData.job_status}</span>
+              <span className="app-item__posts">Bid Price: ${applicantData.bid_price}</span>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -29,7 +43,8 @@ class ApplicantList extends Component {
     }
     return (
       <div>
-        <h4>Job Applicants:</h4>
+        <h3>Job Applicants</h3>
+        <hr />
         {applicantList}
       </div>
     );

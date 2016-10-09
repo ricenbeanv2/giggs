@@ -59,16 +59,15 @@ class ManageApplication extends Component {
             />
             <span className="input-group-addon">.00</span>
             <br />
-            {/* <span className="input-group-addon">
-              <button
-                className="btn btn-important"
-                type="submit"
-              >
-                Update
-              </button>
-            </span> */}
+            <button
+              className="btn btn-important"
+              type="submit"
+            >
+              Update
+            </button>
           </div>
         </form>
+        <br />
         <button
           className="btn btn-secondary"
           onClick={this.handleCancel}

@@ -36,27 +36,30 @@ class ApplyJob extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleApply} className="input-group">
-          <div className="input-group-addon">$</div>
-          <input
-            className="form-control"
-            placeholder="Enter Bid Price"
-            value={this.state.bid_price}
-            type="number"
-            min="1"
-            max={this.props.jobs.job.max_price}
-            onChange={this.onInputChange}
-          />
-          <div className="input-group-addon">.00</div>
-          <br />
-          <span className="input-group-btn">
-            <button
-              className="btn btn-important"
-              type="submit"
-            >
-              Apply
-            </button>
-          </span>
+        <h3>Apply for Job</h3>
+        <hr />
+        <form onSubmit={this.handleApply}>
+          <div className="row">
+            <div className="col-xs-6">
+              <input
+                className="form-control"
+                placeholder="Enter Bid Price"
+                value={this.state.bid_price}
+                type="number"
+                min="1"
+                max={this.props.jobs.job.max_price}
+                onChange={this.onInputChange}
+              />
+            </div>
+            <div className="col-xs-2">
+              <button
+                className="btn btn-important"
+                type="submit"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     );

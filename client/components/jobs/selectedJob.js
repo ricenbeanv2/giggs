@@ -92,23 +92,36 @@ class SelectedJob extends Component {
     }
 
     return (
-      <div>
+      <div className="selectedJob">
         {/* <JobMap /> */}
         <div className="container center">
-          <h3> {this.props.jobs.job.jobName} </h3> <br />
-          <p>
-            <i className="fa fa-clock-o fa-2x" aria-hidden="true"></i>
-            {this.countdownTimer(this.props.jobs.job.deadline)}
-          </p>
+          <h3> {this.props.jobs.job.jobName} </h3>
+          <hr />
+          <div className="row">
+            <div className="col-md-4">
+              <p> Openings: {this.props.jobs.job.openings} </p>
+            </div>
+            <div className="col-md-4">
+              <p>
+                <i className="fa fa-clock-o" aria-hidden="true"></i>
+                {this.countdownTimer(this.props.jobs.job.deadline)}
+              </p>
+            </div>
+            <div className="col-md-4">
+              <p>
+                Price:
+                <i className="fa fa-usd" aria-hidden="true"></i>
+                {this.props.jobs.job.max_price}.00
+              </p>
+            </div>
+          </div>
           <p> Job Owner: {this.props.jobs.job.username} </p>
           <p>
             Category:
             {this.props.jobs.job.category[0].toUpperCase() + this.props.jobs.job.category.slice(1)}
           </p>
-          <p> Openings: {this.props.jobs.job.openings} </p>
           <p> Address: {this.props.jobs.job.address} </p>
           <p> Description: {this.props.jobs.job.description} </p>
-          <p> Max price:  ${this.props.jobs.job.max_price} </p>
           <p> Job Created: {moment(this.props.jobs.job.createdAt).format('LLL')} </p>
           <p> Deadline: {moment(this.props.jobs.job.deadline).format('LLL')} </p>
           {userAdmin}
