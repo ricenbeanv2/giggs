@@ -31,7 +31,7 @@ class UserApplications extends Component {
       type: 'employee'
     };
     this.props.setReviewInfo(params);
-    // browserHistory.push('/createReview');
+    browserHistory.push('/createReview');
   }
   renderEachApp(applicationData, key) {
     let actionButton = '';
