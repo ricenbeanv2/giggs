@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import { browserHistory } from 'react-router';
@@ -26,9 +25,8 @@ class ManageApplication extends Component {
     this.props.updateBid(this.state)
     .then(() => {
       this.props.getApplicants(this.props.jobs.jobId);
+      this.setState({ bid_price: '' });
     });
-
-    this.setState({ bid_price: '' });
   }
 
   handleCancel(e) {
@@ -40,43 +38,47 @@ class ManageApplication extends Component {
         job_id: this.state.job_id,
         user_id: this.state.user_id
       });
+      browserHistory.push('/selectedJob');
     });
-    browserHistory.push('/selectedJob');
   }
 
   render() {
     return (
-      <div className="col-md-4">
-        <button
-          className="btn btn-secondary"
-          onClick={this.handleCancel}
-        >
-          Cancel Application
-        </button>
-        <br />
-
-        <form onSubmit={this.handleBidChange} className="input-group">
-          <div className="input-group-addon">$</div>
-          <input
-            className="form-control"
-            placeholder="Update Bid Price"
-            value={this.state.bid_price}
-            type="number"
-            min="1"
-            max={this.props.jobs.job.max_price}
-            onChange={this.onInputChange}
-          />
-          <div className="input-group-addon">.00</div>
-          <br />
-          <span className="input-group-btn">
-            <button
-              className="btn btn-important"
-              type="submit"
-            >
-              Update
-            </button>
-          </span>
+      <div>
+        <h3> Manage Application </h3>
+        <hr />
+        <form onSubmit={this.handleBidChange}>
+          <div className="row">
+            <div className="col-xs-6">
+              <input
+                className="form-control"
+                placeholder="Update Bid Price"
+                value={this.state.bid_price}
+                type="number"
+                min="1"
+                max={this.props.jobs.job.max_price}
+                onChange={this.onInputChange}
+              />
+            </div>
+            <div className="col-xs-2">
+              <button
+                className="btn btn-important"
+                type="submit"
+              >
+                Update
+              </button>
+            </div>
+            <div className="col-xs-2">
+              <button
+                className="btn btn-secondary"
+                onClick={this.handleCancel}
+              >
+                Cancel Application
+              </button>
+            </div>
+          </div>
         </form>
+        <br />
       </div>
     );
   }
@@ -86,8 +88,5 @@ function mapStateToProps({ apply, jobs }) {
   return { apply, jobs };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ cancelApp, updateBid, getApplicants, queryApp }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ManageApplication);
+export default connect(mapStateToProps,
+  { cancelApp, updateBid, getApplicants, queryApp })(ManageApplication);
