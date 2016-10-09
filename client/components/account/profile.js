@@ -28,6 +28,7 @@ class UserProfilePage extends Component {
 		if (!this.props.jobs.jobList || !this.props.auth.userData) {
 			return <div>loading</div>
 		}
+		const userJobs = this.props.jobs.jobList.filter(job => job.user_id === userid);
 
 		return (
 			<div>
@@ -44,17 +45,29 @@ class UserProfilePage extends Component {
 					}
 				</ul>
 				<h3>User Jobs</h3>
-				<ul>
+				<div>
 					{
-						this.props.jobs.jobList.filter(job => job.user_id === userid).map(job => {
+						userJobs.map((job, j)=> {
 							return (
-								<li key={job.id}>
-									<pre><code>{JSON.stringify(job, null, 4)}</code></pre>
-								</li>
+								<ul key={ job.id }>
+									{
+									<li key={ j }>
+										<pre><strong>Job : </strong> { job.jobName } </pre>
+										<pre><strong>category : </strong> { job.category_id } </pre>
+										<pre><strong>description : </strong> { job.description } </pre>
+										<pre><strong>openings : </strong> { job.openings } </pre>
+										<pre><strong>payment : </strong> { job.max_price } </pre>
+										<pre><strong>address : </strong> { job.address } </pre>
+										<pre><strong>deadline : </strong> { job.deadline } </pre>
+										<pre><strong>Job status :  </strong> { job.status } </pre>
+										<br />
+									</li>
+									}
+								</ul>
 							)
 						})
 					}
-				</ul>
+				</div>
 				<h3> Reviews </h3>
 				<h4> Review from employers: </h4>
 				<h5> Over all ratings: </h5>
@@ -79,3 +92,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfilePage);
+//<pre><code>{JSON.stringify(job, null, 4)}</code></pre>
