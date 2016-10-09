@@ -45,35 +45,40 @@ class ManageApplication extends Component {
   render() {
     return (
       <div>
+        <h3> Manage Application </h3>
+        <hr />
         <form onSubmit={this.handleBidChange}>
-          <div className="input-group">
-            <span className="input-group-addon">$</span>
-            <input
-              className="form-control"
-              placeholder="Update Bid Price"
-              value={this.state.bid_price}
-              type="number"
-              min="1"
-              max={this.props.jobs.job.max_price}
-              onChange={this.onInputChange}
-            />
-            <span className="input-group-addon">.00</span>
-            <br />
-            <button
-              className="btn btn-important"
-              type="submit"
-            >
-              Update
-            </button>
+          <div className="row">
+            <div className="col-xs-6">
+              <input
+                className="form-control"
+                placeholder="Update Bid Price"
+                value={this.state.bid_price}
+                type="number"
+                min="1"
+                max={this.props.jobs.job.max_price}
+                onChange={this.onInputChange}
+              />
+            </div>
+            <div className="col-xs-2">
+              <button
+                className="btn btn-important"
+                type="submit"
+              >
+                Update
+              </button>
+            </div>
+            <div className="col-xs-2">
+              <button
+                className="btn btn-secondary"
+                onClick={this.handleCancel}
+              >
+                Cancel Application
+              </button>
+            </div>
           </div>
         </form>
         <br />
-        <button
-          className="btn btn-secondary"
-          onClick={this.handleCancel}
-        >
-          Cancel Application
-        </button>
       </div>
     );
   }
