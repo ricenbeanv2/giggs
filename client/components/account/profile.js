@@ -37,37 +37,49 @@ class UserProfilePage extends Component {
 
 		return (
 			<div>
-				<h3>User Info</h3>
-				<ul>
-					{
-						Object.keys(user).map((info, i) => {
-							if (user[info] !== null) {
+				<div className="main-profile-container" >
+					<div className="main" >
+					<div className="border-list">
+					<h1> User Info </h1>
+					<ul className="l-r-border">
+						{
+							Object.keys(user).map((info, i) => {
+								if (user[info] !== null) {
+									return (
+										<li key={ i }>
+											<h3 className="user-info-li"> { info } </h3>
+											<h4 className="user-info-li"> { user[info] } </h4>
+										</li>
+									);
+								}
+							})
+						}
+					</ul>
+					</div>
+					</div>
+					<div className="main" >
+					<div className="border-list">
+					<h1> User Jobs </h1>
+					<ul className="l-r-border">
+						{
+							this.props.jobs.jobList.filter(job => job.user_id === this.props.jobs.job.user_id).map(job => {
 								return (
-									<li key={i}>
-										{info}: {user[info]}
+									<li key={ job.id } >
+										<h1 className="job-click btn-job" style={{textAlign:"center"}} onClick={() => this.redirectToJob(job.id)}> { job.jobName } </h1>
+										<div className="box">
+											<h3 className="quarter" > <span className="job-li">Openings : {job.openings} </span></h3>
+											<h3 className="quarter"> <span className="job-li">Category : { job.category_id } </span></h3>
+											<h3 className="quarter"> <span className="job-li">Deadline : { job.deadline } </span></h3>
+											<h3 className="quarter"> <span className="job-li">Status : { job.status } </span></h3>
+										</div>
 									</li>
 								);
-							}
-						})
-					}
-				</ul>
-				<h3>User Jobs</h3>
-				<ul>
-					{
-						this.props.jobs.jobList.filter(job => job.user_id === this.props.jobs.job.user_id).map(job => {
-							console.log('job: ', job);
-							return (
-								<li key={job.id}>
-									<h3 onClick={() => this.redirectToJob(job.id)}>{job.jobName}</h3>
-									<div>Openings: {job.openings}</div>
-									<div>Category: {job.category_id}</div>
-									<div>Deadline: {job.deadline}</div>
-									<div>Status: {job.status}</div>
-								</li>
-							);
-						})
-					}
-				</ul>
+							})
+						}
+					</ul>
+					</div>
+				</div>
+				</div>
 				<h3> Reviews </h3>
 				<h4> Review from employers: </h4>
 				<h5> Over all ratings: </h5>
