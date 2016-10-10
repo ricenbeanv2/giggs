@@ -1,3 +1,4 @@
+
 .chat-button--fixed {
 	position: fixed;
 	height: 50px;
@@ -31,11 +32,11 @@
 }
 .chat {
 	position: fixed;
-	top: 0;
+	// top: 0;
 	display: block;
 	height: 100%;
-	right: 0;
-	bottom: 0;
+	// right: 0;
+	// bottom: 0;
 	width: 380px;
 	overflow-y: auto;
 	z-index: 7;

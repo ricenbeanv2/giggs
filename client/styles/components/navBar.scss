@@ -6,6 +6,8 @@
 .header {
 	background-color: $primary-purple-navy;
 }
+
+
 .desktop-navigation a {
 	color: #fff;
 }
@@ -18,6 +20,7 @@
 .desktop-navigation .dropdown .dropdown-menu li a {
 	color: $primary-purple-navy;
 	background-color: transparent;
+  text-decoration: none;
 }
 .desktop-navigation .dropdown .dropdown-menu li a:hover {
 	background-color: $primary-purple-navy;
@@ -27,7 +30,9 @@
 	background-color: rgba(92,107,192,0.15);
 }
 
-
+.desktop-navigation-wrap Link {
+  text-decoration: none;
+}
 .desktop-navigation-wrap {
 	height: 62px;
 	text-align: right;
@@ -35,6 +40,7 @@
 .desktop-navigation {
 	margin: 0;
 	padding: 0;
+  text-decoration: none;
 }
 .desktop-navigation li {
 	display: inline-block;

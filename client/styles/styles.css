@@ -4,14 +4,6 @@
   border-width: 0;
 }
 
-.message-box {
-  overflow: scroll;
-  height: 100px;
-  margin-bottom: 0;
-  padding_bottom: 0;
-  /*position: absolute;
-  display: block;*/
-}
 li{
   list-style: none;
 }
@@ -20,15 +12,6 @@ body {
   padding-bottom: 100px;
 }
 
-.text-box {
-  position: absolute;
-  margin-top: 0;
-  bottom: 0;
-  margin-bottom: 0;
-  /*width: 100%;
-  height:
-  margin:0 0 0 0;*/
-}
 
 .reviewInput {
   width: 500px;
