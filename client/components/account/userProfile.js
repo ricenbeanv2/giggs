@@ -17,9 +17,10 @@ class UserProfile extends Component {
   render() {
     const { error, handleSubmit, submitting } = this.props;
     return (
-      <div>
+      <div className="center">
         <form onSubmit={handleSubmit(this.props.updateUserInfo)}>
           <h3>User Profile</h3>
+          <hr />
           <div className="form-group">
             <label>Username</label>
             <Field name="username" component={renderField} type="text" className="form-control" />

@@ -58,28 +58,19 @@ class UserApplications extends Component {
     }
     return (
       <tr key={key}>
-        <td>
-          {applicationData.job_id}
-        </td>
-        <td>
-          {applicationData.bid_price}
-        </td>
-        <td>
-          {applicationData.job_status}
-        </td>
-        <td>
-          {Moment(applicationData.createdAt).format('LLL')}
-        </td>
-        <td>
-          {actionButton}
-        </td>
+        <td>{applicationData.job_id}</td>
+        <td>{applicationData.bid_price}</td>
+        <td>{applicationData.job_status}</td>
+        <td>{Moment(applicationData.createdAt).format('LLL')}</td>
+        <td>{actionButton}</td>
       </tr>
     );
   }
   render() {
     return (
       <div>
-        <h4> Your Applications: </h4>
+        <h3> Your Applications: </h3>
+        <hr />
         <table className="table">
           <thead>
             <tr>
