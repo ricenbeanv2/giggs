@@ -35,6 +35,14 @@ const NavBar = () => {
                 <li><NavDropdownBar />
                 </li>
               </ul>
+              <ul className="nav navbar-nav navbar-right">
+                {/* <NavDropdownBar /> */}
+                {/* <ul className="nav navbar-nav navbar-right">
+                  <li><Link><i className="fa fa-user fa-1x" aria-hidden="true"></i> { Cookies.getJSON('user').username[0].toUpperCase() + Cookies.getJSON('user').username.slice(1)}</Link>
+                  </li>
+
+                </ul> */}
+              </ul>
             </nav>
           </div>
         </div>
