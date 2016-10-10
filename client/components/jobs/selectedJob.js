@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
@@ -73,13 +72,21 @@ class SelectedJob extends Component {
         //case 2a(i): status is  accepted / rejected, render current job status
         if (this.props.apply.entry.job_status === 'accepted'
         || this.props.apply.entry.job_status === 'rejected') {
-          userAdmin = <p> Your current job status is: {this.props.apply.entry.job_status} </p>;
+          userAdmin = (
+            <div>
+              <h3>Manage Application</h3>
+              <hr />
+              <p> Your current job status is: {this.props.apply.entry.job_status} </p>
+            </div>
+          );
         }
         //case 2a(ii): status is completed, render Review
         if (this.props.apply.entry.job_status === 'completed') {
           userAdmin = (
             <div>
-              Your current job status is: {this.props.apply.entry.job_status}
+              <h3>Manage Application</h3>
+              <hr />
+              Your job is completed! Please leave a feedback!<br />
               <button
                 className="btn btn-secondary"
                 onClick={this.redirectToReview}
@@ -123,7 +130,7 @@ class SelectedJob extends Component {
             </div>
           </div>
           <p>
-            Job Owner: 
+            Job Owner:
             <a onClick={this.redirectToProfile}> {this.props.jobs.job.username} </a>
           </p>
           <p>
@@ -147,8 +154,4 @@ function mapStateToProps({ jobs, apply, review }) {
   return { jobs, apply, review };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getJobDetail, queryApp, setReviewInfo }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SelectedJob);
+export default connect(mapStateToProps, { getJobDetail, queryApp, setReviewInfo })(SelectedJob);
