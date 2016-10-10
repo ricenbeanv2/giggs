@@ -13,11 +13,11 @@ class completedReview extends Component {
   }
   render(){
     return(
-      <div>
-        <center>
+      <div className='completedReviewDiv'>
+        <center className='centerDiv'>
           <h3>You already have submitted a review!</h3>
           <p>Click here to go to your profile page!</p>
-          <button onClick={this.handleClick}>Click</button>
+          <button className='btn btn-secondary' onClick={this.handleClick}>Click</button>
         </center>
       </div>
     )
@@ -25,4 +25,4 @@ class completedReview extends Component {
 }
 
 
-export default completedReview; 
+export default completedReview;
