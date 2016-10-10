@@ -14,17 +14,17 @@ class UserPayment extends Component {
 		this.state = {};
 
 	};
-	
+
 	render(props) {
 		let loading = '';
 		const { error, handleSubmit, submitting } = this.props;
-		
+
 		if (submitting) {
 			loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
 		}
 
 		return (
-			<div>
+			<div className="center">
 				<form onSubmit={ handleSubmit(data => {
 					return this.props.submitPayment(data)
 				}) }>

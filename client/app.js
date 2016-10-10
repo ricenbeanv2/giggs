@@ -8,15 +8,33 @@ const App = props => {
     content = props.children
   } else {
     content = (
-      <div className="landing">
+      <div className="home">
         <div className="bgimg-1">
-          <div className="caption">
-            <span className="border">Find local jobs nearby</span>
+          <div className="home__title center">
+            <div className="home__text-wrap">
+              <h1><strong>Looking for a local job nearby?</strong></h1>
+              <h4><strong>Search for jobs now and apply with one-click!</strong></h4>
+              <div className="home__search">
+                <form action="#">
+                  <input type="text" placeholder="Enter a search term here" />
+                  <button type="submit"><i className="fa fa-search" aria-hidden="true"></i></button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
         <div className="bgimg-2">
-          <div className="caption">
-            <span className="border">Signup to hire!</span>
+          <div className="home__title center">
+            <div className="home__text-wrap">
+              <h1><strong>Hire people from your community.</strong></h1>
+              <h4><strong>Sign-up & Creat a job now!</strong></h4>
+              <div className="home__search">
+                <button type="submit" className="btn btn-primary">Sign Up</button>
+                <a className="btn btn--decorated btn--facebook" href="/auth/facebook">
+                  <i className="fa fa-facebook"></i>Facebook Sign Up
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
