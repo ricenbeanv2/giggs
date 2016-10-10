@@ -1,0 +1,218 @@
+$red: $primary-pink;
+$black: $primary-dim-gray;
+$green: $primary-teal-green;
+$white: white;
+$job-li-hover-color: $primary-diamond;
+$job-click-hover-color: $primary-cyan-blue;
+$border-radius: 10px;
+$border: 1px solid lighten($black , 20%);
+$transition: all 0.4s;
+$title:3.4vw;
+$subtitle:2.3vw;
+$text:2.2vw;
+$title-resp:5vw;
+$subtitle-resp:4vw;
+$text-resp:3vw;
+
+
+@mixin div-resp {
+	& {
+		width: 100% !important;
+		border: 1px solid lighten($green, 40%) !important;
+		border-radius:0px !important; margin: 0 !important;
+	}
+	&:hover {
+		background-color: darken($green, 5%) !important;
+	}
+}
+
+@media (max-width: 600px) {
+	p { 
+		color: $white !important;
+		font-size: $text-resp !important;
+	}
+	h1 {
+		color: $white !important;
+		font-size: $title-resp !important;
+	}
+	h2 {
+		color: lighten($black, 5%) !important;
+		font-size: $subtitle-resp !important;
+	}
+	h3 {
+		color: lighten($black, 5%) !important;
+		font-size: $subtitle-resp !important;
+	}
+	h4 {
+		color: lighten($black, 5%) !important;
+		font-size: $subtitle-resp !important;
+	}
+	div {
+		@include div-resp;
+		background-color: lighten($black, 10%) !important;
+	}
+	div::before {
+		border-radius: 0px !important;
+	}
+	body {
+		background-color: $black !important;
+	}
+}
+
+@mixin div {
+	border-radius: $border-radius;
+	color: $black;
+	min-height: 100px;
+	position: relative;
+	@include before;
+	&:hover {
+		background-color: $black;
+		h1 {
+			color: $white;
+		}
+		h2 {
+			color: $white;
+		}
+		h3 {
+			color: $white;
+		}
+		h4 {
+			color: $white;
+		}
+		p {
+			color: $black;
+		}
+	}
+}
+
+@mixin fifth {
+	p {
+		color: $black;
+	}
+}
+
+@mixin quarter {
+	p {
+		color: $black;
+	}
+}
+
+@mixin before {
+	&::before {
+		content: "";
+		color: $red;
+		transition: $transition;
+		font-size: $text;
+		border-radius: $border-radius;
+		height: 10px;
+		width: 100%;
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	&:hover {
+		&::before {
+			color: $green;
+			transition: $transition;
+		}
+	}
+}
+
+.user-info-li:hover {
+	color: $job-li-hover-color !important;
+	transition: $transition
+}
+
+.job-click:hover {
+	color: $job-click-hover-color !important;
+	transition: $transition
+}
+
+.job-li:hover {
+	color: $job-li-hover-color !important;
+	transition: $transition
+}
+
+.main-profile-container {
+	background-color: lighten($black, 14%);
+	width: 80%;
+	margin: 0 auto;
+	border-radius: 7px;
+	padding: .5em 0;
+	border-left:3px solid $white;
+	border-top:3px solid $white;
+}
+
+/* * {
+	font-family: $primary-font-family, sans-serif;
+	box-sizing: border-box;
+} */
+
+.main-profile-container p {
+	color: $black;
+	font-size: 1.5vw;
+	transition: color 1s;
+}
+
+.main-profile-container h1 h2 {
+	color: $black;
+	font-size: $title;
+	transition: color 1s;
+}
+
+.main-profile-container h3 h4 {
+	color: $black;
+	font-size: $subtitle;
+	transition: color 1s;
+}
+
+.main-profile-container div {
+	@include div;
+	transition: $transition;
+}
+
+.main {
+	width: 98%;
+	padding: 2em 2em;
+	margin: auto;
+}
+
+.quarter {
+	width: 25%;
+	float: left;
+	@include quarter;
+}
+
+
+
+.btn-job {
+    letter-spacing: 0;
+}
+
+.btn-job:hover, .btn-job:active {
+	letter-spacing: .25em;
+}
+
+.btn-job:after, .btn-job:before {
+	border-bottom: 1px solid $job-click-hover-color;
+	content: " ";
+	display: block;
+	margin: 0  auto;
+	position: relative;
+	transition: $transition ease-in-out;
+	width: 0;
+}
+
+.btn-job:hover:after, .btn-job:hover:before {
+	border-color: $job-click-hover-color;
+	transition: $transition ease-in-out;
+	width: 60%;
+}
+
+.btn-job:hover:before {
+	bottom: auto;
+	top: 0;
+	width: 60%;
+}
