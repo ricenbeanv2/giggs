@@ -3,6 +3,7 @@
 .profileReviewDiv {
   margin-left: 10px;
   margin-right: 10px;
+  font-famly: $primary-font-family;
 
   h3 {
     font-style: bold;
@@ -34,8 +35,6 @@
     margin-right: 50px;
     padding-top: 25px;
     padding-bottom: 35px;
-    border-bottom: 1px solid $primary-light-gray;
-    border-top: 1px solid $primary-light-gray;
 
 
     .reviewHeader {
@@ -44,6 +43,61 @@
 
     .reviewParagraph {
       font-style: normal;
+      border-bottom: 1px solid $primary-light-gray;
+      border-top: 1px solid $primary-light-gray;
+      padding-top: 25px;
+      padding-bottom: 25px;
+    }
+  }
+
+}
+
+// completedReview.js component
+
+.completedReviewDiv {
+  font-family: $primary-font-family;
+
+
+
+  h3 {
+  font-style: bold;
+  }
+  p {
+  font-style: italic;
+  }
+ .centerDiv {
+
+    .btn  {
+     background-color: $primary-dim-gray;
+     color: $primary-pure-white;
+     outline: none;
+   }
+
+
+ }
+
+}
+
+
+// createReview component
+
+.createReviewDiv {
+  font-family: $primary-font-family;
+  center {
+
+    form {
+
+      h4 {
+        font-style: normal;
+      }
+      p {
+        font-style: italic;
+      }
+      .btn {
+        background-color: $primary-dim-gray;
+        color: $primary-pure-white;
+        outline: none;
+      }
     }
   }
 
