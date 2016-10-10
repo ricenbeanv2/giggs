@@ -36,50 +36,52 @@ let CreateJobForm = props => {
   });
 
   return (
-    <form onSubmit={handleSubmit((data) => {
-      props.sendJob(data, props.jobs.latLong);
-    })}>
-      <h3>Create Job</h3>
-      <div className="form-group">
-        <label>Job Name</label>
-        <Field name="jobName" component={renderField} type="text" className="form-control" />
-      </div>
+    <div className="center">
+      <form onSubmit={handleSubmit((data) => {
+        props.sendJob(data, props.jobs.latLong);
+      })}>
+        <h3>Create Job</h3>
+        <div className="form-group">
+          <label>Job Name</label>
+          <Field name="jobName" component={renderField} type="text" className="form-control" />
+        </div>
 
-      <div className="form-group">
-        <label>Openings</label>
-        <Field name="openings" component={renderField} type="number" className="form-control" />
-      </div>
+        <div className="form-group">
+          <label>Openings</label>
+          <Field name="openings" component={renderField} type="number" className="form-control" />
+        </div>
 
-      <div className="form-group">
-        <label>Category</label>
-        <Field name="category_id" component={SelectionComponent} options={parents} />
-      </div>
+        <div className="form-group">
+          <label>Category</label>
+          <Field name="category_id" component={SelectionComponent} options={parents} />
+        </div>
 
-      <div className="form-group">
-        <label>Description</label>
-        <Field name="description" component={renderField} type="textarea" className="form-control" />
-      </div>
+        <div className="form-group">
+          <label>Description</label>
+          <Field name="description" component={renderField} type="textarea" className="form-control" />
+        </div>
 
-      <div className="form-group">
-        <label>Address</label>
-        <Field name="address" component={GeoComponent} action={props.getLatLong} type="text" className="form-control" />
-      </div>
+        <div className="form-group">
+          <label>Address</label>
+          <Field name="address" component={GeoComponent} action={props.getLatLong} type="text" className="form-control" />
+        </div>
 
-      <div className="form-group">
-        <label>Max Price</label>
-        <Field name="max_price" component={renderField} type="number" className="form-control" />
-      </div>
+        <div className="form-group">
+          <label>Max Price</label>
+          <Field name="max_price" component={renderField} type="number" className="form-control" />
+        </div>
 
-      <div className="form-group">
-        <label>Deadline Date</label>
-        <Field name="deadline" component={renderField} type="date" className="form-control" />
-      </div>
-      <button type="submit" disabled={submitting} className="btn btn-primary"> Submit </button>
-      <div>
-        {error && <strong>{error}</strong>}
-      </div>
-      <img src={loading} />
-    </form>
+        <div className="form-group">
+          <label>Deadline Date</label>
+          <Field name="deadline" component={renderField} type="date" className="form-control" />
+        </div>
+        <button type="submit" disabled={submitting} className="btn btn-primary"> Submit </button>
+        <div>
+          {error && <strong>{error}</strong>}
+        </div>
+        <img src={loading} />
+      </form>
+    </div>
   );
 };
 
