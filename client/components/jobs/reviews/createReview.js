@@ -57,7 +57,7 @@ class createReviews extends Component {
 
   render() {
     return (
-      <div>
+      <div className='createReviewDiv'>
         <center>
           <form onSubmit={this.handleSubmit}>
             <h4> Write a review! </h4>
@@ -74,7 +74,7 @@ class createReviews extends Component {
               onChange={this.handleChange}
             />
             <div>
-              <button>Submit</button>
+              <button className='btn btn-secondary'>Submit</button>
             </div>
           </form>
         </center>

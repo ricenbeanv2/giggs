@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import Cookies from 'js-cookie';
 import GetReviews from './reviews/getReviews';
 import { getJobDetail, onJobClick } from '../../actions/jobs';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 class EachJob extends Component {
   constructor(props) {
@@ -25,33 +26,51 @@ class EachJob extends Component {
 
   render() {
     return (
-      <div>
+      <div className='eachJobDiv'>
         {
           this.props.jobs.jobList.map((eachJob, index) => {
             return (
-              <div key={index} className='well'>
-                <h4>Job</h4>
-                <p>{eachJob.jobName}</p>
-                <h4>Category</h4>
-                <p>{eachJob.category_id[0].toUpperCase() + eachJob.category_id.slice(1)}</p>
-                <h4>Location</h4>
-                <p>{eachJob.address}</p>
-                <p>{eachJob.location_lat}</p>
-                <h4>Description</h4>
-                <p>{eachJob.description}</p>
-                <h4>Openings</h4>
-                <p>{eachJob.openings}</p>
-                <h4>Max Price</h4>
-                <p>{eachJob.max_price}</p>
-                <h4>Deadline</h4>
-                <p>{eachJob.deadline.toString()}</p>
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => {this.redirectToJobPage(eachJob.id, eachJob.user_id)}}
-                >
-                  Go to Job >>
-                </button>
-              </div>
+              <Grid key={index} className='eachJob'>
+                <Row>
+                    <Col className='col-md-4'>
+                    <h4>Job</h4>
+                    <p>{eachJob.jobName}</p>
+                  </Col>
+                  <Col className='col-md-4'>
+                    <h4> Openings</h4>
+                    <p>{eachJob.openings}</p>
+                  </Col>
+                  <Col className='col-md-4'>
+                    <h4>Category</h4>
+                    <p>{eachJob.category_id[0].toUpperCase() + eachJob.category_id.slice(1)}</p>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className='col-md-4'>
+                    <h4>Max Wage</h4>
+                    <p>{eachJob.max_price}</p>
+                  </Col>
+                  <Col className='col-md-4'>
+                    <h4>Deadline</h4>
+                    <p>{eachJob.deadline.toString()}</p>
+                  </Col>
+                  <Col className='col-md-8'>
+                    <h4>Description</h4>
+                    <p>{eachJob.description}</p>
+                  </Col>
+                </Row>
+                  <Row className='buttonRow'>
+                    <Col className='col-md-4'>
+                      <h4>More information</h4>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={() => {this.redirectToJobPage(eachJob.id, eachJob.user_id)}}
+                        >
+                        Go to Job >>
+                      </button>
+                    </Col>
+                  </Row>
+              </Grid>
             );
           })
         }
