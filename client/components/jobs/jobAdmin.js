@@ -50,18 +50,18 @@ class JobAdmin extends Component {
       <div>
         <div className="container center">
           <h3> Manage Job </h3>
+          <hr />
           <div>
-            <p> Job Name:  {this.props.jobs.job.jobName} </p> 
-            <p> Username:  {this.props.jobs.job.username} </p> 
-            <p> Openings:  {this.props.jobs.job.openings} </p> 
-            <p> Address:  {this.props.jobs.job.address} </p> 
-            <p> Category:  {this.props.jobs.job.category[0].toUpperCase() + this.props.jobs.job.category.slice(1)} </p> 
-            <p> Description: {this.props.jobs.job.description} </p> 
-            <p> Max Price:  ${this.props.jobs.job.max_price} </p> 
-            <p> Job Created: {Moment(this.props.jobs.job.createdAt).format('LLL')} </p> 
-            <p> Deadline: {Moment(this.props.jobs.job.deadline).format('LLL')} </p> 
+            <p> Job Name:  {this.props.jobs.job.jobName} </p>
+            <p> Openings:  {this.props.jobs.job.openings} </p>
+            <p> Address:  {this.props.jobs.job.address} </p>
+            <p> Category:  {this.props.jobs.job.category[0].toUpperCase() + this.props.jobs.job.category.slice(1)} </p>
+            <p> Description: {this.props.jobs.job.description} </p>
+            <p> Max Price:  ${this.props.jobs.job.max_price} </p>
+            <p> Job Created: {Moment(this.props.jobs.job.createdAt).format('LLL')} </p>
+            <p> Deadline: {Moment(this.props.jobs.job.deadline).format('LLL')} </p>
             <button
-              className="btn btn-secondary"
+              className="btn btn-secondary btn-danger"
               onClick={this.handleCancelJob}
               disabled={!this.state.allPending || this.props.jobs.job.status === 'canceled'}
             >
