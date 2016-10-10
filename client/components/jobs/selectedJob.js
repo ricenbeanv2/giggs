@@ -106,7 +106,7 @@ class SelectedJob extends Component {
     }
 
     return (
-      <div className="selectedJob">
+      <div className="selected-job">
         {/* <JobMap /> */}
         <div className="container center">
           <h3> {this.props.jobs.job.jobName} </h3>
@@ -116,13 +116,13 @@ class SelectedJob extends Component {
               <p> Openings: {this.props.jobs.job.openings} </p>
             </div>
             <div className="col-md-4">
-              <p>
+              <p className="clock">
                 <i className="fa fa-clock-o" aria-hidden="true"></i>
                 {this.countdownTimer(this.props.jobs.job.deadline)}
               </p>
             </div>
             <div className="col-md-4">
-              <p>
+              <p className="price">
                 Price:
                 <i className="fa fa-usd" aria-hidden="true"></i>
                 {this.props.jobs.job.max_price}.00

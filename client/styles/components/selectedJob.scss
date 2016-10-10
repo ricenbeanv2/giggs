@@ -1,12 +1,11 @@
 .selected-job{
-  div{
-    .row{
-      p{
-        text: $primary-purple-navy;
-      }
-    }
-  }
 
+  .clock{
+    color: $primary-pink;
+  }
+  .price{
+    color: $primary-orange;
+  }
 
 
 }
