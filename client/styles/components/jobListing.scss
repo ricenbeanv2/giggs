@@ -39,34 +39,18 @@
 
 
 .eachJobDiv {
-  padding: 25px 100px;
+  margin-left: 25px;
+  margin-right: 25px;
 
   .eachJob {
-    display: -webkit-flex;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-family: $primary-font-family;
-    border-bottom: 1px solid #e6e6e6;
-    border-top: 1px solid #e6e6e6;
-    padding: 18px 0;
+    border-bottom: 1px solid $primary-light-gray;
+    border-top: 1px solid $primary-light-gray;
+    margin-left: 25px;
+    margin-right: 25px;
     padding-bottom: 25px;
-    div {
-      padding-left: 25px;
-      height: 100px auto;
-      width: 250px;
+    padding-top: 25px;
 
-      h4 {
-        -webkit-flex: 2 0 0;
-        flex: 2 0 0;
-        padding: 10px;
-
-      }
-      p {
-        -webkit-flex: 1 0 0;
-        flex: 1 0 0;
-        padding: 10px;
-      }
+    .buttonRow {
 
       .btn {
         background-color: $primary-dim-gray;
