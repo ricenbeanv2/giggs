@@ -185,10 +185,8 @@ $text-resp:3vw;
 	@include quarter;
 }
 
-
-
 .btn-job {
-    letter-spacing: 0;
+	letter-spacing: 0;
 }
 
 .btn-job:hover, .btn-job:active {
@@ -199,7 +197,7 @@ $text-resp:3vw;
 	border-bottom: 1px solid $job-click-hover-color;
 	content: " ";
 	display: block;
-	margin: 0  auto;
+	margin: 0 auto;
 	position: relative;
 	transition: $transition ease-in-out;
 	width: 0;
@@ -215,4 +213,83 @@ $text-resp:3vw;
 	bottom: auto;
 	top: 0;
 	width: 60%;
+}
+
+.border-list {
+	position: relative;;
+	background: transparent;
+	border: none;
+	font-size: 24px;
+	padding: 20px 40px;
+	color:#fff;
+	-webkit-transition: text-shadow .4s ease;
+	-moz-transition: text-shadow .4s ease;
+	-o-transition: text-shadow .4s ease;
+	transition: text-shadow .4s ease;
+}
+
+.l-r-border:after, .l-r-border:before {
+	content: '';
+	width: 3px;
+	height: 3px;
+	position: absolute;
+	background-color:#fff;
+	-webkit-transition: height .4s ease;
+	-moz-transition: height .4s ease;
+	-o-transition: height .4s ease;
+	transition: height .4s ease;
+	border-radius:50%;
+}
+
+.l-r-border:before {
+	left: 0;
+	bottom: 0;
+}
+
+.l-r-border:after {
+	right: 0;
+	top: 0;
+}
+
+.border-list:after, .border-list:before{
+	content: '';
+	width: 1px;
+	height: 1px;
+	position: absolute;
+	background-color: #fff;
+	-webkit-transition: width .4s ease;
+	-moz-transition: width .4s ease;
+	-o-transition: width .4s ease;
+	transition: width .4s ease;
+	border-radius: 50%;
+}
+
+.border-list:after {
+	right: 0;
+	bottom: 0;
+}
+
+.border-list:before {
+	left: 0;
+	top: 0;
+}
+
+.border-list:hover:after, .border-list:hover:before {
+	width: 100%;
+}
+
+.border-list:hover .l-r-border:before {
+	height: 100%;
+}
+
+.border-list:hover {
+	text-shadow: 10px 10px 10px #000;
+}
+
+.border-list:hover .l-r-border:after {
+	height: 100%;
+}
+
+.border-list:focus {
+	outline: none;
 }

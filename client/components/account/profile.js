@@ -39,8 +39,9 @@ class UserProfilePage extends Component {
 			<div>
 				<div className="main-profile-container" >
 					<div className="main" >
+					<div className="border-list">
 					<h1> User Info </h1>
-					<ul>
+					<ul className="l-r-border">
 						{
 							Object.keys(user).map((info, i) => {
 								if (user[info] !== null) {
@@ -55,15 +56,17 @@ class UserProfilePage extends Component {
 						}
 					</ul>
 					</div>
+					</div>
 					<div className="main" >
+					<div className="border-list">
 					<h1> User Jobs </h1>
-					<ul>
+					<ul className="l-r-border">
 						{
 							this.props.jobs.jobList.filter(job => job.user_id === this.props.jobs.job.user_id).map(job => {
 								return (
-									<li key={ job.id }>
+									<li key={ job.id } >
 										<h1 className="job-click btn-job" style={{textAlign:"center"}} onClick={() => this.redirectToJob(job.id)}> { job.jobName } </h1>
-										<div>
+										<div className="box">
 											<h3 className="quarter" > <span className="job-li">Openings : {job.openings} </span></h3>
 											<h3 className="quarter"> <span className="job-li">Category : { job.category_id } </span></h3>
 											<h3 className="quarter"> <span className="job-li">Deadline : { job.deadline } </span></h3>
@@ -74,6 +77,7 @@ class UserProfilePage extends Component {
 							})
 						}
 					</ul>
+					</div>
 				</div>
 				</div>
 				<h3> Reviews </h3>
