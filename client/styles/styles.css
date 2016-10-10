@@ -26,3 +26,12 @@ body {
   width: 500px;
   height: 250px;
 }
+
+.chat .message-box{
+  position: absolute;
+  bottom: 0;
+}
+
+.chat .chat__message-wrap{
+  padding-top: 40px;
+}
