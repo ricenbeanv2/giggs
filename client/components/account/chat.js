@@ -86,15 +86,15 @@ class Chat extends Component {
     const options = this.state.users.map(user => {
       return { value: user, label: user };
     });
-    
+
     return (
       <div className='chat'>
         <Select onChange={this.onChange} options={options} value={this.state.selected} />
         <form onSubmit={this.sendMessage}>
-          <div className='message-box'>
+          <div className='chat__message-wrap'>
             {messages}
           </div>
-          <div className='text-box'>
+          <div className='message-box'>
             <textarea type='text' rows='1' cols='30' style={{ resize: 'none' }} placeholder='Enter a message...' value={this.state.message} onChange={this.handleChange.bind(this, 'message')} onKeyPress={this.sendMessage} />
             <input type='button' value='send' onClick={this.sendMessage} />
           </div>
