@@ -1,7 +1,7 @@
-.landing {
+.home {
     height: 100%;
     width: 100%;
-    margin: 0;
+    margin-top: -20;
     font: 400 15px/1.8 "Lato", sans-serif;
     color: #777;
 
@@ -14,13 +14,13 @@
     background-size: cover;
   }
   .bgimg-1 {
-    background-image: url('https://static.pexels.com/photos/7097/people-coffee-tea-meeting.jpg');
+    background-image: url('http://usersthink.com/wp-content/uploads/90-usersthink-stock-image.jpg');
     min-height: 100vh;
     // width: 98%;
   }
 
   .bgimg-2 {
-    background-image: url('https://static.pexels.com/photos/33343/building-joy-planning-plans.jpg');
+    background-image: url('http://usersthink.com/wp-content/uploads/06-usersthink-stock-image.jpg');
     min-height: 100vh;
     // width: 98%;
   }
@@ -30,4 +30,86 @@
     min-height: 100vh;
     // width: 98%;
   }
+}
+.home__title {
+  display: table;
+  position: relative;
+  height: 100%;
+}
+.home__text-wrap {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+  text-align: center;
+  margin-top: 200px;
+  color: #fff;
+  text-decoration: strong;
+  width: 50%;
+  margin: auto;
+  width: 50vw;
+  padding-top: 24%;
+  color: #fff;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.home__search {
+  margin-top: 20px;
+}
+.home__search form {
+  display: inline-block;
+  position: relative;
+  width: 480px;
+  padding: 0;
+  text-align: left;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+}
+.home__search form input {
+  display: inline-block;
+  font-size: 16px;
+  width: 100%;
+  padding: 0 57px 0 15px;
+  height: 42px;
+  border: none;
+  vertical-align: middle;
+  border-radius: 4px;
+}
+.home__search form button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 42px;
+  font-size: 10px;
+  width: 42px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0 4px 4px 0;
+}
+.home__search form button i {
+  line-height: 14px;
+}
+.home__search span {
+  display: inline-block;
+  font-size: 16px;
+  padding: 0 15px;
+}
+.home__search a {
+  display: inline-block;
+}
+.home--slider {
+  background: transparent;
+}
+.home--slider .home__title {
+  z-index: 2;
+}
+.home--slider .owl-carousel {
+  position: absolute;
+  z-index: 1;
+}
+.home--slider .item {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  margin-top: -62px;
 }

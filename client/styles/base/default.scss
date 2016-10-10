@@ -14,6 +14,7 @@ a {
 button {
   display: inline-block;
   margin: auto;
+  color: $primary-purple-navy;
 }
 
 input {
@@ -24,4 +25,8 @@ div .center{
   margin: auto;
   width: 50vw;
   padding: 10px;
+}
+
+.navbar {
+  margin: 0;
 }
