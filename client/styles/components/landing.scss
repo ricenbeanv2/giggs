@@ -1,0 +1,33 @@
+.landing {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    font: 400 15px/1.8 "Lato", sans-serif;
+    color: #777;
+
+  .bgimg-1, .bgimg-2, .bgimg-3 {
+    position: relative;
+    opacity: 0.65;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .bgimg-1 {
+    background-image: url('https://static.pexels.com/photos/7097/people-coffee-tea-meeting.jpg');
+    min-height: 100vh;
+    // width: 98%;
+  }
+
+  .bgimg-2 {
+    background-image: url('https://static.pexels.com/photos/33343/building-joy-planning-plans.jpg');
+    min-height: 100vh;
+    // width: 98%;
+  }
+
+  .bgimg-3 {
+    background-image: url('https://static.pexels.com/photos/474/black-and-white-car-vehicle-vintage.jpg');
+    min-height: 100vh;
+    // width: 98%;
+  }
+}

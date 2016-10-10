@@ -32,7 +32,7 @@ class EachJob extends Component {
             return (
               <Grid key={index} className='eachJob'>
                 <Row>
-                    <Col className='col-md-4'>
+                  <Col className='col-md-4'>
                     <h4>Job</h4>
                     <p>{eachJob.jobName}</p>
                   </Col>
