@@ -59,7 +59,6 @@ class JobMap extends Component {
 
 	populateMarkers() {
 		if (this.props.location) {
-			console.log('this.props inside populateMarkers', this.props);
 			return this.props.jobs.jobList.map((job, i) => {
 				return (<Marker
 					key={ job.id }
@@ -85,7 +84,7 @@ class JobMap extends Component {
 		}
 
 		const loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/ligt_blue_material_design_loading.gif';
-		
+
 		return (
 			<div className="main-container border__shadow">
 				<ScriptjsLoader

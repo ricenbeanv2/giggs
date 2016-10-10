@@ -71,9 +71,4 @@ const Jobs = connection.define('Jobs', {
 	freezeTableName: true,
 });
 
-/*console.log('syncing jobs');
-Jobs.sync({ force: true }).then(function() {
-	console.log('Jobs table created');
-});*/
-
 module.exports = Jobs;

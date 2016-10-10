@@ -21,7 +21,6 @@ export function submitPayment(paymentDetails) {
 						}, function(error, tokenizationPayload) {
 							return axios.post('/db/payments/checkout', { params: { tokenizationPayload, payoutEmail, payment } }, { headers: { 'x-access-token': Cookies.getJSON('token')} })
 								.then(function(response) {
-									console.log("final response ", response);
 									dispatch({ type: SUBMIT_PAYMENT, payload: response.data });
 							});
 						});

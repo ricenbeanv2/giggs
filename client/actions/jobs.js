@@ -30,7 +30,7 @@ export function getLatLong(address) {
   return dispatch => {
     return axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
-        address: address,
+        address,
         key: 'AIzaSyAJu6SvKcz7H7fNJb-akc4PJ7BYhlbhqAw'
       }
     }).then(response => {
@@ -77,7 +77,6 @@ export function getJobList() {
 }
 
 export function getJobDetail(jobID) {
-  console.log('jobs.js: inside start of getJobDetail actions');
   const field = 'id';
   return dispatch => {
     dispatch({type: SET_JOBID, payload: jobID})
@@ -154,7 +153,7 @@ export function sortPriceChange() {
       dispatch({type: SORT_PRICE, payload:response})
     })
     .catch(error => {
-      console.log("Error: ", error);
+        console.log("Error: ", error);
     })
   }
 }

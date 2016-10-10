@@ -12,7 +12,6 @@ let SignUpForm = props => {
   let loading = '';
   const { error, handleSubmit, submitting } = props;
   if (submitting) {
-    console.log('loading changed');
     loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif';
     passCheck = <div />;
   }

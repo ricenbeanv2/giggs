@@ -2,7 +2,6 @@ const braintree = require("braintree");
 const request = require('request');
 
 function payout(recipient, payment, res) {
-	console.log("INSIDE PAYOUT");
 	const tokenReqOptions = {
 		form: {
 			grant_type: 'client_credentials',
@@ -14,7 +13,6 @@ function payout(recipient, payment, res) {
 	};
 
 	request.post('https://api.sandbox.paypal.com/v1/oauth2/token', tokenReqOptions, (error, response, body) => {
-		console.log("INSIDE FIRST REQUEST");
 		if (error) {
 			res.end(error);
 			return;
@@ -26,11 +24,11 @@ function payout(recipient, payment, res) {
 			headers: {
 				authorization: 'Bearer ' + tokenPayload.access_token,
 			},
-			json: { 
-				sender_batch_header: { 
+			json: {
+				sender_batch_header: {
 					email_subject: 'Payout Sent',
 				},
-				items: [{ 
+				items: [{
 					recipient_type: 'EMAIL',
 					amount: {
 						value: payment,
@@ -38,17 +36,15 @@ function payout(recipient, payment, res) {
 					},
 					receiver: recipient,
 					note: 'Payment for work',
-					sender_item_id: 'A123' 
+					sender_item_id: 'A123'
 				}],
 			},
 		};
 
 		request.post('https://api.sandbox.paypal.com/v1/payments/payouts?sync_mode=true', payoutOptions, (error, response, body) => {
-			console.log("INSIDE SECOND REQUEST");
 			if (error) {
 				res.send(error);
 			}
-			//console.log("batch_status: ", body.batch_header.batch_status);
 			res.send(body);
 		});
 	});
@@ -70,7 +66,6 @@ module.exports = {
 	},
 
 	checkout: (req, res) => {
-		//console.log("REQ PARAMS -=-=-=-=-=-=-=> ", req.body.params)
 		const nonce = req.body.params.tokenizationPayload.nonce;
 		const payoutEmail = req.body.params.payoutEmail;
 		const amountPaid = req.body.params.payment;
@@ -86,9 +81,7 @@ module.exports = {
 			if (error) {
 				res.send(error);
 			} else if (result.success) {
-				console.log("result.success ", result.success)
 				payout(payoutEmail, amountPaid, res);
-				console.log("INSIDE PAYOUT call res is passed and ended")
 			} else {
 				res.send("Error: " + result.message);
 			}

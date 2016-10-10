@@ -14,7 +14,6 @@ $title-resp:5vw;
 $subtitle-resp:4vw;
 $text-resp:3vw;
 
-
 @mixin div-resp {
 	& {
 		width: 100% !important;
@@ -27,7 +26,7 @@ $text-resp:3vw;
 }
 
 @media (max-width: 600px) {
-	p { 
+	p {
 		color: $white !important;
 		font-size: $text-resp !important;
 	}
