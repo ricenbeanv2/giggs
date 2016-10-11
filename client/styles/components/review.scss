@@ -1,31 +1,20 @@
 // profile.js review section
-
 .profileReviewDiv {
   margin-left: 10px;
   margin-right: 10px;
   font-famly: $primary-font-family;
-
   h3 {
     font-style: bold;
    }
-
   h4 {
     font-style: normal;
   }
-
   h5 {
     font-style: italic;
   }
-
-
 }
-
-
-
-
 // getReview.js child componenet
 .getReviewDiv {
-
   .noReviewDiv {
     font-family: $primary-font-family;
     font-style: italic;
@@ -49,7 +38,6 @@
       padding-bottom: 25px;
     }
   }
-
 }
 
 // completedReview.js component
@@ -66,27 +54,18 @@
   font-style: italic;
   }
  .centerDiv {
-
     .btn  {
      background-color: $primary-dim-gray;
      color: $primary-pure-white;
      outline: none;
    }
-
-
  }
-
 }
-
-
 // createReview component
-
 .createReviewDiv {
   font-family: $primary-font-family;
   center {
-
     form {
-
       h4 {
         font-style: normal;
       }
@@ -100,5 +79,4 @@
       }
     }
   }
-
 }

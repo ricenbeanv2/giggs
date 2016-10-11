@@ -38,14 +38,12 @@ export function getEmployees(userId) {
         const configs = { params: { field: 'job_id', key: `[${jobIds.toString()}]` } };
         return axios.get('/db/applicant/getAll', configs)
           .then(res => {
-            console.log('res inside getemployees: ', res.data);
             const employees = res.data.map(applicant => {
               return applicant.user_id;
             });
             const filterEmployees = employees.filter((id, idx) => {
               return employees.indexOf(id) === idx;
             });
-            console.log('employee ids: ', filterEmployees);
             dispatch({ type: GET_EMPLOYEES, payload: filterEmployees });
           });
       });
@@ -86,12 +84,10 @@ export function updateBid(info) {
 }
 
 export function applyJob(info) {
-  console.log('info: ', info);
   return dispatch => {
     return axios.post('/db/applicant/apply', info, {
       headers: { 'x-access-token': Cookies.getJSON('token') } })
     .then(response => {
-      console.log('response: ', response.data);
       dispatch({ type: APPLY_JOB, payload: response.data });
     })
     .catch(error => {

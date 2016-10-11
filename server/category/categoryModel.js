@@ -19,7 +19,7 @@ const Categories = connection.define('Categories', {
 
 }, {
 	hooks: {
-		afterSync: function() {
+		afterSync: () => {
 			this.findOne({ where: { id: 1 }
 			}).then((found) => {
 				if (!found) {
@@ -50,9 +50,5 @@ function propagateCategories(data) {
 
 	insertCategories(data);
 }
-
-/*Categories.sync({ force: true }).then(function() {
-	console.log('Categories table created');
-});*/
 
 module.exports = Categories;

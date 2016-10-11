@@ -26,7 +26,7 @@ class InfoBox extends Component {
 		}
 
 		return (
-			<div className="main-info-container">
+			<div>
 				<div className="info">
 					<h1 className="info-title"><p>{this.props.job.jobName}</p></h1>
 					<p className="info-price"><span>$ </span>{this.props.job.max_price}</p>
@@ -43,7 +43,7 @@ class InfoBox extends Component {
 					<button onClick={() => this.redirect(this.props.job.id)} className="info-button" >Apply Now</button>
 				</div>
 			</div>
-			)	
+			)
 	}
 }
 

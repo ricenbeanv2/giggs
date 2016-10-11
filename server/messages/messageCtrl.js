@@ -10,7 +10,6 @@ module.exports = {
     };
 
     Message.create(newMsg).then(msg => {
-      console.log('msg: ', msg);
       res.status(201).send(msg);
     })
     .catch(err => {

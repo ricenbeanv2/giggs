@@ -7,7 +7,6 @@
 
   .bgimg-1, .bgimg-2, .bgimg-3 {
     position: relative;
-    opacity: 0.65;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -16,6 +15,9 @@
   .bgimg-1 {
     background-image: url('http://usersthink.com/wp-content/uploads/90-usersthink-stock-image.jpg');
     min-height: 100vh;
+    z-index: -1;
+    -webkit-filter: grayscale(1); /* Old WebKit */
+    filter: grayscale(1);
     // width: 98%;
   }
 
@@ -29,8 +31,21 @@
     background-image: url('https://static.pexels.com/photos/474/black-and-white-car-vehicle-vintage.jpg');
     min-height: 100vh;
     // width: 98%;
+    img {
+      height: 130px;
+      width: 130px;
+      border-radius: 50%;
+    }
+    i {
+      color: white;
+      padding: 0.2em;
+      border: 3px solid white;
+      border-radius: 50%;
+      margin: 0.3em;
+    }
   }
 }
+
 .home__title {
   display: table;
   position: relative;
@@ -96,20 +111,4 @@
 }
 .home__search a {
   display: inline-block;
-}
-.home--slider {
-  background: transparent;
-}
-.home--slider .home__title {
-  z-index: 2;
-}
-.home--slider .owl-carousel {
-  position: absolute;
-  z-index: 1;
-}
-.home--slider .item {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  margin-top: -62px;
 }

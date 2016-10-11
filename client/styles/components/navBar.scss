@@ -2,13 +2,12 @@
   color: $primary-diamond;
   font-size: 1.3em;
 }
-
 .header {
-	background-color: $primary-purple-navy;
+	background-color: white;
 }
-
 .desktop-navigation a {
-	color: #fff;
+	color: $primary-quick-silver;
+  text-decoration: bold;
 }
 .desktop-navigation a:before {
 	background-color: #fff;
@@ -24,6 +23,10 @@
 .desktop-navigation .dropdown .dropdown-menu li a:hover {
 	background-color: $primary-purple-navy;
 	color: #fff;
+}
+.desktop-navigation .dropdown .dropdown-menu li a:onclick {
+	color: #fff;
+  border: 0;
 }
 .desktop-navigation .dropdown .dropdown-menu .divider {
 	background-color: rgba(92,107,192,0.15);

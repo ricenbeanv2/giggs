@@ -1,175 +1,175 @@
 export const MapStyle = [
 	{
-		"featureType": "administrative",
-		"elementType": "labels.text.fill",
-		"stylers": [
+		'featureType': 'administrative',
+		'elementType': 'labels.text.fill',
+		'stylers': [
 			{
-				"color": "#444444"
+				'color': '#444444'
 			}
 		]
 	},
 	{
-		"featureType": "administrative.land_parcel",
-		"elementType": "geometry",
-		"stylers": [
+		'featureType': 'administrative.land_parcel',
+		'elementType': 'geometry',
+		'stylers': [
 			{
-				"visibility": "on"
+				'visibility': 'on'
 			}
 		]
 	},
 	{
-		"featureType": "landscape",
-		"elementType": "all",
-		"stylers": [
+		'featureType': 'landscape',
+		'elementType': 'all',
+		'stylers': [
 			{
-				"color": "#f2f2f2"
+				'color': '#f2f2f2'
 			}
 		]
 	},
 	{
-		"featureType": "poi",
-		"elementType": "all",
-		"stylers": [
+		'featureType': 'poi',
+		'elementType': 'all',
+		'stylers': [
 			{
-				"visibility": "off"
+				'visibility': 'off'
 			}
 		]
 	},
 	{
-		"featureType": "road",
-		"elementType": "all",
-		"stylers": [
+		'featureType': 'road',
+		'elementType': 'all',
+		'stylers': [
 			{
-				"saturation": -100
+				'saturation': -100
 			},
 			{
-				"lightness": 45
+				'lightness': 45
 			}
 		]
 	},
 	{
-		"featureType": "road",
-		"elementType": "labels.text",
-		"stylers": [
+		'featureType': 'road',
+		'elementType': 'labels.text',
+		'stylers': [
 			{
-				"visibility": "off"
+				'visibility': 'off'
 			}
 		]
 	},
 	{
-		"featureType": "road.highway",
-		"elementType": "all",
-		"stylers": [
+		'featureType': 'road.highway',
+		'elementType': 'all',
+		'stylers': [
 			{
-				"visibility": "simplified"
+				'visibility': 'simplified'
 			}
 		]
 	},
 	{
-		"featureType": "road.arterial",
-		"elementType": "labels.icon",
-		"stylers": [
+		'featureType': 'road.arterial',
+		'elementType': 'labels.icon',
+		'stylers': [
 			{
-				"visibility": "off"
+				'visibility': 'off'
 			}
 		]
 	},
 	{
-		"featureType": "transit",
-		"elementType": "all",
-		"stylers": [
+		'featureType': 'transit',
+		'elementType': 'all',
+		'stylers': [
 			{
-				"visibility": "off"
+				'visibility': 'off'
 			}
 		]
 	},
 	{
-		"featureType": "transit.line",
-		"elementType": "geometry",
-		"stylers": [
+		'featureType': 'transit.line',
+		'elementType': 'geometry',
+		'stylers': [
 			{
-				"visibility": "on"
+				'visibility': 'on'
 			}
 		]
 	},
 	{
-		"featureType": "transit.line",
-		"elementType": "geometry.fill",
-		"stylers": [
+		'featureType': 'transit.line',
+		'elementType': 'geometry.fill',
+		'stylers': [
 			{
-				"visibility": "on"
+				'visibility': 'on'
 			},
 			{
-				"saturation": "4"
+				'saturation': '4'
 			},
 			{
-				"hue": "#ff009a"
+				'hue': '#ff009a'
 			}
 		]
 	},
 	{
-	 	"featureType": "transit.line",
-		"elementType": "geometry.stroke",
-		"stylers": [
+	 	'featureType': 'transit.line',
+		'elementType': 'geometry.stroke',
+		'stylers': [
 			{
-				"weight": "7.71"
+				'weight': '7.71'
 			},
 			{
-				"gamma": "10.00"
+				'gamma': '10.00'
 			},
 			{
-				"lightness": "100"
+				'lightness': '100'
 			},
 			{
-				"visibility": "simplified"
+				'visibility': 'simplified'
 			},
 			{
-				"hue": "#ff0000"
+				'hue': '#ff0000'
 			}
 		]
 	},
 	{
-		"featureType": "transit.line",
-		"elementType": "labels",
-		"stylers": [
+		'featureType': 'transit.line',
+		'elementType': 'labels',
+		'stylers': [
 			{
-				"visibility": "on"
+				'visibility': 'on'
 			},
 			{
-				"weight": "9.46"
+				'weight': '9.46'
 	 		}
 		]
 	},
 	{
-		"featureType": "transit.line",
-		"elementType": "labels.text.stroke",
-		"stylers": [
+		'featureType': 'transit.line',
+		'elementType': 'labels.text.stroke',
+		'stylers': [
 			{
-				"weight": "7.17"
+				'weight': '7.17'
 			},
 			{
-				"visibility": "on"
+				'visibility': 'on'
 			}
 		]
 	},
 	{
-		"featureType": "transit.line",
-		"elementType": "labels.icon",
-		"stylers": [
+		'featureType': 'transit.line',
+		'elementType': 'labels.icon',
+		'stylers': [
 			{
-				"visibility": "on"
+				'visibility': 'on'
 			}
 		]
 	},
 	{
-		"featureType": "water",
-		"elementType": "all",
-		"stylers": [
+		'featureType': 'water',
+		'elementType': 'all',
+		'stylers': [
 			{
-				"color": "#326b83"
+				'color': '#326b83'
 			},
 			{
-				"visibility": "on"
+				'visibility': 'on'
 			}
 		]
 	}

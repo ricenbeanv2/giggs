@@ -3,9 +3,9 @@ import { bindActionCreators, Store } from 'redux';
 import { connect } from 'react-redux';
 import { getJobList, onJobClick } from '../../actions/jobs';
 import { GoogleMap, Marker } from 'react-google-maps';
-import { MapStyle } from './mainMapStyle';
-import ScriptjsLoader from 'react-google-maps/lib/async/ScriptjsLoader';
 import MarkerCluster from "react-google-maps/lib/addons/MarkerClusterer";
+import ScriptjsLoader from 'react-google-maps/lib/async/ScriptjsLoader';
+import { MapStyle } from './mainMapStyle';
 import InfoBox from './infoBox';
 
 class JobMap extends Component {
@@ -59,7 +59,6 @@ class JobMap extends Component {
 
 	populateMarkers() {
 		if (this.props.location) {
-			console.log('this.props inside populateMarkers', this.props);
 			return this.props.jobs.jobList.map((job, i) => {
 				return (<Marker
 					key={ job.id }
@@ -85,9 +84,8 @@ class JobMap extends Component {
 		}
 
 		const loading = 'https://thomas.vanhoutte.be/miniblog/wp-content/uploads/ligt_blue_material_design_loading.gif';
-		
+
 		return (
-			<div className="main-container border__shadow">
 				<ScriptjsLoader
 					hostname={ 'maps.googleapis.com' }
 					pathname={ '/maps/api/js' }
@@ -108,7 +106,6 @@ class JobMap extends Component {
 						</GoogleMap>
 					}
 				/>
-			</div>
 		);
 	}
 }

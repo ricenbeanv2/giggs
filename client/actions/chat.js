@@ -7,7 +7,6 @@ export const getHistory = roomName => {
   return dispatch => {
     return axios.get(`/db/messages/history?roomName=${roomName}`)
       .then(response => {
-        console.log('response.data: ', response.data);
         dispatch({ type: GET_CHAT_HISTORY, payload: response.data });
       });
   };
@@ -22,7 +21,6 @@ export const sendMessage = (roomName, message) => {
       username: Cookies.getJSON('user').username
     })
     .then(response => {
-      console.log('response.data: ', response.data);
     });
   };
 };
