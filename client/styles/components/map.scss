@@ -1,25 +1,12 @@
- .map-container {
-	height: 80vh;
-	width: 95%;
-	z-index: 1002;
-}
-
-.main-container {
-	position: relative;
-	margin-left: 100px;
-	width: auto;
-	height: auto;
-}
-
 .map-container {
-	position: absolute;
-	top: 50px;
-	height: 700px;
-	margin: auto auto;
+  height: 80vh;
+  width: 90vw;
+  text-align: center;
+	// position: absolute;
+	margin: auto;
 	overflow: hidden;
 	background: #0e2636;
-	border: 4px solid #13354a;
-	box-sizing: border-box;
+	border: 1px solid #000;
 }
 
 $color-base: #2c3e50;

@@ -37,16 +37,63 @@ const App = props => {
             </div>
           </div>
         </div>
-      </div>
-    );
-  }
-  return (
-    <div>
-      <NavBar />
-      {content}
-      {/* <Chat /> */}
-    </div>
-  );
-};
+        <div className="bgimg-3">
+          <div className="home__title center">
+            <div className="home__text-wrap">
+              <h1><strong>Our Team</strong></h1>
+              <div className="row">
+                <div className="col-xs-3">
+                  <img src="../../styles/assets/alberto.jpg"></img> <br />
+                  Alberto Esuivias <br />
+                  <a href="https://github.com/GoDodgers">
+                    <i className="fa fa-2x fa-github-alt" aria-hidden="true"></i>
+                  </a>
+                  <a href="https://linkedin.com/in/aesquivias">
+                    <i className="fa fa-2x fa-linkedin-square" aria-hidden="true"></i>
+                  </a>
+                </div>
+                <div className="col-xs-3">
+                  <img src="../../styles/assets/calvin.png"></img> <br />
+                  Calvin Lee <br />
+                  <a href="https://github.com/calvin337">
+                    <i className="fa fa-2x fa-github-alt" aria-hidden="true"></i>
+                  </a>
+                  <a href="https://www.linkedin.com/in/calvin-lee">
+                    <i className="fa fa-2x fa-linkedin-square" aria-hidden="true"></i>
+                  </a>
+                </div>
+                <div className="col-xs-3">
+                  <img src="../../styles/assets/sandy.jpeg"></img> <br />
+                  Sandy Tran <br />
+                  <a href="https://github.com/justsandytran">
+                    <i className="fa fa-2x fa-github-alt" aria-hidden="true"></i>
+                  </a>
+                  <i className="fa fa-2x fa-linkedin-square" aria-hidden="true"></i>
+                </div>
+                <div className="col-xs-3">
+                  <img src="../../styles/assets/tiffany.jpeg"></img> <br />
+                  Tiffany Ip <br />
+                  <a href="https://github.com/tiffanyip">
+                        <i className="fa fa-2x fa-github-alt" aria-hidden="true"></i>
+                      </a>
+                      <a href="https://www.linkedin.com/in/tiffany-ip">
+                        <i className="fa fa-2x fa-linkedin-square" aria-hidden="true"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          );
+          }
+          return (
+          <div>
+            <NavBar />
+            {content}
+            {/* <Chat /> */}
+          </div>
+          );
+          };
 
-export default App;
+          export default App;
