@@ -44,7 +44,7 @@ const App = props => {
               <div className="row">
                 <div className="col-xs-3">
                   <img src="../../styles/assets/alberto.jpg"></img> <br />
-                  Alberto Esuivias <br />
+                  Alberto Esquivias <br />
                   <a href="https://github.com/GoDodgers">
                     <i className="fa fa-2x fa-github-alt" aria-hidden="true"></i>
                   </a>
