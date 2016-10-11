@@ -63,12 +63,15 @@ const App = props => {
                   </a>
                 </div>
                 <div className="col-xs-3">
+
                   <img src="../../styles/assets/sandy.jpeg"></img> <br />
                   Sandy Tran <br />
                   <a href="https://github.com/justsandytran">
                     <i className="fa fa-2x fa-github-alt" aria-hidden="true"></i>
                   </a>
-                  <i className="fa fa-2x fa-linkedin-square" aria-hidden="true"></i>
+                  <a href="http://www.linkedin.com/in/sandytrann">
+                    <i className="fa fa-2x fa-linkedin-square" aria-hidden="true"></i>
+                  </a>
                 </div>
                 <div className="col-xs-3">
                   <img src="../../styles/assets/tiffany.jpeg"></img> <br />
