@@ -50,3 +50,4 @@ export const REVIEW_INFO = 'review_info';
 export const IS_REVIEWED = 'is_reviewed';
 
 export const SUBMIT_PAYMENT = 'submit_payment';
+export const SEARCH_JOBS = 'search_jobs';
