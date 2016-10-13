@@ -310,12 +310,12 @@ export function searchJobs(keyword) {
   return dispatch => {
     return axios.get('/db/jobs/getAll')
       .then(response => {
-        console.log('all jobs: ', response.data);
         const filtered = response.data.filter(job => job.jobName.split(' ').includes(keyword));
         console.log('filtered: ', filtered);
+        dispatch({ type: SEARCH_JOBS, payload: filtered });
       })
       .catch(err => {
         throw err;
-      })
+      });
   };
 }

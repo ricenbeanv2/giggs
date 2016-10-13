@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import NavBar from './components/NavBar';
 import { searchJobs } from './actions/jobs';
@@ -23,7 +24,11 @@ class App extends Component {
   jobsSearch(e) {
     console.log('event :', e);
     e.preventDefault();
-    this.props.searchJobs(this.state.searchTerm);
+    this.props.searchJobs(this.state.searchTerm)
+      .then(() => {
+        console.log('inside then ');
+        browserHistory.push('joblistings');
+      });
   }
 
   render() {
