@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { DropdownButton, MenuItem, Alert, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 import { getJobList, sortPriceChange, sortCategories, sortDate, filterCategory } from '../../actions/jobs';
 import EachJob from './eachJob';

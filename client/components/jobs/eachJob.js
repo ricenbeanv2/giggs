@@ -48,7 +48,7 @@ class EachJob extends Component {
                 <Row>
                   <Col className='col-md-4'>
                     <h4>Max Wage</h4>
-                    <p>{eachJob.max_price}</p>
+                    <p>${eachJob.max_price}</p>
                   </Col>
                   <Col className='col-md-4'>
                     <h4>Deadline</h4>

@@ -19,7 +19,7 @@ const Categories = connection.define('Categories', {
 
 }, {
 	hooks: {
-		afterSync: () => {
+		afterSync: function() {
 			this.findOne({ where: { id: 1 }
 			}).then((found) => {
 				if (!found) {
