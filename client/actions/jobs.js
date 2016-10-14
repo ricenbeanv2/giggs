@@ -58,7 +58,7 @@ export function getJobList() {
         )
       })
     .then(response => {
-      return response.map((eachJob) => {
+      return response.map(eachJob => {
         if (eachJob.deadline === null) {
           eachJob.deadline = 'TO BE ANNOUNCED'
         } else {
@@ -164,7 +164,7 @@ export function sortCategories() {
     return request
       .then(response => {
           return Promise.all(
-            response.data.map((eachJob) => {
+            response.data.map(eachJob => {
               return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
                 .then(response => {
                 eachJob.category_id = response.data[0].name
@@ -177,7 +177,7 @@ export function sortCategories() {
         )
       })
     .then(response => {
-      return response.map((eachJob) => {
+      return response.map(eachJob => {
         if (eachJob.deadline === null) {
           eachJob.deadline = 'TO BE ANNOUNCED'
         } else {
@@ -212,7 +212,7 @@ export function sortDate() {
     return request
       .then(response => {
           return Promise.all(
-            response.data.map((eachJob) => {
+            response.data.map(eachJob => {
               return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
                 .then(response => {
                 eachJob.category_id = response.data[0].name
@@ -225,7 +225,7 @@ export function sortDate() {
         )
       })
     .then(response => {
-      return response.map((eachJob) => {
+      return response.map(eachJob => {
         eachJob.deadline = new Date(eachJob.deadline.slice(0,10).replace(/-/g, ' ')).toString().slice(0,15);
         return eachJob;
       })
@@ -250,7 +250,7 @@ export function filterCategory(searchCategory) {
     return request
       .then((response) => {
           return Promise.all(
-            response.data.map((eachJob) => {
+            response.data.map(eachJob => {
               return axios.get('db/category/query?field=id&key=' + eachJob.category_id)
                 .then((response) => {
                   eachJob.category_id = response.data[0].name
@@ -264,7 +264,7 @@ export function filterCategory(searchCategory) {
           )
         })
         .then(response => {
-          return response.map((eachJob) => {
+          return response.map(eachJob => {
             if (eachJob.deadline === null) {
               eachJob.deadline = 'TO BE ANNOUNCED'
             } else {
@@ -274,7 +274,7 @@ export function filterCategory(searchCategory) {
           })
         })
         .then(response => {
-        return response.filter((eachJob) => {
+        return response.filter(eachJob => {
           if(eachJob.category_id === searchCategory.replace(/ /g,'')){
             return eachJob;
           }
