@@ -4,15 +4,29 @@ import { browserHistory } from 'react-router';
 
 import NavBar from './components/NavBar';
 import { searchJobs } from './actions/jobs';
+import { getChildren } from './actions/categories';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: ''
+      searchTerm: '',
+      catObj: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.jobsSearch = this.jobsSearch.bind(this);
+  }
+
+  componentWillMount() {
+    const catObj = {};
+    this.props.getChildren()
+      .then(() => {
+        this.props.cats.childCats.forEach(cat => {
+          catObj[cat.id] = cat.name;
+        });
+        console.log('catObj :', catObj);
+        this.setState({ catObj: catObj });
+      });
   }
 
   handleChange(name, e) {
@@ -22,9 +36,9 @@ class App extends Component {
   }
 
   jobsSearch(e) {
-    console.log('event :', e);
+    console.log('this.props: ', this.props);
     e.preventDefault();
-    this.props.searchJobs(this.state.searchTerm)
+    this.props.searchJobs(this.state.searchTerm, this.state.catObj)
       .then(() => {
         console.log('inside then ');
         browserHistory.push('joblistings');
@@ -32,6 +46,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('this.state: ', this.state);
     let content = '';
     if (this.props.children) {
       content = this.props.children;
@@ -132,4 +147,8 @@ class App extends Component {
           }
 }
 
-export default connect(null, { searchJobs })(App);
+function mapStateToProps({ cats }) {
+  return { cats };
+}
+
+export default connect(mapStateToProps, { searchJobs, getChildren })(App);

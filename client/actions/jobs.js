@@ -306,11 +306,15 @@ export function cancelJob(jobID) {
   };
 }
 
-export function searchJobs(keyword) {
+export function searchJobs(keyword, categories) {
+  console.log('categories: ', categories);
   return dispatch => {
     return axios.get('/db/jobs/getAll')
       .then(response => {
         const filtered = response.data.filter(job => job.jobName.split(' ').includes(keyword));
+        filtered.forEach(job => {
+          job.category_id = categories[job.category_id];
+        });
         console.log('filtered: ', filtered);
         dispatch({ type: SEARCH_JOBS, payload: filtered });
       })
