@@ -18,7 +18,8 @@ class JobListings extends Component {
   }
 
   componentWillMount() {
-    this.props.getJobList()
+    if(this.props.jobs.jobList.length === 0) 
+      this.props.getJobList();
   }
 
   handleChanges(event){

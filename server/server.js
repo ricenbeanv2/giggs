@@ -6,6 +6,7 @@ const connection = require('./db/connection');
 const passport = require('passport');
 const moment = require('moment');
 const fs = require('fs');
+require('ssl-root-cas').inject();
 
 const router = require('./config/routes');
 const middleware = require('./config/middleware');
@@ -14,9 +15,13 @@ const userController = require('./user/userCtrl');
 const app = express();
 let https = require('https');
 
+// const options = {
+//    key: fs.readFileSync('server.key'),
+//    cert: fs.readFileSync('server.crt')
+// };
 https = https.createServer({
-      key: fs.readFileSync('key.pem'),
-      cert: fs.readFileSync('cert.pem')
+      key: fs.readFileSync('server.key'),
+      cert: fs.readFileSync('server.crt')
     }, app);
 
 const io = require('socket.io')(https);
