@@ -307,7 +307,6 @@ export function cancelJob(jobID) {
 }
 
 export function searchJobs(keyword, categories) {
-  console.log('categories: ', categories);
   return dispatch => {
     return axios.get('/db/jobs/getAll')
       .then(response => {
@@ -315,7 +314,6 @@ export function searchJobs(keyword, categories) {
         filtered.forEach(job => {
           job.category_id = categories[job.category_id];
         });
-        console.log('filtered: ', filtered);
         dispatch({ type: SEARCH_JOBS, payload: filtered });
       })
       .catch(err => {
