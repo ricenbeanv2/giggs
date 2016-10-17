@@ -13,7 +13,8 @@ class JobListings extends Component {
     super(props);
     this.state = {
       changes: undefined,
-      data: this.props.jobs.jobList
+      data: this.props.jobs.jobList,
+      options: []
     };
     this.handleChanges = this.handleChanges.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,6 +23,12 @@ class JobListings extends Component {
   componentWillMount() {
     if(this.props.jobs.jobList.length === 0)
       this.props.getJobList();
+    this.props.getChildren().then(() => {
+      const options = this.props.cats.childCats.map(child => {
+        return { label: child.name, value: child.name };
+      });
+      this.setState({ options });
+    });
   }
 
   handleChanges(event) {
@@ -29,16 +36,18 @@ class JobListings extends Component {
     this.setState({ changes: event.target.value });
   }
 
-  handleSubmit(){
+  handleSubmit() {
     this.props.filterCategory(this.state.changes);
   }
 
   render() {
+    console.log('options: ', this.state.options);
     return (
       <div className='jobListings'>
         <center className='searchBar'>
           <form className='inputForm'>
-            <input className='inputBar' type='text' placeholder='Search category' value={this.state.changes} onChange={this.handleChanges}/>
+            {/* <input className='inputBar' type='text' placeholder='Search category' value={this.state.changes} onChange={this.handleChanges}/> */}
+            <SelectionComponent options={this.state.options} />
           </form>
           <button className="btn btn-secondary" onClick={this.handleSubmit}>Submit</button>
         </center>
@@ -55,8 +64,8 @@ class JobListings extends Component {
   }
 }
 
-function mapStateToProps({ jobs }) {
-  return { jobs };
+function mapStateToProps({ jobs, cats }) {
+  return { jobs, cats };
 }
 
 function mapDispatchToProps(dispatch) {
