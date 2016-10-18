@@ -24,7 +24,6 @@ class App extends Component {
         this.props.cats.childCats.forEach(cat => {
           catObj[cat.id] = cat.name;
         });
-        console.log('catObj :', catObj);
         this.setState({ catObj: catObj });
       });
   }
@@ -36,17 +35,14 @@ class App extends Component {
   }
 
   jobsSearch(e) {
-    console.log('this.props: ', this.props);
     e.preventDefault();
     this.props.searchJobs(this.state.searchTerm, this.state.catObj)
       .then(() => {
-        console.log('inside then ');
         browserHistory.push('joblistings');
       });
   }
 
   render() {
-    console.log('this.state: ', this.state);
     let content = '';
     if (this.props.children) {
       content = this.props.children;

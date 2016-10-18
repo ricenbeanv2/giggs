@@ -18,7 +18,6 @@ export function getChildren() {
           const childCats = response.data.filter(category => {
             return category.parent_id !== null;
           });
-          console.log('childCats ', childCats);
           dispatch({ type: GET_CHILDREN_CATS, payload: childCats });
         });
     };

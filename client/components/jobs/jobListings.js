@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 
-import SelectionComponent from '../selectionComponent';
+import Select from 'react-select-plus';
 import { getJobList, sortPriceChange, sortCategories, sortDate, filterCategory } from '../../actions/jobs';
 import { getParents, getChildren } from '../../actions/categories';
 import EachJob from './eachJob';
@@ -14,10 +14,12 @@ class JobListings extends Component {
     this.state = {
       changes: undefined,
       data: this.props.jobs.jobList,
-      options: []
+      options: [],
+      selectedValue: ''
     };
     this.handleChanges = this.handleChanges.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateValue = this.updateValue.bind(this);
   }
 
   componentWillMount() {
@@ -40,17 +42,26 @@ class JobListings extends Component {
     this.props.filterCategory(this.state.changes);
   }
 
+  updateValue(newValue) {
+		this.setState({
+			selectValue: newValue
+		});
+	}
+
   render() {
-    console.log('options: ', this.state.options);
     return (
       <div className='jobListings'>
-        <center className='searchBar'>
+        <div className='center'>
           <form className='inputForm'>
             {/* <input className='inputBar' type='text' placeholder='Search category' value={this.state.changes} onChange={this.handleChanges}/> */}
-            <SelectionComponent options={this.state.options} />
+            <Select
+              options={this.state.options}
+              value={this.state.selectValue}
+              onChange={this.updateValue}
+            />
           </form>
           <button className="btn btn-secondary" onClick={this.handleSubmit}>Submit</button>
-        </center>
+        </div>
         <center className='dropDownCenter'>
           <DropdownButton title="Dropdown" id="bg-vertical-dropdown-1" className='dropDownBar'>
             <MenuItem eventKey="1" onClick={this.props.sortPriceChange}>Price</MenuItem>
