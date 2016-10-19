@@ -27,7 +27,7 @@ class JobListings extends Component {
       this.props.getJobList();
     this.props.getChildren().then(() => {
       const options = this.props.cats.childCats.map(child => {
-        return { label: child.name, value: child.name };
+        return { label: child.name[0].toUpperCase() + child.name.slice(1), value: child.name };
       });
       this.setState({ options });
     });
@@ -39,7 +39,7 @@ class JobListings extends Component {
   }
 
   handleSubmit() {
-    this.props.filterCategory(this.state.changes);
+    this.props.filterCategory(this.state.selectValue);
   }
 
   updateValue(newValue) {
