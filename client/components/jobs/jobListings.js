@@ -39,7 +39,7 @@ class JobListings extends Component {
   }
 
   handleSubmit() {
-    this.props.filterCategory(this.state.selectValue);
+    this.props.filterCategory(this.state.selectValue.value);
   }
 
   updateValue(newValue) {
