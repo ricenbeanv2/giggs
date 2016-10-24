@@ -10,7 +10,18 @@ import { Grid, Row, Col } from 'react-bootstrap';
 class EachJob extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      catObj: {}
+    };
     this.redirectToJobPage = this.redirectToJobPage.bind(this);
+  }
+
+  componentWillMount() {
+    const catObj = {};
+    this.props.cats.childCats.forEach(cat => {
+      catObj[cat.id] = cat.name;
+    });
+    this.setState({ catObj });
   }
 
   redirectToJobPage(jobId, jobAdminID) {
@@ -42,7 +53,7 @@ class EachJob extends Component {
                   </Col>
                   <Col className='col-md-4'>
                     <h4>Category</h4>
-                    <p>{eachJob.category_id[0].toUpperCase() + eachJob.category_id.slice(1)}</p>
+                    <p>{this.state.catObj[eachJob.category_id][0].toUpperCase() + this.state.catObj[eachJob.category_id].slice(1)}</p>
                   </Col>
                 </Row>
                 <Row>
@@ -79,8 +90,8 @@ class EachJob extends Component {
   }
 }
 
-function mapStateToProps({ jobs }) {
-  return { jobs };
+function mapStateToProps({ jobs, cats }) {
+  return { jobs, cats };
 }
 
 export default connect(mapStateToProps, { getJobDetail, onJobClick })(EachJob);
