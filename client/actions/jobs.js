@@ -217,7 +217,6 @@ export function filterCats(category, categoryList) {
   return dispatch => {
     return axios.get('/db/jobs/query', config)
       .then(response => {
-        console.log('response.data :', response.data);
         dispatch({ type: FILTER_CATEGORY, payload: response.data });
       });
   };
