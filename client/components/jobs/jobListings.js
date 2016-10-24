@@ -15,7 +15,8 @@ class JobListings extends Component {
       changes: undefined,
       data: this.props.jobs.jobList,
       options: [],
-      selectedValue: ''
+      selectedValue: '',
+      filtered: false
     };
     this.handleChanges = this.handleChanges.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,7 +24,7 @@ class JobListings extends Component {
   }
 
   componentWillMount() {
-    if(this.props.jobs.jobList.length === 0)
+    if(this.props.jobs.jobList.length === 0 || !this.state.filtered)
       this.props.getJobs();
     this.props.getChildren().then(() => {
       const options = this.props.cats.childCats.map(child => {
@@ -39,6 +40,7 @@ class JobListings extends Component {
   }
 
   handleSubmit() {
+    this.setState({ filtered: true });
     this.props.filterCats(this.state.selectValue.value, this.props.cats.childCats);
   }
 
