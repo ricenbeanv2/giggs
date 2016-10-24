@@ -16,7 +16,8 @@ class JobListings extends Component {
       data: this.props.jobs.jobList,
       options: [],
       selectedValue: '',
-      filtered: false
+      filtered: false,
+      catObj: {}
     };
     this.handleChanges = this.handleChanges.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,6 +33,22 @@ class JobListings extends Component {
       });
       this.setState({ options });
     });
+
+    const catObj = {};
+    this.props.cats.childCats.forEach(cat => {
+      catObj[cat.id] = cat.name;
+    });
+    this.setState({ catObj });
+
+    window.onbeforeunload = () => { // run cleanup when page refreshes
+      this.componentCleanUp();
+    }
+  }
+
+  componentCleanUp() {
+    console.log('in cleanup')
+    this.props.getJobs();
+    this.props.getChildren();
   }
 
   handleChanges(event) {
@@ -71,9 +88,9 @@ class JobListings extends Component {
             <MenuItem eventKey="2" onClick={this.props.sortDate}>Recent Post</MenuItem>
           </DropdownButton>
         </center>
-        <EachJob data={this.props.jobs.jobList} />
+        <EachJob data={this.props.jobs.jobList} catObj={this.state.catObj} />
       </div>
-    )
+    );
   }
 }
 

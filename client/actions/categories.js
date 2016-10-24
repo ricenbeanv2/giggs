@@ -12,6 +12,7 @@ export function getParents() {
 }
 
 export function getChildren() {
+    console.log('inside children')
     return dispatch => {
       return axios.get('/db/category/getAll')
         .then(response => {
