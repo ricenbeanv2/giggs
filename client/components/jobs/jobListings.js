@@ -15,7 +15,9 @@ class JobListings extends Component {
       changes: undefined,
       data: this.props.jobs.jobList,
       options: [],
-      selectedValue: ''
+      selectedValue: '',
+      filtered: false,
+      catObj: {}
     };
     this.handleChanges = this.handleChanges.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,7 +25,7 @@ class JobListings extends Component {
   }
 
   componentWillMount() {
-    if(this.props.jobs.jobList.length === 0)
+    if(this.props.jobs.jobList.length === 0 || !this.state.filtered)
       this.props.getJobs();
     this.props.getChildren().then(() => {
       const options = this.props.cats.childCats.map(child => {
@@ -31,6 +33,11 @@ class JobListings extends Component {
       });
       this.setState({ options });
     });
+    const catObj = {};
+    this.props.cats.childCats.forEach(cat => {
+      catObj[cat.id] = cat.name;
+    });
+    this.setState({ catObj });
   }
 
   handleChanges(event) {
@@ -39,6 +46,7 @@ class JobListings extends Component {
   }
 
   handleSubmit() {
+    this.setState({ filtered: true });
     this.props.filterCats(this.state.selectValue.value, this.props.cats.childCats);
   }
 
@@ -49,6 +57,10 @@ class JobListings extends Component {
 	}
 
   render() {
+    const catObj = {};
+    this.props.cats.childCats.forEach(cat => {
+      catObj[cat.id] = cat.name;
+    });
     return (
       <div className='jobListings'>
         <div className='center'>
@@ -69,9 +81,9 @@ class JobListings extends Component {
             <MenuItem eventKey="2" onClick={this.props.sortDate}>Recent Post</MenuItem>
           </DropdownButton>
         </center>
-        <EachJob data={this.props.jobs.jobList} />
+        <EachJob data={this.props.jobs.jobList} catObj={catObj} />
       </div>
-    )
+    );
   }
 }
 

@@ -10,18 +10,8 @@ import { Grid, Row, Col } from 'react-bootstrap';
 class EachJob extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      catObj: {}
-    };
-    this.redirectToJobPage = this.redirectToJobPage.bind(this);
-  }
 
-  componentWillMount() {
-    const catObj = {};
-    this.props.cats.childCats.forEach(cat => {
-      catObj[cat.id] = cat.name;
-    });
-    this.setState({ catObj });
+    this.redirectToJobPage = this.redirectToJobPage.bind(this);
   }
 
   redirectToJobPage(jobId, jobAdminID) {
@@ -36,57 +26,61 @@ class EachJob extends Component {
   }
 
   render() {
-    return (
-      <div className='eachJobDiv'>
-        {
-          this.props.jobs.jobList.map((eachJob, index) => {
-            return (
-              <Grid key={index} className='eachJob'>
-                <Row>
-                  <Col className='col-md-4'>
-                    <h4>Job</h4>
-                    <p>{eachJob.jobName}</p>
-                  </Col>
-                  <Col className='col-md-4'>
-                    <h4> Openings</h4>
-                    <p>{eachJob.openings}</p>
-                  </Col>
-                  <Col className='col-md-4'>
-                    <h4>Category</h4>
-                    <p>{this.state.catObj[eachJob.category_id][0].toUpperCase() + this.state.catObj[eachJob.category_id].slice(1)}</p>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col className='col-md-4'>
-                    <h4>Max Wage</h4>
-                    <p>${eachJob.max_price}</p>
-                  </Col>
-                  <Col className='col-md-4'>
-                    <h4>Deadline</h4>
-                    <p>{eachJob.deadline.toString()}</p>
-                  </Col>
-                  <Col className='col-md-8'>
-                    <h4>Description</h4>
-                    <p>{eachJob.description}</p>
-                  </Col>
-                </Row>
+    if (Object.keys(this.props.catObj).length > 1) {
+      return (
+        <div className='eachJobDiv'>
+          {
+            this.props.jobs.jobList.map((eachJob, index) => {
+              console.log('eachJob date :', eachJob.deadline);
+              return (
+                <Grid key={index} className='eachJob'>
+                  <Row>
+                    <Col className='col-md-4'>
+                      <h4>Job</h4>
+                      <p>{eachJob.jobName}</p>
+                    </Col>
+                    <Col className='col-md-4'>
+                      <h4> Openings</h4>
+                      <p>{eachJob.openings}</p>
+                    </Col>
+                    <Col className='col-md-4'>
+                      <h4>Category</h4>
+                      <p>{this.props.catObj[eachJob.category_id][0].toUpperCase() + this.props.catObj[eachJob.category_id].slice(1)}</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className='col-md-4'>
+                      <h4>Max Wage</h4>
+                      <p>${eachJob.max_price}</p>
+                    </Col>
+                    <Col className='col-md-4'>
+                      <h4>Deadline</h4>
+                      <p>{eachJob.deadline.toString().slice(0, 10)}</p>
+                    </Col>
+                    <Col className='col-md-8'>
+                      <h4>Description</h4>
+                      <p>{eachJob.description}</p>
+                    </Col>
+                  </Row>
                   <Row className='buttonRow'>
                     <Col className='col-md-4'>
                       <h4>More information</h4>
                       <button
                         className="btn btn-secondary"
                         onClick={() => {this.redirectToJobPage(eachJob.id, eachJob.user_id)}}
-                        >
+                      >
                         Go to Job >>
                       </button>
                     </Col>
                   </Row>
-              </Grid>
-            );
-          })
-        }
-      </div>
-    );
+                </Grid>
+              );
+            })
+          }
+        </div>
+      );
+    }
+    return <img src="https://thomas.vanhoutte.be/miniblog/wp-content/uploads/light_blue_material_design_loading.gif" />
   }
 }
 
