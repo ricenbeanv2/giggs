@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 import Select from 'react-select-plus';
-import { getJobList, sortPriceChange, sortCategories, sortDate, filterCategory } from '../../actions/jobs';
+import { sortPriceChange, sortCategories, sortDate, filterCategory, filterCats, getJobs } from '../../actions/jobs';
 import { getParents, getChildren } from '../../actions/categories';
 import EachJob from './eachJob';
 
@@ -24,7 +24,7 @@ class JobListings extends Component {
 
   componentWillMount() {
     if(this.props.jobs.jobList.length === 0)
-      this.props.getJobList();
+      this.props.getJobs();
     this.props.getChildren().then(() => {
       const options = this.props.cats.childCats.map(child => {
         return { label: child.name[0].toUpperCase() + child.name.slice(1), value: child.name };
@@ -39,7 +39,7 @@ class JobListings extends Component {
   }
 
   handleSubmit() {
-    this.props.filterCategory(this.state.selectValue.value);
+    this.props.filterCats(this.state.selectValue.value, this.props.cats.childCats);
   }
 
   updateValue(newValue) {
@@ -53,7 +53,7 @@ class JobListings extends Component {
       <div className='jobListings'>
         <div className='center'>
           <form className='inputForm'>
-            {/* <input className='inputBar' type='text' placeholder='Search category' value={this.state.changes} onChange={this.handleChanges}/> */}
+
             <Select
               options={this.state.options}
               value={this.state.selectValue}
@@ -80,7 +80,7 @@ function mapStateToProps({ jobs, cats }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getJobList, sortPriceChange, sortCategories, sortDate, filterCategory, getParents, getChildren }, dispatch);
+  return bindActionCreators({ sortPriceChange, sortCategories, sortDate, filterCategory, getParents, getChildren, filterCats, getJobs }, dispatch);
 }
 
 
